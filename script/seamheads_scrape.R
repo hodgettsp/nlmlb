@@ -4,9 +4,9 @@ library(tidyverse)
 
 
 nl_data_8620 <- read_html("https://www.seamheads.com/NegroLgs/history.php?tab=players&first=1886&last=1920&lgID=All&lgType=All&NeL=Y&HOF=All&pos=All&bats=All&throws=All&results=2500&sort=Player_a")
-write_html(nl_data_8620, "inputs/seamheads/raw_data_8620.html")
+write_html(nl_data_8620, "inputs/data/seamheads/raw_data_8620.html")
 
-nl_data_8620 <- read_html("inputs/seamheads/raw_data_8620.html")
+nl_data_8620 <- read_html("inputs/data/seamheads/raw_data_8620.html")
 
 nl_data_8620
 

@@ -1,0 +1,11 @@
+---
+title: "paper"
+author: "Paul A. Hodgetts"
+date: "09/04/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

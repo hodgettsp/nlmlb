@@ -18,10 +18,10 @@ library(tidyverse)
 #nl_players_html <- read_html("http://www.nlbpa.com/the-athletes")
 
 # write html code as raw data to directory
-#write_html(nl_players_html, "inputs/nlbpa/raw_players_data.html")
+#write_html(nl_players_html, "inputs/data/nlbpa/raw_players_data.html")
 
 # load in raw html data
-nl_players_html <- read_html("inputs/nlbpa/raw_players_data.html")
+nl_players_html <- read_html("inputs/data/nlbpa/raw_players_data.html")
 
 # extract needed data from raw html code
 text_data <- nl_players_html %>%
