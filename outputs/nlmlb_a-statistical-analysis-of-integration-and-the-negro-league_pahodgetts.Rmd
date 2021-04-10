@@ -65,12 +65,22 @@ for(i in 1:length(files)){
             # assign to global environment
             envir = .GlobalEnv)
 }
+
+mlb_player_data <- mlb_player_data %>% 
+     mutate(integration = if_else(mlb_debut >= 1947, 1, 0))
+
+nl_player_data <- nl_player_data %>% 
+     mutate(integration = if_else(debut >= 1947, 1, 0))
+
+mlb_player_data <- mlb_player_data %>% 
+     left_join(mlbnl_player_data, by = c("lastname", "firstname", "mlb_debut")) %>% 
+     mutate(nl_mlb = if_else(!is.na(player), 1, 0))
 ```
 
 ```{r}
-mlbnl_player_data %>% 
-     ggplot()+
-     geom_histogram(aes(x = mlb_final), bins = 30)
+nl_player_data %>% 
+     ggplot(aes(x = debut, fill = integration))+
+     geom_histogram(bins = 30, stat = "count")
 ```
 
 
