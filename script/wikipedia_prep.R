@@ -6,11 +6,18 @@
 # version 1.3.0
 #install.packages("tidyverse")
 
+# install pdftools package for scraping PDF
+# version 2.3.1
+#install.packages("pdftools")
+
 # load rvest library
 library(rvest)
 
 # load tidyverse library
 library(tidyverse)
+
+# load pdftools library
+library(pdftools)
 
 # generate list of file names in complete plater list folder
 files <- list.files("inputs/data/wikipedia/complete_player_list/", pattern = "*.html")
@@ -41,8 +48,7 @@ mlb_text_data <- raw_data_mlb %>%
 tdtag_data <- tibble(player_data = mlb_text_data)
 
 # strip all newline characters from tdtag_data
-tdtag_data$player_data <- str_replace(tdtag_data$player_data, "\\r", "")
-tdtag_data$player_data <- str_replace(tdtag_data$player_data, "\\n", "")
+tdtag_data$player_data <- str_replace(tdtag_data$player_data, "(\\n|\\r)", "")
 
 # assign new data object for mlb player data
 mlbnl_player_data <- tdtag_data %>%
@@ -156,6 +162,26 @@ nl_player_data <- nl_player_data %>%
             integration_debut = ifelse(debut >= 1947, 1, 0),
             integration_final = ifelse(last_game >= 1947, 1, 0))
 
+Birmingham Black Barons Philadelphia Phillies
+
+\\s{2,}(.*?)\\s{2,}(.*?)\\s{2,}
+
+x <- pdf_text("inputs/data/Negro League Players Who Played in the Major Leagues.pdf")
+
+x <- tibble(raw_text = x,
+            page_number = c(1:3))
+
+x <- separate_rows(x, raw_text, sep = "\\n", convert = F)
+
+t <- x %>%
+        slice(3:48,51:91) %>%
+        mutate(raw_text = str_replace(raw_text, "“", '"'),
+               raw_text = str_replace(raw_text, "”", '"'),
+               playername = str_extract(raw_text,
+                                        '(^\\w*\\s".*"\\s\\w*|^\\w*\\s\\w*|^\\w*\\W*\\w*\\W*\\s\\w*)'),
+               teams = str_extract(raw_text,
+                                   "(\\s{2,}(.*)\\s{2,}(.*)\\s{2,}|Raleigh Tigers          Kansas City Athletics )"),
+               year = str_extract(raw_text, "\\w*\\r$"))
 
 
 # write MLB/NL player data to csv file
