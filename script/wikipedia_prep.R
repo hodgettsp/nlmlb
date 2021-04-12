@@ -162,14 +162,11 @@ nl_player_data <- nl_player_data %>%
             integration_debut = ifelse(debut >= 1947, 1, 0),
             integration_final = ifelse(last_game >= 1947, 1, 0))
 
-Birmingham Black Barons Philadelphia Phillies
 
-\\s{2,}(.*?)\\s{2,}(.*?)\\s{2,}
 
 x <- pdf_text("inputs/data/Negro League Players Who Played in the Major Leagues.pdf")
 
-x <- tibble(raw_text = x,
-            page_number = c(1:3))
+x <- tibble(raw_text = x)
 
 x <- separate_rows(x, raw_text, sep = "\\n", convert = F)
 
@@ -180,9 +177,9 @@ t <- x %>%
                playername = str_extract(raw_text,
                                         '(^\\w*\\s".*"\\s\\w*|^\\w*\\s\\w*|^\\w*\\W*\\w*\\W*\\s\\w*)'),
                teams = str_extract(raw_text,
-                                   "(\\s{2,}(.*)\\s{2,}(.*)\\s{2,}|Raleigh Tigers          Kansas City Athletics )"),
+                                   "(\\s{2,}(.*)\\s1|Raleigh Tigers          Kansas City Athletics)"),
+               teams = str_replace(teams, "1", ""),
                year = str_extract(raw_text, "\\w*\\r$"))
-
 
 # write MLB/NL player data to csv file
 write_csv(mlbnl_player_data, here::here("inputs/data/mlbnl_player_data.csv"))
