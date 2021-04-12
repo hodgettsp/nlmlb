@@ -41,6 +41,7 @@ mlb_text_data <- raw_data_mlb %>%
 tdtag_data <- tibble(player_data = mlb_text_data)
 
 # strip all newline characters from tdtag_data
+tdtag_data$player_data <- str_replace(tdtag_data$player_data, "\\r", "")
 tdtag_data$player_data <- str_replace(tdtag_data$player_data, "\\n", "")
 
 # assign new data object for mlb player data
@@ -60,10 +61,9 @@ mlbnl_player_data <- tdtag_data %>%
         pivot_wider(names_from = key, values_from = player_data) %>%
         # remove tracker column
         select(-no) %>%
-        # remove new line character from player column
-        mutate(player = str_replace(player, "^\\n", ""),
-               # keep only word characters (names)
-               player = str_extract(player, "^\\w*\\s\\w*"),
+        mutate(# keep only word characters (names)
+               player = str_replace(player, "\\W$", ""),
+               player = str_extract(player, "\\w*\\s\\w*"),
                # extract only first year of MLB years for debut year
                mlb_debut = substr(mlb_years, 1, 4),
                # extract final year of MLB career
@@ -152,7 +152,11 @@ nl_player_data <- nl_player_data %>%
             lastname = str_extract(player, "\\w*\\W*$"),
             # extract first name from player column
             firstname = str_extract(player, "^\\w*\\W*\\w*\\s"),
-            firstname = sub("\\s*$", "", firstname))
+            firstname = sub("\\s*$", "", firstname),
+            integration_debut = ifelse(debut >= 1947, 1, 0),
+            integration_final = ifelse(last_game >= 1947, 1, 0))
+
+
 
 # write MLB/NL player data to csv file
 write_csv(mlbnl_player_data, here::here("inputs/data/mlbnl_player_data.csv"))

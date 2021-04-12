@@ -51,7 +51,7 @@ library(here)
 
 ```{r load data, echo=F, message=F, warning=F}
 # create list of files ending in .csv in given directory ->
-# do not use full names
+# set full names to false as this will make naming objects easier
 files <- list.files(here("inputs/data"), pattern = "*.csv", full.names = F)
 
 # use for loop to load all data files
@@ -65,16 +65,6 @@ for(i in 1:length(files)){
             # assign to global environment
             envir = .GlobalEnv)
 }
-
-mlb_player_data <- mlb_player_data %>% 
-     mutate(integration = if_else(mlb_debut >= 1947, 1, 0))
-
-nl_player_data <- nl_player_data %>% 
-     mutate(integration = if_else(debut >= 1947, 1, 0))
-
-mlb_player_data <- mlb_player_data %>% 
-     left_join(mlbnl_player_data, by = c("lastname", "firstname", "mlb_debut")) %>% 
-     mutate(nl_mlb = if_else(!is.na(player), 1, 0))
 ```
 
 ```{r}
