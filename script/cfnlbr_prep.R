@@ -83,6 +83,26 @@ nl_mlb_players <- pdf_tibble %>%
             # extract the last word characters to the end of the raw_text string for year of debut
             year = str_extract(raw_text, "\\w*$"),
             # convert these values to numeric
-            year = as.numeric(year)) %>%
+            year = as.numeric(year),
+            lastname = case_when(lastname == "Minoso" ~ "Miñoso",
+                                 lastname == "Marquez" ~ "Márquez",
+                                 lastname == "Rodriquez" ~ "Rodríguez",
+                                 lastname == "Amoros" ~ "Amorós",
+                                 lastname == "Donso" ~ "Donoso",
+                                 lastname == "Cassanova" ~ "Casanova",
+                                 TRUE ~ as.character(lastname)),
+            firstname = case_when(firstname == "Hector" ~ "Héctor",
+                                  firstname == "Buzz" ~ "Buster",
+                                  firstname == "Junior" ~ "Jim",
+                                  firstname == "Jose" & lastname == "Santiago" ~ "José",
+                                  firstname == "William" & lastname == "Greason" ~ "Bill",
+                                  firstname == "Milt" & lastname == "Smith" ~ "Milton",
+                                  firstname == "Robert" & lastname == "Wilson" ~ "Bob",
+                                  firstname == "J.C." ~ "J. C.",
+                                  TRUE ~ as.character(firstname)
+                                  )) %>%
      # remove raw text and teams columns
      select(-raw_text, -teams)
+
+# write data to csv
+write_csv(nl_mlb_players, "inputs/data/csv/nl_mlb_player_data.csv")

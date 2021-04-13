@@ -37,4 +37,4 @@ mlb_player_data <- People %>%
             integration_final = ifelse(mlb_final >= 1947, 1, 0))
 
 # write Lahman data to csv file
-write_csv(mlb_player_data, here::here("inputs/data/mlb_player_data.csv"))
+write_csv(mlb_player_data, here::here("inputs/data/csv/mlb_player_data.csv"))

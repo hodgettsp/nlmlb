@@ -52,7 +52,7 @@ library(here)
 ```{r load data, echo=F, message=F, warning=F}
 # create list of files ending in .csv in given directory ->
 # set full names to false as this will make naming objects easier
-files <- list.files(here("inputs/data"), pattern = "*.csv", full.names = F)
+files <- list.files(here("inputs/data/csv"), pattern = "*.csv", full.names = F)
 
 # use for loop to load all data files
 # for index location in the length of the file list
@@ -61,16 +61,10 @@ for(i in 1:length(files)){
      assign(str_replace(files[i], ".csv", ""),
             # apply read_csv function to file ->
             # pasting directory in front of file name ->
-            read_csv(here(paste0("inputs/data/", files[i]))), 
+            read_csv(here(paste0("inputs/data/csv/", files[i]))), 
             # assign to global environment
             envir = .GlobalEnv)
 }
+
+x <- full_join(nl_player_data, nl_mlb_player_data, by = c("lastname", "firstname"))
 ```
-
-```{r}
-nl_player_data %>% 
-     ggplot(aes(x = debut, fill = integration))+
-     geom_histogram(bins = 30, stat = "count")
-```
-
-
