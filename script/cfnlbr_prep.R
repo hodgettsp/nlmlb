@@ -90,6 +90,8 @@ nl_mlb_players <- pdf_tibble %>%
                                  lastname == "Amoros" ~ "Amorós",
                                  lastname == "Donso" ~ "Donoso",
                                  lastname == "Cassanova" ~ "Casanova",
+                                 lastname == "Cephus" ~ "Taylor",
+                                 lastname == "Mc" ~ "McCovey",
                                  TRUE ~ as.character(lastname)),
             firstname = case_when(firstname == "Hector" ~ "Héctor",
                                   firstname == "Buzz" ~ "Buster",
@@ -99,10 +101,13 @@ nl_mlb_players <- pdf_tibble %>%
                                   firstname == "Milt" & lastname == "Smith" ~ "Milton",
                                   firstname == "Robert" & lastname == "Wilson" ~ "Bob",
                                   firstname == "J.C." ~ "J. C.",
+                                  firstname == "Jehosie" ~ "Jay",
+                                  firstname == "Charles" & lastname == "Peete" ~ "Charlie",
+                                  firstname == "Harold" & lastname == "Jones" ~ "Hal",
                                   TRUE ~ as.character(firstname)
                                   )) %>%
      # remove raw text and teams columns
-     select(-raw_text, -teams)
+     select(-raw_text, -teams, -playername)
 
 # write data to csv
 write_csv(nl_mlb_players, "inputs/data/csv/nl_mlb_player_data.csv")
