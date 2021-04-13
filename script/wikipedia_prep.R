@@ -6,18 +6,13 @@
 # version 1.3.0
 #install.packages("tidyverse")
 
-# install pdftools package for scraping PDF
-# version 2.3.1
-#install.packages("pdftools")
-
 # load rvest library
 library(rvest)
 
 # load tidyverse library
 library(tidyverse)
 
-# load pdftools library
-library(pdftools)
+
 
 # generate list of file names in complete plater list folder
 files <- list.files("inputs/data/wikipedia/complete_player_list/", pattern = "*.html")
@@ -161,39 +156,6 @@ nl_player_data <- nl_player_data %>%
             firstname = sub("\\s*$", "", firstname),
             integration_debut = ifelse(debut >= 1947, 1, 0),
             integration_final = ifelse(last_game >= 1947, 1, 0))
-
-
-
-x <- pdf_text("inputs/data/Negro League Players Who Played in the Major Leagues.pdf")
-
-x <- tibble(raw_text = x)
-
-x <- separate_rows(x, raw_text, sep = "\\n", convert = F)
-
-t <- x %>%
-        slice(3:48,51:91) %>%
-        mutate(raw_text = str_replace(raw_text, "“", '"'),
-               raw_text = str_replace(raw_text, "”", '"'),
-               playername = str_extract(raw_text,
-                                        '(^\\w*\\s".*"\\s\\w*|^\\w*\\s\\w*|^\\w*\\W*\\w*\\W*\\s\\w*)'),
-               firstname = str_extract(playername, "(^\\w\\W\\w\\W|^\\w*)"),
-               lastname = str_extract(playername, "\\w*$"),
-               teams = str_extract(raw_text,
-                                   "(\\s{2,}(.*)\\s1|Raleigh Tigers          Kansas City Athletics)"),
-               teams = str_replace(teams, "\\s*1\\s*$", ""),
-               teams = str_replace(teams, "^\\s*", ""),
-               mlb_teams = str_extract(teams, "\\s{2,}(.*)$"),
-               mlb_teams = if_else(is.na(mlb_teams),
-                                   str_match(teams,
-                                             "(?:[^\\s]*\\s){3}([^\\s]*\\s.*$)")[,2],
-                                   as.character(mlb_teams)),
-               nl_teams = str_extract(teams, "^\\w*(.*)\\s{2}"),
-               nl_teams = if_else(is.na(nl_teams),
-                                  str_extract(teams,
-                                              "(?:[^\\s]*\\s){3}"),
-                                  as.character(nl_teams)),
-               year = str_extract(raw_text, "\\w*$"))
-
 
 # write MLB/NL player data to csv file
 write_csv(mlbnl_player_data, here::here("inputs/data/mlbnl_player_data.csv"))
