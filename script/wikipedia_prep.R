@@ -176,10 +176,22 @@ t <- x %>%
                raw_text = str_replace(raw_text, "”", '"'),
                playername = str_extract(raw_text,
                                         '(^\\w*\\s".*"\\s\\w*|^\\w*\\s\\w*|^\\w*\\W*\\w*\\W*\\s\\w*)'),
+               firstname = str_extract(playername, "(^\\w\\W\\w\\W|^\\w*)"),
+               lastname = str_extract(playername, "\\w*$"),
                teams = str_extract(raw_text,
                                    "(\\s{2,}(.*)\\s1|Raleigh Tigers          Kansas City Athletics)"),
-               teams = str_replace(teams, "1", ""),
-               year = str_extract(raw_text, "\\w*\\r$"))
+               teams = str_replace(teams, "\\s*1\\s*$", ""),
+               teams = str_replace(teams, "^\\s*", ""),
+               mlb_teams = str_extract(teams, "\\s{2,}(.*)$"),
+               mlb_teams = if_else(is.na(mlb_teams),
+                                   str_extract(teams, "\\w*\\s\\w*\\s\\w+$"),
+                                   as.character(mlb_teams)),
+               nl_teams = str_extract(teams, "^\\w*(.*)\\s{2}"),
+               nl_teams = if_else(is.na(nl_teams),
+                                  str_extract(teams,
+                                              "(?:[^\\s]*\\s){3}"),
+                                  as.character(nl_teams)),
+               year = str_extract(raw_text, "\\w*$"))
 
 # write MLB/NL player data to csv file
 write_csv(mlbnl_player_data, here::here("inputs/data/mlbnl_player_data.csv"))
