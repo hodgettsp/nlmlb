@@ -66,24 +66,30 @@ for(i in 1:length(files)){
             envir = .GlobalEnv)
 }
 
-
+# create tibble for missing players with last names A-D that are on the CFNLBR list
 player_ad_add <- tibble(player = c("Billy Bruton", "Tom Alston", "Donn Clendenon", "Charlie Dees"),
                      debut = "19_", last_game = "19_",
                      pos = c("Outfielder", "First baseman", "First baseman", "First baseman"),
                      teams = c("Philadelphia Stars", "Greensboro Red Wings", "Kansas City Monarchs",
                      "Louisville Clippers"))
 
+# create tibble for missing players with last names M-R that are on the CFNLBR list
 player_mr_add <- tibble(player = c("Carlos Paula", "Willie McCovey", "Bob Prescott", "John Odom"),
                         debut = "19_", last_game = "19_",
                         pos = c("Outfielder", "First baseman", "Outfielder", "Pitcher"),
                         teams = c("Havana Cuban Giants", "Birmingham Black Barons",
                                   "Jacksonville Eagles", "Raleigh Tigers"))
 
+# create tibble for missing players with last names S-Z that are on the CFNLBR list
 player_sz_add <- tibble(player = "Maury Wills", debut = "19_", last_game = "19_", pos = "Shortstop", team = "Raleigh Tigers")
 
-
+# bind A-D names to A-D data
 player_data_ad <- bind_rows(player_data_ad, player_ad_add)
+
+# bind M-R names to M-R data
 player_data_mr <- bind_rows(player_data_mr, player_mr_add)
+
+# bind S-Z names to S-Z data
 player_data_sz <- bind_rows(player_data_sz, player_sz_add)
 
 
@@ -98,7 +104,7 @@ nl_player_data <- nl_player_data %>%
      mutate(nickname = str_extract(player, '\\".*"'),
             # replace instances of (words), "words", Jr., and Sr. with ->
             # no string or character ""
-            player = sub('(\\s\\(.*?))|(\\".*?")|(,\\sJr.)|(\\sSr.)',
+            player = sub('(\\s\\(.*?))|(\\".*?")|(\\sJr.)|(\\sSr.)',
                          "", player),
             # strip space at beginning of player names
             player = sub("^\\s", "", player),
@@ -126,9 +132,10 @@ nl_player_data <- nl_player_data %>%
             lastname = str_extract(player, "\\w*\\W*$"),
             # extract first name from player column
             firstname = str_extract(player, "(^\\w*\\W*\\s\\w*\\W*\\s|^\\w*\\W*\\w*\\s)"),
-            firstname = sub("\\s*$", "", firstname),
-            integration_debut = ifelse(debut >= 1947, 1, 0),
-            integration_final = ifelse(last_game >= 1947, 1, 0))
+            firstname = sub("\\s*$", "", firstname))
 
 # write NL player data to csv file
 write_csv(nl_player_data, "inputs/data/csv/nl_player_data.csv")
+
+# clear envrionment
+rm(list = ls())

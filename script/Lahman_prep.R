@@ -32,9 +32,10 @@ mlb_player_data <- People %>%
             debut_date = debut) %>%
      # create new columns to hold debut and final year
      mutate(mlb_debut = substr(debut_date, 1, 4),
-            mlb_final = substr(final_date, 1, 4),
-            integration_debut = if_else(mlb_debut >= 1947, 1, 0),
-            integration_final = ifelse(mlb_final >= 1947, 1, 0))
+            mlb_final = substr(final_date, 1, 4))
 
 # write Lahman data to csv file
 write_csv(mlb_player_data, here::here("inputs/data/csv/mlb_player_data.csv"))
+
+# clear envrionment
+rm(list = ls())
