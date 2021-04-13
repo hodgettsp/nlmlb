@@ -14,17 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r packages, echo=F, message=F, warning=F}
 # uncomment any packages that require installation
 
-# loads Lahman baseball data
-# version 9.0-0
-#install.packages("Lahman")
-
 # loads tidyverse for working with data
 # version 1.3.0
 #install.packages("tidyverse")
-
-# loads rvest for web scraping
-# version 1.0.0
-#install.packages("rvest")
 
 # loads here for accessing directories
 # version 1.0.1
@@ -32,17 +24,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r libraries, echo=F, message=F, warning=F}
-# load Lahman package
-# version 9.0-0
-library(Lahman)
 
 # load tidyverse package
 # version 1.3.0
 library(tidyverse)
-
-# load rvest package
-# version 1.0.0
-library(rvest)
 
 # load here package
 # version 1.0.1

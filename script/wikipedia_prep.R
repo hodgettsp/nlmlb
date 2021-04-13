@@ -66,19 +66,25 @@ for(i in 1:length(files)){
             envir = .GlobalEnv)
 }
 
-bruton <- tibble(c("Billy Bruton", "19_", "19_", "Outfielder", "Philadelphia Stars"))
-alston <- tibble(c("Tom Alston", "19_", "1950", "First baseman", "Greensboro Red Wings"))
-paula <- tibble(c("Carlos Paula", "19_", "19_", "Outfielder", "Havana Cuban Giants"))
-wills <- tibble(c("Maury Wills", "19_", "19_", "Shortstop", "Raleigh Tigers"))
-mccovey <- tibble(c("Willie McCovey", "19_", "19_", "First baseman", "Birmingham Black Barons"))
-prescott <- tibble(c("Bob Prescott", "19_", "19_", "Outfielder", "Jacksonville Eagles"))
-clendenon <- tibble(c("Donn Clendenon", "19_", "19_", "First baseman", "Kansas City Monarchs"))
-dees <- tibble(c("Charlie Dees", "19_", "19_", "First baseman", "Louisville Clippers"))
-odom <- tibble(c("John Odom", "19_", "19_", "Pitcher", "Raleigh Tigers"))
 
-player_data_ad <- bind_rows(player_data_ad, bruton, alston, clendenon, dees)
-player_data_mr <- bind_rows(player_data_mr, paula, mccovey, prescott, odom)
-player_data_sz <- bind_rows(player_data_sz, wills)
+player_ad_add <- tibble(player = c("Billy Bruton", "Tom Alston", "Donn Clendenon", "Charlie Dees"),
+                     debut = "19_", last_game = "19_",
+                     pos = c("Outfielder", "First baseman", "First baseman", "First baseman"),
+                     teams = c("Philadelphia Stars", "Greensboro Red Wings", "Kansas City Monarchs",
+                     "Louisville Clippers"))
+
+player_mr_add <- tibble(player = c("Carlos Paula", "Willie McCovey", "Bob Prescott", "John Odom"),
+                        debut = "19_", last_game = "19_",
+                        pos = c("Outfielder", "First baseman", "Outfielder", "Pitcher"),
+                        teams = c("Havana Cuban Giants", "Birmingham Black Barons",
+                                  "Jacksonville Eagles", "Raleigh Tigers"))
+
+player_sz_add <- tibble(player = "Maury Wills", debut = "19_", last_game = "19_", pos = "Shortstop", team = "Raleigh Tigers")
+
+
+player_data_ad <- bind_rows(player_data_ad, player_ad_add)
+player_data_mr <- bind_rows(player_data_mr, player_mr_add)
+player_data_sz <- bind_rows(player_data_sz, player_sz_add)
 
 
 # bind individual datasets into one dataset by rows
