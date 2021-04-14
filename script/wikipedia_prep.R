@@ -81,7 +81,7 @@ player_mr_add <- tibble(player = c("Carlos Paula", "Willie McCovey", "Bob Presco
                                   "Jacksonville Eagles", "Raleigh Tigers"))
 
 # create tibble for missing players with last names S-Z that are on the CFNLBR list
-player_sz_add <- tibble(player = "Maury Wills", debut = "19_", last_game = "19_", pos = "Shortstop", team = "Raleigh Tigers")
+player_sz_add <- tibble(player = "Maury Wills", debut = "19_", last_game = "19_", pos = "Shortstop", teams = "Raleigh Tigers")
 
 # bind A-D names to A-D data
 player_data_ad <- bind_rows(player_data_ad, player_ad_add)
@@ -102,12 +102,13 @@ nl_player_data <- nl_player_data %>%
      # extract nicknames that are contained in "" marks ->
      # this is just for fun
      mutate(nickname = str_extract(player, '\\".*"'),
-            # replace instances of (words), "words", Jr., and Sr. with ->
+            # replace instances of (words), "words", and , with ->
             # no string or character ""
-            player = sub('(\\s\\(.*?))|(\\".*?")|(\\sJr.)|(\\sSr.)',
+            suffix = str_extract(player, "(Jr.|Sr.)"),
+            player = sub('(\\s\\(.*?))|(\\".*?")|,\\sJr.|\\sJr.|\\sSr.',
                          "", player),
             # strip space at beginning of player names
-            player = sub("^\\s", "", player),
+            player = str_replace(player, "^\\s", ""),
             # adjust player names where nicknames were used ->
             # or where initials were used in place of names
             player = case_when(player == "Jo Jo Deal" ~ "David Edward Deal",
@@ -129,9 +130,9 @@ nl_player_data <- nl_player_data %>%
                                player == "Webbo Clarke" ~ "Vibert Clarke",
                                T ~ as.character(player)),
             # extract last name from player column
-            lastname = str_extract(player, "\\w*\\W*$"),
+            lastname = str_extract(player, "(\\w*$)"),
             # extract first name from player column
-            firstname = str_extract(player, "(^\\w*\\W*\\s\\w*\\W*\\s|^\\w*\\W*\\w*\\s)"),
+            firstname = str_extract(player, "(^\\w\\W\\s\\w\\W|^\\w\\W\\w\\W|^\\w\\W\\s\\w*|^\\w*)"),
             firstname = sub("\\s*$", "", firstname))
 
 # write NL player data to csv file

@@ -104,7 +104,6 @@ nl_mlb_players <- pdf_tibble %>%
                                   firstname == "Jehosie" ~ "Jay",
                                   firstname == "Charles" & lastname == "Peete" ~ "Charlie",
                                   firstname == "Harold" & lastname == "Jones" ~ "Hal",
-                                  firstname == "Joe" & lastname == "Taylor" ~ "Joe Cephus",
                                   TRUE ~ as.character(firstname)
                                   )) %>%
      # remove raw text and teams columns
