@@ -67,11 +67,11 @@ for(i in 1:length(files)){
 }
 
 # create tibble for missing players with last names A-D that are on the CFNLBR list
-player_ad_add <- tibble(player = c("Billy Bruton", "Tom Alston", "Donn Clendenon", "Charlie Dees"),
+player_ad_add <- tibble(player = c("Billy Bruton", "Tom Alston", "Donn Clendenon", "Charlie Dees", "Clarence Coleman"),
                      debut = "19_", last_game = "19_",
-                     pos = c("Outfielder", "First baseman", "First baseman", "First baseman"),
+                     pos = c("Outfielder", "First baseman", "First baseman", "First baseman", "Catcher"),
                      teams = c("Philadelphia Stars", "Greensboro Red Wings", "Kansas City Monarchs",
-                     "Louisville Clippers"))
+                     "Louisville Clippers", "Indianapolis Clowns"))
 
 # create tibble for missing players with last names M-R that are on the CFNLBR list
 player_mr_add <- tibble(player = c("Carlos Paula", "Willie McCovey", "Bob Prescott", "John Odom"),

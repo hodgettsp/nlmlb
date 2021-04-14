@@ -51,5 +51,18 @@ for(i in 1:length(files)){
             envir = .GlobalEnv)
 }
 
-x <- full_join(nl_player_data, nl_mlb_player_data, by = c("lastname", "firstname"))
+nl_player_data <- nl_player_data %>% 
+  mutate(firstname = case_when(firstname == "Milton" & lastname == "Smith" & last_game == "1927" ~ "Milton 27",
+                               firstname == "Willie" & lastname == "Smith" & last_game == "1938" ~ "Willie 38",
+                               firstname == "Willie" & lastname == "Smith" & last_game == "1948" ~ "Willie 48",
+                               firstname == "Clarence" & lastname == "Coleman" & last_game == "1928" ~ "Clarence 28",
+                               TRUE ~ as.character(firstname)))
+
+
+nlmlb_df <- nl_player_data %>% 
+     full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>% 
+     mutate(played_mlb = if_else(!is.na(mlb_team), 1, 0))
+
+z <- y %>% 
+  mutate(firstname = str_replace(firstname, "\\s\\d*$", ""))
 ```

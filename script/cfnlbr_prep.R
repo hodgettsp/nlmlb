@@ -113,4 +113,4 @@ nl_mlb_players <- pdf_tibble %>%
 write_csv(nl_mlb_players, "inputs/data/csv/nl_mlb_player_data.csv")
 
 # clear environment
-rm(list=ls())
+rm(list = ls())
