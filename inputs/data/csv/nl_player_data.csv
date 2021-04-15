@@ -380,7 +380,7 @@ Cleveland Tate Stars, Milwaukee Bears, Detroit Stars, Dayton Marcos, Cleveland T
 Ted Bond,1935,1940,Infielder,"
 Pittsburgh Crawfords, Chicago American Giants
 ",NA,NA,Bond,Ted
-Walt Bond,19__,19__,Outfielder,Kansas City Monarchs,NA,NA,Bond,Walt
+Walt Bond,1956,1956,Outfielder,Kansas City Monarchs,NA,NA,Bond,Walt
 Robert Bonner,1921,1926,Infielder,"
 Cleveland Tate Stars, Toledo Tigers, St. Louis Stars, Cleveland Browns, Cleveland Elites
 ",NA,NA,Bonner,Robert
@@ -472,7 +472,7 @@ Outfielder / Infielder
 ","
 Kansas City Monarchs, Indianapolis Clowns, New York Cubans
 ",NA,NA,Brewer,Sherwood
-Marshall Bridges,19__,19__,Pitcher,Memphis Red Sox,NA,NA,Bridges,Marshall
+Marshall Bridges,1951,NA,Pitcher,Memphis Red Sox,NA,NA,Bridges,Marshall
 Bo Briggery,1932,1932,Shortstop,Atlanta Black Crackers,NA,NA,Briggery,Bo
 Otto Briggs,1915,1934,Outfielder,"
 Indianapolis ABCs, West Baden Sprudels, Hilldale Club, Bacharach Giants
@@ -525,7 +525,7 @@ George  Brown,1942,1942,Outfielder,Cincinnati Buckeyes,"""Tanna""",NA,Brown,Geor
 George W. Brown,1909,1921,Outfielder,"
 West Baden Sprudels, Indianapolis ABCs, St. Louis Giants, Dayton Marcos, Columbus Buckeyes, Cleveland Tate Stars, Detroit Stars
 ",NA,NA,Brown,George
-Ike Brown,19__,19__,,Kansas City Monarchs,NA,NA,Brown,Ike
+Ike Brown,1960,1961,,Kansas City Monarchs,NA,NA,Brown,Ike
 James Brown,1939,1947,"
 Outfielder / Pitcher
 ","
@@ -732,7 +732,7 @@ Club Fe, Almendares, Azul, Habana, Cuban Stars (West), Hilldale Club, Cuban Star
 Arthur  Chambers,1925,1927,Pitcher,"
 Washington Potomacs, Lincoln Giants
 ","""Rube""",NA,Chambers,Arthur
-Harry Chappas,19__,19__,Shortstop,Indianapolis Clowns,NA,NA,Chappas,Harry
+Harry Chappas,1975,1975,Shortstop,Indianapolis Clowns,NA,NA,Chappas,Harry
 Oscar Charleston,1915,1945,"
 Center fielder / Manager
 ","
@@ -743,7 +743,7 @@ Hilldale Club, Baltimore Black Sox, Philadelphia Stars
 Red Charleston,1920,1932,Catcher,"
 Birmingham Black Barons, Montgomery Grey Sox, Memphis Red Sox, Nashville Elite Giants
 ",NA,NA,Charleston,Red
-Lou Chirban,1950,19__,,Chicago American Giants,NA,NA,Chirban,Lou
+Lou Chirban,1950,NA,,Chicago American Giants,NA,NA,Chirban,Lou
 Eli Chism,1946,1947,Outfielder,"
 Cleveland Buckeyes, Birmingham Black Barons
 ",NA,NA,Chism,Eli
@@ -751,7 +751,7 @@ John Chisum,1937,1937,Third baseman,St. Louis Stars,NA,NA,Chisum,John
 Thad Christopher,1935,1945,Outfielder,"
 New York Black Yankees, Newark Eagles, Cleveland Buckeyes, Homestead Grays, Baltimore Elite Giants
 ",NA,NA,Christopher,Thad
-Lou Clarizio,1950,19__,,Chicago American Giants,NA,NA,Clarizio,Lou
+Lou Clarizio,1950,NA,,Chicago American Giants,NA,NA,Clarizio,Lou
 Cleveland Clark,1945,1948,,New York Cubans,NA,NA,Clark,Cleveland
 Dell Clark,1921,1921,Infielder,"
 St. Louis Giants, Pittsburgh Keystones
@@ -1135,7 +1135,7 @@ All Nations, St. Louis Giants, St. Louis Stars, Kansas City Monarchs, Indianapol
 Reinaldo Drake,1945,1954,Outfielder,Indianapolis Clowns,NA,NA,Drake,Reinaldo
 Valentín Dreke,1919,1927,Outfielder,Cuban Stars,NA,NA,Dreke,Valentín
 Claro Duany,1944,1947,Outfielder,New York Cubans,NA,NA,Duany,Claro
-Al Dubetts,1950,19__,,Chicago American Giants,NA,NA,Dubetts,Al
+Al Dubetts,1950,NA,,Chicago American Giants,NA,NA,Dubetts,Al
 Clifford DuBose,1957,1959,Third baseman,"
 Memphis Red Sox, Birmingham Black Barons
 ",NA,NA,DuBose,Clifford
@@ -1185,12 +1185,12 @@ Joe Durham,1952,1952,Outfielder,Chicago American Giants,NA,NA,Durham,Joe
 Eddie Dwight,1925,1937,Center fielder,"
 Kansas City Monarchs, Indianapolis ABCs
 ",NA,NA,Dwight,Eddie
-Frank Dyll,1950,19__,Shortstop,Chicago American Giants,NA,NA,Dyll,Frank
-Billy Bruton,19_,19_,Outfielder,Philadelphia Stars,NA,NA,Bruton,Billy
-Tom Alston,19_,19_,First baseman,Greensboro Red Wings,NA,NA,Alston,Tom
-Donn Clendenon,19_,19_,First baseman,Kansas City Monarchs,NA,NA,Clendenon,Donn
-Charlie Dees,19_,19_,First baseman,Louisville Clippers,NA,NA,Dees,Charlie
-Clarence Coleman,19_,19_,Catcher,Indianapolis Clowns,NA,NA,Coleman,Clarence
+Frank Dyll,1950,NA,Shortstop,Chicago American Giants,NA,NA,Dyll,Frank
+Billy Bruton,1947,1953,Outfielder,Philadelphia Stars,NA,NA,Bruton,Billy
+Tom Alston,1946,1951,First baseman,Greensboro Red Wings,NA,NA,Alston,Tom
+Donn Clendenon,1952,1956,First baseman,Kansas City Monarchs,NA,NA,Clendenon,Donn
+Charlie Dees,1954,1954,First baseman,Louisville Clippers,NA,NA,Dees,Charlie
+Clarence Coleman,1956,1957,Catcher,Indianapolis Clowns,NA,NA,Coleman,Clarence
 Charles Earle,1907,1919,"
 Pitcher / Manager
 ","
@@ -1949,7 +1949,7 @@ Chicago Union Giants, Chicago Giants, Lincoln Stars
 ",NA,NA,Jackson,Guy
 Lincoln Jackson,1933,1934,First baseman,"Pollock's Cuban Stars, Baltimore Black Sox
 ",NA,NA,Jackson,Lincoln
-Martinez Jackson,19__,19__,Second baseman,Newark Eagles,NA,NA,Jackson,Martinez
+Martinez Jackson,1929,1933,Second baseman,Newark Eagles,NA,NA,Jackson,Martinez
 Norman  Jackson,1934,1945,Shortstop,"
 Cleveland Red Sox, Homestead Grays
 ","""Jelly""",NA,Jackson,Norman
@@ -2034,7 +2034,7 @@ Bucky Johnson,1936,1939,Second baseman,"
 Brooklyn Royal Giants, Newark Eagles
 ",NA,NA,Johnson,Bucky
 Byron  Johnson,1937,1940,Shortstop,Kansas City Monarchs,"""Mex""",NA,Johnson,Byron
-Charles Johnson,19__,19__,,Chicago American Giants,NA,NA,Johnson,Charles
+Charles Johnson,1928,1941,,Chicago American Giants,NA,NA,Johnson,Charles
 Claude  Johnson,1916,1930,Second baseman,"
 Lincoln Stars, Cleveland Tate Stars, Baltimore Black Sox, Harrisburg Giants, Homestead Grays, Detroit Stars, Birmingham Black Barons
 ","""Hooks""",NA,Johnson,Claude
@@ -2142,7 +2142,7 @@ Detroit Stars, Indianapolis ABCs, Philadelphia Bacharach Giants
 Mint Jones,1937,1941,First baseman,"
 Jacksonville Red Caps, Cleveland Bears
 ",NA,NA,Jones,Mint
-Ralph Waldo Emerson Jones,19__,19__,,,NA,NA,Jones,Ralph
+Ralph Waldo Emerson Jones,NA,NA,,,NA,NA,Jones,Ralph
 Rookie Jones,1932,1932,Outfielder,Memphis Red Sox,NA,NA,Jones,Rookie
 Ruben Jones,1923,1934,"
 Outfielder / Manager
@@ -3084,7 +3084,7 @@ Chicago Union Giants, St. Louis Giants
 Wilbert Pritchett,1924,1932,Pitcher,"
 Hilldale Club, Harrisburg Giants, Baltimore Black Sox, Philadelphia Tigers, Newark Browns
 ",NA,NA,Pritchett,Wilbert
-Jim Proctor,19__,19__,Pitcher,Indianapolis Clowns,NA,NA,Proctor,Jim
+Jim Proctor,1955,1955,Pitcher,Indianapolis Clowns,NA,NA,Proctor,Jim
 Anderson Pryor,1923,1933,Second baseman,"
 Milwaukee Bears, Detroit Stars
 ",NA,NA,Pryor,Anderson
@@ -3331,10 +3331,10 @@ Red Ryan,1915,1932,"
 Pitcher / Outfielder
 ","
 Atlantic City Bacharach Giants, Hilldale Daisies, Homestead Grays, Baltimore Black Sox, New York Lincoln Giants, among several others",NA,NA,Ryan,Red
-Carlos Paula,19_,19_,Outfielder,Havana Cuban Giants,NA,NA,Paula,Carlos
-Willie McCovey,19_,19_,First baseman,Birmingham Black Barons,NA,NA,McCovey,Willie
-Bob Prescott,19_,19_,Outfielder,Jacksonville Eagles,NA,NA,Prescott,Bob
-John Odom,19_,19_,Pitcher,Raleigh Tigers,NA,NA,Odom,John
+Carlos Paula,1950,1951,Outfielder,Havana Cuban Giants,NA,NA,Paula,Carlos
+Willie McCovey,1955,1959,First baseman,Birmingham Black Barons,NA,NA,McCovey,Willie
+Bob Prescott,1951,1951,Outfielder,Jacksonville Eagles,NA,NA,Prescott,Bob
+John Odom,1962,1964,Pitcher,Raleigh Tigers,NA,NA,Odom,John
 Bubby Sadler,1934,1944,Shortstop,"
 Bacharach Giants, Brooklyn Eagles, Washington Black Senators, Atlanta Black Crackers
 ",NA,NA,Sadler,Bubby
@@ -3504,7 +3504,7 @@ Baltimore Black Sox, Lincoln Giants, Newark Stars, Homestead Grays, Harrisburg G
 Ernest Smith,1937,1942,Outfielder,"
 Chicago American Giants, Kansas City Monarchs, Homestead Grays
 ",NA,NA,Smith,Ernest
-Ernest E. Smith,19__,19__,,Baltimore Elite Giants,NA,NA,Smith,Ernest
+Ernest E. Smith,NA,NA,,Baltimore Elite Giants,NA,NA,Smith,Ernest
 Eugene F. Smith,1939,1950,Pitcher,"
 St. Louis Stars, Kansas City Monarchs, New York Black Yankees, Pittsburgh Crawfords, Homestead Grays, Cleveland Buckeyes, Chicago American Giants, among several others",NA,NA,Smith,Eugene
 Eugene L. Smith,1941,1946,Infielder,"
@@ -3938,7 +3938,7 @@ New Orleans–St. Louis Stars, Birmingham Black Barons, Cincinnati Clowns, Seatt
 Jasper Washington,1921,1932,First baseman,"
 Homestead Grays, Pittsburgh Keystones, Pittsburgh Crawfords, Newark Browns
 ",NA,NA,Washington,Jasper
-Johnny Washington,19__,19__,,"
+Johnny Washington,1950,1950,,"
 Chicago American Giants, Houston Eagles
 ",NA,NA,Washington,Johnny
 Namon Washington,1920,1933,Outfielder,"
@@ -4118,7 +4118,7 @@ Indianapolis ABCs, Pittsburgh Crawfords, New York Black Yankees, Baltimore Black
 Henry  Williams,1923,1937,Catcher,"
 Kansas City Monarchs, Indianapolis ABCs, St. Louis Stars, Indianapolis ABCs, Pittsburgh Crawfords
 ","""Flick""",NA,Williams,Henry
-Jesse H.  Williams,1913,1990,Shortstop,"
+Jesse H.  Williams,1913,1950,Shortstop,"
 Kansas City Monarchs, Indianapolis Clowns
 ","""Bill""",NA,Williams,Jesse
 Jesse S. Williams,1944,1947,Catcher,"
@@ -4315,4 +4315,4 @@ Gordon Zeigler,1921,1921,Pitcher,Detroit Stars,NA,NA,Zeigler,Gordon
 Charles Zomphier,1926,1931,Second baseman,"
 Cleveland Elites, Cleveland Hornets, St. Louis Stars, Birmingham Black Barons, St. Louis Giants, Cleveland Tigers, Memphis Red Sox, Cleveland Cubs
 ",NA,NA,Zomphier,Charles
-Maury Wills,19_,19_,Shortstop,Raleigh Tigers,NA,NA,Wills,Maury
+Maury Wills,1949,1949,Shortstop,Raleigh Tigers,NA,NA,Wills,Maury
