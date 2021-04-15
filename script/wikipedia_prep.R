@@ -67,21 +67,28 @@ for(i in 1:length(files)){
 }
 
 # create tibble for missing players with last names A-D that are on the CFNLBR list
-player_ad_add <- tibble(player = c("Billy Bruton", "Tom Alston", "Donn Clendenon", "Charlie Dees", "Clarence Coleman"),
-                     debut = "19_", last_game = "19_",
+player_ad_add <- tibble(player = c("Billy Bruton", "Tom Alston", "Donn Clendenon",
+                                   "Charlie Dees", "Clarence Coleman"),
+                     debut = c("1947", "1946", "1952", "1954", "1956"),
+                     last_game = c("1953", "1951", "1956", "1954", "1957"),
                      pos = c("Outfielder", "First baseman", "First baseman", "First baseman", "Catcher"),
                      teams = c("Philadelphia Stars", "Greensboro Red Wings", "Kansas City Monarchs",
                      "Louisville Clippers", "Indianapolis Clowns"))
 
 # create tibble for missing players with last names M-R that are on the CFNLBR list
 player_mr_add <- tibble(player = c("Carlos Paula", "Willie McCovey", "Bob Prescott", "John Odom"),
-                        debut = "19_", last_game = "19_",
+                        debut = c("1950", "1955", "1951", "1962"),
+                        last_game = c("1951", "1959", "1951", "1964"),
                         pos = c("Outfielder", "First baseman", "Outfielder", "Pitcher"),
                         teams = c("Havana Cuban Giants", "Birmingham Black Barons",
                                   "Jacksonville Eagles", "Raleigh Tigers"))
 
 # create tibble for missing players with last names S-Z that are on the CFNLBR list
-player_sz_add <- tibble(player = "Maury Wills", debut = "19_", last_game = "19_", pos = "Shortstop", teams = "Raleigh Tigers")
+player_sz_add <- tibble(player = "Maury Wills",
+                        debut = "1949",
+                        last_game = "1949",
+                        pos = "Shortstop",
+                        teams = "Raleigh Tigers")
 
 # bind A-D names to A-D data
 player_data_ad <- bind_rows(player_data_ad, player_ad_add)
@@ -133,10 +140,28 @@ nl_player_data <- nl_player_data %>%
             lastname = str_extract(player, "(\\w*$)"),
             # extract first name from player column
             firstname = str_extract(player, "(^\\w\\W\\s\\w\\W|^\\w\\W\\w\\W|^\\w\\W\\s\\w*|^\\w*)"),
-            firstname = sub("\\s*$", "", firstname))
+            firstname = sub("\\s*$", "", firstname),
+            debut = case_when(debut = "19_" & player = "Johnny Washington" ~ "1950",
+                              debut = "19_" & player = "Charles Johnson" ~ "1928",
+                              debut = "19_" & player = "Martinez Jackson" ~ "1929",
+                              debut = "19_" & player = "Harry Chappas" ~ "1975",
+                              debut = "19_" & player = "Ike Brown" ~ "1960",
+                              debut = "19_" & player = "Marshall Bridges" ~ "1951",
+                              debut = "19_" & player = "Walt Bond" ~ "1956",
+                              debut = "19_" ~ "NA",
+                              TRUE ~ as.character(debut)),
+            final_game = case_when(final_game = "19_" & player = "Johnny Washington" ~ "1950",
+                                   final_game = "19_" & player = "Charles Johnson" ~ "1941",
+                                   final_game = "19_" & player = "Martinez Jackson" ~ "1933",
+                                   final_game = "19_" & player = "Harry Chappas" ~ "1975",
+                                   final_game = "19_" & player = "Ike Brown" ~ "1961",
+                                   final_game = "19_" & player = "Marshall Bridgers" ~ "1954",
+                                   final_game = "19_" & player = "Walt Bond" ~ "1956",
+                                   final_game = "19_" ~ "NA",
+                                   TRUE ~ as.character(debut)))
 
 # write NL player data to csv file
 write_csv(nl_player_data, "inputs/data/csv/nl_player_data.csv")
 
-# clear envrionment
+# clear environment
 rm(list = ls())

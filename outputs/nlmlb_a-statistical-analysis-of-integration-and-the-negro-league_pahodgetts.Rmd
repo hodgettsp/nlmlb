@@ -62,6 +62,7 @@ nl_player_data <- nl_player_data %>%
 nlmlb_df <- nl_player_data %>% 
   full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>% 
   mutate(played_mlb = if_else(!is.na(mlb_team), 1, 0),
+         played_post_integration = if_else((debut >= 1947 & last_game >=1947), 1, 0),
          firstname = str_replace(firstname, "\\s\\d*$", ""))
 
 ```
