@@ -36,3 +36,8 @@ write_html(nl_data_sz, "inputs/data/wikipedia/complete_player_list/raw_data_sz.h
 nl_data_mlb <- read_html("https://en.wikipedia.org/wiki/List_of_Negro_league_baseball_players_who_played_in_Major_League_Baseball")
 # write html code to file
 write_html(nl_data_mlb, "inputs/data/wikipedia/mlb_player_list/raw_data_mlb.html")
+
+# read html code from given URL for Black players in the MLB
+black_data_mlb <- read_html("https://en.wikipedia.org/wiki/List_of_first_black_Major_League_Baseball_players")
+# write html code to file
+write_html(black_data_mlb, "inputs/data/wikipedia/black_player_list/raw_black_data_mlb.html")

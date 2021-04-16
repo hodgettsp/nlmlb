@@ -14,13 +14,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r packages, echo=F, message=F, warning=F}
 # uncomment any packages that require installation
 
-# loads tidyverse for working with data
+# installs tidyverse package for working with data
 # version 1.3.1
 #install.packages("tidyverse")
 
-# loads here for accessing directories
+# installs here package for accessing directories
 # version 1.0.1
 #install.packages("here")
+
+# installs showtext package for loading Google fonts
+# version 0.9-2
+#install.packages("showtext")
 ```
 
 ```{r libraries, echo=F, message=F, warning=F}
@@ -31,6 +35,18 @@ library(tidyverse)
 # load here package
 # version 1.0.1
 library(here)
+
+# load showtext package
+# version 0.9-2
+library(showtext)
+```
+
+```{r showtext, message=F, warning=F, echo=F}
+# access font from Google fonts
+font_add_google(name = "jost", family = "jost-sans-serif")
+
+# load font
+showtext_auto()
 ```
 
 ```{r load data, echo=F, message=F, warning=F}
@@ -41,16 +57,37 @@ source(here("script/rmarkdown/load_data.R"))
 source(here("script/rmarkdown/prep_data.R"))
 ```
 
-```{r}
+```{r, echo=F, message=F, warning=F, fig.height = 11.25, fig.width = 20, fig.align = "center"}
 nl_df %>%
   ggplot()+
-  geom_histogram(aes(x = debut), binwidth = 2, 
-                 fill = "dodgerblue", colour = "#5dfdcb")+
-  geom_histogram(aes(x = last_game), binwidth = 2, 
-                 fill = "#f5003d", colour = "#5dfdcb", alpha = 0.75)+
+  geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 2, 
+                 colour = "white")+
+  geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 2, 
+                 colour = "white", alpha = 0.75)+
   theme_minimal()+
   labs(x = "Year",
        y = "Count")+
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor = element_blank())
+  theme(text = element_text(family = "jost-sans-serif"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 16),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size = 12),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        legend.position = c(.9, .5))+
+  scale_x_continuous(breaks = c(1874, 1884, 1894, 1904, 
+                                1914, 1924, 1934, 1944, 
+                                1954, 1964, 1975))+
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175, 180))+
+  scale_fill_manual(name = "Legend", values = c("dodgerblue", "#f5003d"))+
+  geom_vline(xintercept = c(1920, 1947), 
+             colour = "#010210", linetype = "solid", size = 0.5)+
+  geom_text(aes(x = 1951.5, y = 111, label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers", fontface = "plain"), 
+            angle = 0, col = "#010210",
+            family = "jost-sans-serif",
+            size = 5)+
+  geom_text(aes(x = 1912, y = 111, label = "1920: Negro National League is established",
+                fontface = "plain"), angle = 0, col = "#010210",
+            family = "jost-sans-serif",
+            size = 5)
 ```
