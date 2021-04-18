@@ -74,20 +74,48 @@ nl_df %>%
         legend.text = element_text(size = 12),
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank(),
-        legend.position = c(.9, .5))+
+        legend.position = c(.15, .5))+
   scale_x_continuous(breaks = c(1874, 1884, 1894, 1904, 
                                 1914, 1924, 1934, 1944, 
                                 1954, 1964, 1975))+
   scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175, 180))+
-  scale_fill_manual(name = "Legend", values = c("dodgerblue", "#f5003d"))+
-  geom_vline(xintercept = c(1920, 1947), 
+  scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))+
+  geom_vline(xintercept = c(1920, 1947, 1962), 
              colour = "#010210", linetype = "solid", size = 0.5)+
-  geom_text(aes(x = 1951.5, y = 111, label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers", fontface = "plain"), 
+  geom_text(aes(x = 1938.5, y = 111, 
+                label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers", 
+                fontface = "plain"), 
             angle = 0, col = "#010210",
             family = "jost-sans-serif",
             size = 5)+
-  geom_text(aes(x = 1912, y = 111, label = "1920: Negro National League is established",
+  geom_text(aes(x = 1912, y = 111, 
+                label = "1920: Negro National League\n established",
+                fontface = "plain"), angle = 0, col = "#010210",
+            family = "jost-sans-serif",
+            size = 5)+
+  geom_text(aes(x = 1970, y = 111, 
+                label = "1962: Negro American League\n folds",
                 fontface = "plain"), angle = 0, col = "#010210",
             family = "jost-sans-serif",
             size = 5)
+```
+```{r, echo=F, message=F, warning=F, fig.height = 11.25, fig.width = 20, fig.align = "center"}
+nl_mlb_player_data <- nl_mlb_player_data %>% 
+  add_count(year)
+
+nl_mlb_player_data %>% 
+  ggplot(aes(x = year, y = n))+
+  geom_point(colour = "dodgerblue", size = 4)+
+  geom_line(colour = "dodgerblue")+
+  theme_minimal()+
+  theme(text = element_text(family = "jost-sans-serif"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 16),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size = 12))+
+  labs(y = "Player Count",
+       x = "Year")+
+  scale_x_continuous(breaks = c(1947, 1952, 1957, 1962, 
+                                1967, 1972, 1977))+
+  scale_y_continuous(breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11))
 ```
