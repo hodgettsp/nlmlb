@@ -90,5 +90,4 @@ nl_mlb_df <- mlb_player_data %>%
             # which holds whether a player debuted after integration ->
             # or played their final game after integration
             played_post_integration = if_else(mlb_debut >= 1947 | mlb_final >= 1947, 1, 0),
-            firstname = str_replace(firstname, "\\s\\d*$", "")) %>%
-     add_count(played_negro_league)
+            firstname = str_replace(firstname, "\\s\\d*$", ""))

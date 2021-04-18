@@ -149,7 +149,7 @@ black_players_mlb <- bind_rows(first20, t4, season52) %>%
 
 
 # write data to csv
-write_csv(black_players_mlb, "inputs/data/csv/black_player_mlb_data.csv")
+#write_csv(black_players_mlb, "inputs/data/csv/black_player_mlb_data.csv")
 
 # clear environment
 rm(list = ls())

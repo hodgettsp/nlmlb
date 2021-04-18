@@ -42,7 +42,7 @@ library(showtext)
 ```
 
 ```{r showtext, message=F, warning=F, echo=F}
-# access font from Google fonts
+# access Jost font from Google fonts
 font_add_google(name = "jost", family = "jost-sans-serif")
 
 # load font
@@ -57,7 +57,7 @@ source(here("script/rmarkdown/load_data.R"))
 source(here("script/rmarkdown/prep_data.R"))
 ```
 
-```{r, echo=F, message=F, warning=F, fig.height = 11.25, fig.width = 20, fig.align = "center"}
+```{r, echo=F, message=F, warning=F, fig.align = "center"}
 nl_df %>%
   ggplot()+
   geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 2, 
@@ -68,54 +68,56 @@ nl_df %>%
   labs(x = "Year",
        y = "Count")+
   theme(text = element_text(family = "jost-sans-serif"),
-        axis.text = element_text(size = 12),
-        axis.title = element_text(size = 16),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size = 12),
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank(),
-        legend.position = c(.15, .5))+
+        legend.position = "top")+
   scale_x_continuous(breaks = c(1874, 1884, 1894, 1904, 
                                 1914, 1924, 1934, 1944, 
                                 1954, 1964, 1975))+
-  scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175, 180))+
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175))+
   scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))+
-  geom_vline(xintercept = c(1920, 1947, 1962), 
+  geom_vline(xintercept = c(1920, 1947, 1948, 1962), 
              colour = "#010210", linetype = "solid", size = 0.5)+
-  geom_text(aes(x = 1938.5, y = 111, 
-                label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers", 
-                fontface = "plain"), 
-            angle = 0, col = "#010210",
-            family = "jost-sans-serif",
-            size = 5)+
-  geom_text(aes(x = 1912, y = 111, 
-                label = "1920: Negro National League\n established",
-                fontface = "plain"), angle = 0, col = "#010210",
-            family = "jost-sans-serif",
-            size = 5)+
-  geom_text(aes(x = 1970, y = 111, 
-                label = "1962: Negro American League\n folds",
-                fontface = "plain"), angle = 0, col = "#010210",
-            family = "jost-sans-serif",
-            size = 5)
+  annotate("text", x = 1938.25, y = 111, 
+           label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers",
+           colour = "#010210",
+           size = 2)+
+  annotate("text", x = 1911.25, y = 111, 
+           label = "1920: Negro National League\n established",
+           colour = "#010210",
+           size = 2)+
+  annotate("text", x = 1969, y = 111, 
+            label = "1962: Negro American\n League folds",
+            colour = "#010210",
+           size = 2)+
+  annotate("text", x = 1954.5, y = 111, 
+           label = "1948: Negro National\n League folds",
+           colour = "#010210",
+           size = 2)
 ```
-```{r, echo=F, message=F, warning=F, fig.height = 11.25, fig.width = 20, fig.align = "center"}
-nl_mlb_player_data <- nl_mlb_player_data %>% 
-  add_count(year)
 
-nl_mlb_player_data %>% 
-  ggplot(aes(x = year, y = n))+
-  geom_point(colour = "dodgerblue", size = 4)+
+```{r}
+x <- nl_mlb_df %>% 
+  group_by(mlb_debut) %>% 
+  mutate(blah = sum(played_negro_league))
+
+
+```
+
+
+```{r, echo=F, message=F, warning=F, fig.align = "center"}
+nl_mlb_df %>%
+  filter(played_negro_league == 1) %>% 
+  ggplot(aes(x = year, y = debut_count))+
+  geom_point(colour = "dodgerblue", size = 3)+
   geom_line(colour = "dodgerblue")+
   theme_minimal()+
-  theme(text = element_text(family = "jost-sans-serif"),
-        axis.text = element_text(size = 12),
-        axis.title = element_text(size = 16),
-        legend.title = element_text(size = 16),
-        legend.text = element_text(size = 12))+
+  theme(text = element_text(family = "jost-sans-serif"))+
   labs(y = "Player Count",
        x = "Year")+
-  scale_x_continuous(breaks = c(1947, 1952, 1957, 1962, 
-                                1967, 1972, 1977))+
+  scale_x_continuous(breaks = c(1947, 1950, 1953, 1956, 1959, 
+                                1962, 1965, 1968, 1971, 1974,
+                                1977))+
   scale_y_continuous(breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11))
 ```
+
