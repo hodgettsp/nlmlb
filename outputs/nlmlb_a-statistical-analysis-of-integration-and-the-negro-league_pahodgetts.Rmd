@@ -98,10 +98,24 @@ nl_df %>%
 
 ```{r}
 x <- nl_mlb_df %>% 
-  group_by(mlb_debut) %>% 
-  mutate(blah = sum(played_negro_league))
+  group_by(mlb_debut) %>%
+  summarise(sum = sum(played_negro_league)) %>% 
+  rename(debut_count = sum)
 
+y <- nl_mlb_df %>% 
+  group_by(mlb_final) %>% 
+  summarise(sum = sum(played_negro_league)) %>% 
+  rename(final_count = sum)
 
+z <- bind_cols(x, y)
+
+aa <- z %>% 
+  mutate(player_count = 0)
+  mutate(player_count = abs((debut_count + lag(player_count, default = 0)) - lag(final_count, default = 0)))
+
+for(i in 2:length(aa$player_count)){
+  aa$player_count[i] <- (aa$debut_count[i] + aa$player_count[i-1]) - aa$final_count[i-1]
+}
 ```
 
 
