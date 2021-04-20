@@ -114,3 +114,15 @@ write_csv(nl_mlb_players, "inputs/data/csv/nl_mlb_player_data.csv")
 
 # clear environment
 rm(list = ls())
+
+# extract pdf text using pdf_text function from pdftools
+raw_pdf <- pdf_text("inputs/data/cfnlbr/Negro Leaguers in Canada 2016-08.pdf")
+
+# set pdf text data in tibble data frame with raw_text as column name
+pdf_tibble <- tibble(raw_text = raw_pdf)
+
+# separate rows in pdf_tibble with newline separator
+pdf_tibble <- separate_rows(pdf_tibble, raw_text, sep = "\\n", convert = F)
+
+nl_canada_players <- pdf_tibble %>%
+        slice(2:1101)

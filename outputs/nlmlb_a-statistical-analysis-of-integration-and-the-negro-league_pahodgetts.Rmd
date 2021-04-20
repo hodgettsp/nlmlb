@@ -57,16 +57,15 @@ source(here("script/rmarkdown/load_data.R"))
 source(here("script/rmarkdown/prep_data.R"))
 ```
 
-```{r, echo=F, message=F, warning=F, fig.align = "center"}
+```{r, echo=F, message=F, warning=F, fig.align = "centre"}
 nl_df %>%
   ggplot()+
-  geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 2, 
+  geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 1, bins = 30,
                  colour = "white")+
-  geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 2, 
+  geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 1, bins = 30,
                  colour = "white", alpha = 0.75)+
   theme_minimal()+
-  labs(x = "Year",
-       y = "Count")+
+  labs(x = "Year")+
   theme(text = element_text(family = "jost-sans-serif"),
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -74,59 +73,42 @@ nl_df %>%
   scale_x_continuous(breaks = c(1874, 1884, 1894, 1904, 
                                 1914, 1924, 1934, 1944, 
                                 1954, 1964, 1975))+
-  scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175))+
+  scale_y_continuous(breaks = c(0, 10, 20, 30, 40, 50, 60,
+                                70, 80, 90, 100, 110, 120,
+                                130, 140))+
   scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))+
   geom_vline(xintercept = c(1920, 1947, 1948, 1962), 
              colour = "#010210", linetype = "solid", size = 0.5)+
-  annotate("text", x = 1938.25, y = 111, 
+  annotate("text", x = 1939.5, y = 113, 
            label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers",
            colour = "#010210",
-           size = 2)+
-  annotate("text", x = 1911.25, y = 111, 
+           size = 3)+
+  annotate("text", x = 1912.5, y = 113, 
            label = "1920: Negro National League\n established",
            colour = "#010210",
-           size = 2)+
-  annotate("text", x = 1969, y = 111, 
+           size = 3)+
+  annotate("text", x = 1968, y = 113, 
             label = "1962: Negro American\n League folds",
             colour = "#010210",
-           size = 2)+
-  annotate("text", x = 1954.5, y = 111, 
+           size = 3)+
+  annotate("text", x = 1953.5, y = 106, 
            label = "1948: Negro National\n League folds",
            colour = "#010210",
-           size = 2)
+           size = 3)
 ```
 
-```{r}
-x <- nl_mlb_df %>% 
-  group_by(mlb_debut) %>%
-  summarise(sum = sum(played_negro_league)) %>% 
-  rename(debut_count = sum)
-
-y <- nl_mlb_df %>% 
-  group_by(mlb_final) %>% 
-  summarise(sum = sum(played_negro_league)) %>% 
-  rename(final_count = sum)
-
-z <- bind_cols(x, y)
-
-aa <- z %>% 
-  mutate(player_count = 0)
-  mutate(player_count = abs((debut_count + lag(player_count, default = 0)) - lag(final_count, default = 0)))
-
-for(i in 2:length(aa$player_count)){
-  aa$player_count[i] <- (aa$debut_count[i] + aa$player_count[i-1]) - aa$final_count[i-1]
-}
-```
-
-
-```{r, echo=F, message=F, warning=F, fig.align = "center"}
+```{r, echo=F, message=F, warning=F, fig.align = "centre"}
 nl_mlb_df %>%
-  filter(played_negro_league == 1) %>% 
+  group_by(played_negro_league) %>% 
+  add_count(mlb_debut) %>% 
+  rename(debut_count = n) %>% 
+  filter(played_negro_league == 1) %>%
   ggplot(aes(x = year, y = debut_count))+
   geom_point(colour = "dodgerblue", size = 3)+
   geom_line(colour = "dodgerblue")+
   theme_minimal()+
-  theme(text = element_text(family = "jost-sans-serif"))+
+  theme(text = element_text(family = "jost-sans-serif"),
+        panel.grid.minor = element_blank())+
   labs(y = "Player Count",
        x = "Year")+
   scale_x_continuous(breaks = c(1947, 1950, 1953, 1956, 1959, 
@@ -134,4 +116,95 @@ nl_mlb_df %>%
                                 1977))+
   scale_y_continuous(breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11))
 ```
+
+```{r count data, message=F, echo=F, warning=F}
+source(here("script/rmarkdown/nl_mlb_count.R"))
+```
+
+```{r}
+x <- nl_mlb_df %>% 
+  group_by(played_negro_league) %>% 
+  count(mlb_debut) %>% 
+  rename(debut_count = n,
+         season = mlb_debut) %>% 
+  filter(played_negro_league == 0) %>% 
+  ungroup() %>% 
+  select(-played_negro_league)
+
+
+y <- nl_mlb_df %>% 
+  group_by(played_negro_league) %>% 
+  count(mlb_final) %>% 
+  rename(final_count = n,
+         season = mlb_final) %>% 
+  filter(played_negro_league == 0) %>% 
+  ungroup() %>% 
+  select(-played_negro_league)
+
+z <- inner_join(x, y, by = "season") %>% 
+  mutate(player_count = 0) %>% 
+  add_row(season = 1870, debut_count = 0, final_count = 0, player_count = 0, .before = 1)
+
+# for index i in the length of player_count starting at second value
+for(i in 2:length(z$player_count)){
+     # make palyer_count at index location equal to->
+     # debut count of that year + player count of previous year - final count of previous year
+     # this gives an accurate count of the number of Negro League players for a season by ->
+     # adding the number of new players to the number of previous players minus the number of players ->
+     # no longer playing
+     z$player_count[i] <- (z$debut_count[i] +
+                           z$player_count[i-1]) -
+                           z$final_count[i-1]
+}
+```
+
+```{r, echo=F, message=F, warning=F, fig.align="centre"}
+nl_mlb_counts %>% 
+  filter(season >= 1947 & season <= 1981) %>% 
+  ggplot(aes(x = season, y = player_count)) + 
+  geom_line(colour = "dodgerblue")+
+  geom_area(fill = "dodgerblue", alpha = .75)+
+  theme_minimal()+
+  theme(text = element_text(family = "jost-sans-serif"),
+        panel.grid.minor = element_blank())+
+  labs(y = "Player Count",
+       x = "Year")+
+  scale_x_continuous(breaks = c(1947, 1950, 1953, 1956, 1959, 
+                                1962, 1965, 1968, 1971, 1974,
+                                1977, 1980))+
+  scale_y_continuous(breaks = c(0, 5, 10, 15, 20, 25, 30, 35, 40))
+```
+
+```{r}
+nl_counts %>% 
+  slice(-84) %>% 
+  ggplot(aes(x = season, y = player_count))+
+  geom_line(colour = "dodgerblue")+
+  geom_area(fill = "dodgerblue", alpha = .75)+
+  theme_minimal()+
+  labs(x = "Year",
+       y = "Player Count")+
+  theme(text = element_text(family = "jost-sans-serif"),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank())+
+  geom_vline(xintercept = c(1920, 1947, 1948, 1962), 
+             colour = "#010210", linetype = "solid", size = 0.5)+
+  annotate("text", x = 1939.5, y = 190, 
+           label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers",
+           colour = "#010210",
+           size = 3)+
+  annotate("text", x = 1912.5, y = 190, 
+           label = "1920: Negro National League\n established",
+           colour = "#010210",
+           size = 3)+
+  annotate("text", x = 1968, y = 190, 
+            label = "1962: Negro American\n League folds",
+            colour = "#010210",
+           size = 3)+
+  annotate("text", x = 1953.5, y = 210, 
+           label = "1948: Negro National\n League folds",
+           colour = "#010210",
+           size = 3)
+```
+
 
