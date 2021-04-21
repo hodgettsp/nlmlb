@@ -41,3 +41,9 @@ write_html(nl_data_mlb, "inputs/data/wikipedia/mlb_player_list/raw_data_mlb.html
 black_data_mlb <- read_html("https://en.wikipedia.org/wiki/List_of_first_black_Major_League_Baseball_players")
 # write html code to file
 write_html(black_data_mlb, "inputs/data/wikipedia/black_player_list/raw_black_data_mlb.html")
+
+
+# read html code from given URL for Black players in the MLB
+mlb_47_dodgers <- read_html("https://en.wikipedia.org/wiki/1947_Brooklyn_Dodgers_season")
+# write html code to file
+xml2::write_html(mlb_47_dodgers, "inputs/data/wikipedia/roster_list/raw_47_dodgers.html")
