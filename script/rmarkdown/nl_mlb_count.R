@@ -81,5 +81,34 @@ for(i in 2:length(nl_counts$player_count)){
 nl_counts <- slice(nl_counts, -84)
 
 
+x <- nl_mlb_df %>%
+        count(mlb_debut) %>%
+        arrange(mlb_debut) %>%
+        rename(debut_count = n,
+               season = mlb_debut)
+
+y <- nl_mlb_df %>%
+        count(mlb_final) %>%
+        arrange(mlb_final) %>%
+        rename(final_count = n,
+               season = mlb_final)
+
+z <- inner_join(x, y, by = "season") %>%
+        mutate(player_count = 0) %>%
+        add_row(season = 1870, debut_count = 0, final_count = 0, player_count = 0, .before = 1) %>%
+        slice(-152)
+
+# for index i in the length of player_count starting at second value
+for(i in 2:length(z$player_count)){
+        # make palyer_count at index location equal to->
+        # debut count of that year + player count of previous year - final count of previous year
+        # this gives an accurate count of the number of Negro League players for a season by ->
+        # adding the number of new players to the number of previous players minus the number of players ->
+        # no longer playing
+        z$player_count[i] <- (z$debut_count[i] +
+                                              z$player_count[i-1]) -
+                z$final_count[i-1]
+}
+
 # remove debut and final counts
 rm(list = c("nl_mlb_debut_counts", "nl_mlb_final_counts", "nl_debut_counts", "nl_final_counts"))
