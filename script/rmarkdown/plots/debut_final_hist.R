@@ -22,50 +22,34 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 # load font
 showtext_auto()
 
+# generate plot
 nl_df %>%
-     ggplot()+
-     geom_vline(xintercept = c(1920, 1947, 1948, 1962),
-                colour = "#010210", linetype = "solid", size = 0.25)+
-     geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 1, bins = 30,
+        ggplot()+
+        geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 1, bins = 30,
                     colour = "white")+
-     geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 1, bins = 30,
-                    colour = "white", alpha = 0.75)+
-     theme_minimal()+
-     labs(x = "Year",
-          y = "Player Count")+
-     theme(text = element_text(family = "jost-sans-serif"),
-           panel.grid.minor = element_blank(),
-           panel.grid.major.x = element_blank(),
-           panel.grid.major.y = element_line(colour = "#e0edf5"),
-           legend.position = "top")+
-     scale_x_continuous(breaks = c(1874, 1884, 1894, 1904,
-                                   1914, 1924, 1934, 1944,
-                                   1954, 1964, 1975))+
-     scale_y_continuous(breaks = c(0, 10, 20, 30, 40, 50, 60,
-                                   70, 80, 90, 100, 110, 120,
-                                   130, 140))+
-     scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))+
-     annotate("text", x = 1933, y = 113,
-              label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers",
-              family = "jost-sans-serif",
-              colour = "#010210",
-              size = 3,
-              hjust = 0)+
-     annotate("text", x = 1905.5, y = 113,
-              label = "1920: Negro National League\n established",
-              family = "jost-sans-serif",
-              colour = "#010210",
-              size = 3,
-              hjust = 0)+
-     annotate("text", x = 1962.25, y = 113,
-              label = "1962: Negro American\n League folds",
-              family = "jost-sans-serif",
-              colour = "#010210",
-              size = 3,
-              hjust = 0)+
-     annotate("text", x = 1948.5, y = 106,
-              family = "jost-sans-serif",
-              label = "1948: Negro National\n League folds",
-              colour = "#010210",
-              size = 3,
-              hjust = 0)
+        geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 1, bins = 30,
+                       colour = "white", alpha = 0.75)+
+        labs(x = "Year",
+             y = "Player Count")+
+        theme(text = element_text(family = "jost-sans-serif"),
+              panel.grid.minor = element_blank(),
+              panel.grid.major = element_blank(),
+              panel.grid.major.y = element_line(colour = "cornsilk4",
+                                                linetype = "dotted"),
+              panel.background = element_rect(fill = "cornsilk1"),
+              plot.background = element_rect(fill = "cornsilk1"),
+              axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm"),
+                                          size = 12),
+              axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm"),
+                                          size = 12),
+              legend.position = "top",
+              legend.background = element_rect(fill = "cornsilk1"))+
+        scale_x_continuous(breaks = c(1875, 1880, 1885, 1890, 1895,
+                                      1900, 1905, 1910, 1915, 1920,
+                                      1925, 1930, 1935, 1940, 1945,
+                                      1950, 1955, 1960, 1965, 1970,
+                                      1975))+
+        scale_y_continuous(breaks = c(0, 10, 20, 30, 40, 50, 60,
+                                      70, 80, 90, 100, 110, 120,
+                                      130, 140))+
+        scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))

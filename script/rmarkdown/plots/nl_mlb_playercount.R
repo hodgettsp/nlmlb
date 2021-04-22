@@ -22,18 +22,24 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 # load font
 showtext_auto()
 
+# generate plot
 nl_mlb_counts %>%
      filter(season >= 1947 & season <= 1981) %>%
-     ggplot(aes(x = season, y = player_count)) +
-     geom_area(fill = "dodgerblue", alpha = .5)+
-     geom_line(colour = "dodgerblue", size = 1)+
-     theme_minimal()+
-     theme(text = element_text(family = "jost-sans-serif"),
-           panel.grid.minor = element_blank(),
-           panel.grid.major = element_line(colour = "#e0edf5"))+
-     labs(y = "Player Count",
-          x = "Year")+
-     scale_x_continuous(breaks = c(1947, 1950, 1953, 1956, 1959,
-                                   1962, 1965, 1968, 1971, 1974,
-                                   1977, 1980))+
-     scale_y_continuous(breaks = c(0, 5, 10, 15, 20, 25, 30, 35, 40))
+        ggplot(aes(x = season, y = player_count)) +
+        geom_line(colour = "dodgerblue", size = .75)+
+        theme(text = element_text(family = "jost-sans-serif"),
+              panel.grid.minor = element_blank(),
+              panel.grid.major = element_blank(),
+              panel.grid.major.y = element_line(colour = "cornsilk4",
+                                                linetype = "dotted"),
+              panel.background = element_rect(fill = "cornsilk1"),
+              plot.background = element_rect(fill = "cornsilk1"),
+              axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm"),
+                                          size = 12),
+              axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm"),
+                                          size = 12))+
+        labs(y = "Player Count",
+             x = "Year")+
+        scale_x_continuous(breaks = c(1947, 1950, 1953, 1956, 1959, 1962,
+                                      1965, 1968, 1971, 1974, 1977, 1980))+
+        scale_y_continuous(breaks = c(0, 5, 10, 15, 20, 25, 30, 35, 40))

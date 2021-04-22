@@ -78,7 +78,8 @@ for(i in 2:length(nl_counts$player_count)){
                 nl_counts$final_count[i-1]
 }
 
-nl_counts <- slice(nl_counts, -84)
+nl_counts <- slice(nl_counts, -84) %>%
+        add_row(season = 1976, debut_count = 0, final_count = 0, player_count = 0)
 
 
 x <- nl_mlb_df %>%

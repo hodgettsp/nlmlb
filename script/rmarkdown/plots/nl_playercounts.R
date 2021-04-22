@@ -22,41 +22,51 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 # load font
 showtext_auto()
 
+# generate plot
 nl_counts %>%
-     slice(-84) %>%
-     ggplot(aes(x = season, y = player_count))+
-     geom_area(fill = "dodgerblue", alpha = .5)+
-     geom_line(colour = "dodgerblue", size = 1)+
-     theme_minimal()+
-     labs(x = "Year",
-          y = "Player Count")+
-     theme(text = element_text(family = "jost-sans-serif"),
-           panel.grid.minor = element_blank(),
-           panel.grid.major.x = element_blank(),
-           panel.grid.major.y = element_line(colour = "#e0edf5"))+
-     geom_vline(xintercept = c(1920, 1947, 1948, 1962),
-                colour = "#010210", linetype = "solid", size = 0.5)+
-     annotate("text", x = 1933, y = 280,
-              label = "1947: Jackie Robinson debuts\n for the Brooklyn Dodgers",
-              colour = "#010210",
-              size = 3,
-              hjust = 0,
-              family = "jost-sans-serif")+
-     annotate("text", x = 1905.5, y = 290,
-              label = "1920: Negro National League\n established",
-              colour = "#010210",
-              size = 3,
-              hjust = 0,
-              family = "jost-sans-serif")+
-     annotate("text", x = 1962.25, y = 280,
-              label = "1962: Negro American\n League folds",
-              colour = "#010210",
-              size = 3,
-              hjust = 0,
-              family = "jost-sans-serif")+
-     annotate("text", x = 1948.5, y = 290,
-              label = "1948: Negro National\n League folds",
-              colour = "#010210",
-              size = 3,
-              hjust = 0,
-              family = "jost-sans-serif")
+        # set x axis as season and y as player count
+        ggplot(aes(x = season, y = player_count))+
+        # generate area geom and fill with dodger blue at .75 opacity
+        geom_area(fill = "dodgerblue", alpha = .75)+
+        # set axis labels
+        labs(x = "Year",
+             y = "Player Count")+
+        # set theme elements ->
+        # set plot font to Jost
+        theme(text = element_text(family = "jost-sans-serif"),
+              # remove minor plot grid lines
+              panel.grid.minor = element_blank(),
+              # remove major x axis grid lines
+              panel.grid.major.x = element_blank(),
+              # set y axis major grid lines to cornsilk4 colours ->
+              # and linetype to dotted
+              panel.grid.major.y = element_line(colour = "cornsilk4",
+                                                linetype = "dotted"),
+              # set panel background to cornsilk1
+              panel.background = element_rect(fill = "cornsilk1"),
+              # set plot background to cornsilk1
+              plot.background = element_rect(fill = "cornsilk1"),
+              # increase margin around x axis title by 5mm ->
+              # and set title size to 12
+              axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm"),
+                                          size = 12),
+              # increase margin around y axis title by 5mm ->
+              # and set title size to 12
+              axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm"),
+                                          size = 12))+
+        # set x scale values
+        scale_x_continuous(breaks = c(1873, 1879, 1885, 1891, 1897, 1903,
+                                      1909, 1915, 1921, 1927, 1933, 1939,
+                                      1945, 1951, 1957, 1963, 1969, 1975))+
+        # set y scale values
+        scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175,
+                                      200, 225, 250, 275, 300, 325, 350,
+                                      375, 400))+
+        # add highlight rectangle annotation ->
+        # set xmin to 1920 and xmax to 1963 ->
+        # set ymin as -Inf and ymax as Inf to cover whole plot
+        annotate("rect", xmin = 1920, xmax = 1963, ymin = -Inf, ymax = Inf,
+                 # set fill and border colour to Monarch red
+                 fill = "#dd3530",
+                 # set fill opacity to .5
+                 alpha = .5)
