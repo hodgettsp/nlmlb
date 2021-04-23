@@ -1,10 +1,22 @@
 ---
-title: "A Statistical Analysis of Integration and the Negro League"
-author: "Paul A. Hodgetts"
-date: "09/04/2021"
-output: 
-  pdf_document:
-    latex_engine: lualatex
+output:
+  bookdown::pdf_document2:
+    citation_package: natbib
+    keep_tex: false
+    fig_caption: true
+    number_sections: true
+    latex_engine: pdflatex
+title: ""
+author:
+- Paul A. Hodgetts
+abstract: "As Bradshaw left, the lawyer looked at his watch. “And now, Poole, let us get to ours,” he said; and taking the poker under his arm, led the way into the yard. The scud had banked over the moon, and it was now quite dark. The wind, which only broke in puffs and draughts into that deep well of building, tossed the light of the candle to and fro about their steps, until they came into the shelter of the theatre, where they sat down silently to wait. London hummed solemnly all around; but nearer at hand, the stillness was only broken by the sounds of a footfall moving to and fro along the cabinet floor."
+keywords: "Negro Leagues; Major League Baseball; baseball"
+toc: false
+date: "`r format(Sys.time(), '%d %B %Y')`"
+bibliography: references.bib
+biblio-style: "apalike"
+endnote: no
+fontsize: 12pt
 ---
 
 ```{r setup, include=FALSE}
@@ -65,4 +77,16 @@ source(here("script/rmarkdown/nl_mlb_count.R"))
 
 On April 15th, 1947, Jackie Robinson made his debut for the Brooklyn Dodgers and broke the Major League Baseball (MLB) 'Colour Line' that had been established as an unwritten agreement amongst league owners preventing non-white players from playing in the MLB. Although not the first Black man to play in the major leagues, historians consider William Edward White the first Black player and Moses Fleetwood Walker as the first openly Black player, Robinson was the first to break the established segregation and usher in an era of integration for the MLB. Indeed, Moses Fleetwood Walker was the last Black player in the Majors and it was the refusal of Cap Anson to take the field against Fleetwood Walker that led to the segragation of baseball and establishment of the "Colour Line".
 
-Before joining the Brooklyn Dodgers organization in 1946, Robinson spent the 1945 baseball season playing for the Kansas City Monarchs of the Negro American League. While various iterations of the Negro Leagues had existed, it is generally agreed upon by baseball historians that the period of time that is referred to by use of the Negro Leagues is between the 1920 and the establishment of the Negro National League and the early 1960's with the folding of the Negro American League. In a time during which Black players were not allowed to play in the MLB, the Negro Leagues provided a place for Black players to play and be paid for their efforts. Over the seasons, the Negro Leagues saw such stars as Cool Papa Bell, Satchel Paige, Josh Gibson, Ernie Banks, Willie Mays, and Henry Aaron to name a few. Like Robinson, some of these players saw time in the MLB. However, the integration of the MLB did not eliminate the racism these players experienced, which continued from the fans and other players. Moreover, many players from the Negro Leagues were never given a fair opportunity to play in the MLB, while those who retired from baseball before the 1947 season were never even given a chance. 
+Before joining the Brooklyn Dodgers organization in 1946, Robinson spent the 1945 baseball season playing for the Kansas City Monarchs of the Negro American League. While various iterations of the Negro Leagues had existed, it is generally agreed upon by baseball historians that the period of time that is referred to by use of the Negro Leagues is between the 1920 and the establishment of the Negro National League and the early 1960's with the folding of the Negro American League. In a time during which Black players were not allowed to play in the MLB, the Negro Leagues provided a place for Black players to play and be paid for their efforts. Over the seasons, the Negro Leagues saw such stars as Cool Papa Bell, Satchel Paige, Josh Gibson, Ernie Banks, Willie Mays, and Henry Aaron to name a few. Like Robinson, some of these players saw time in the MLB. However, the integration of the MLB did not eliminate the racism these players experienced, which continued from the fans and other players. Moreover, many players from the Negro Leagues were never given a fair opportunity to play in the MLB, while those who retired from baseball before the 1947 season were never even given a chance. While the integration of baseball has been considered necessary, the effects that the implementation of integration had on the Negro Leagues and Black-baseball in the United States in general have been questioned. Integration itself was also not an immediate process. For instance, while Jackie Robinson debuted in 1947 for the Brooklyn Dodgers of the National League and Larry Doby debuted in the same year shortly after for the Cleveland baseball team of the American League, it was not until 1959, twelve years after Jackie Robinson and Larry Doby first played and three years after Robinson retired and the same year that Doby retired, that the entire Major Leagues was integrated when Pumpsie Green debuted for the Boston Red Sox. Additionally, the difficulty of making the Major Leagues has been noted by previous Negro League players. Due to both the competition and that teams would often only carry two to three Black players on the roster at a given time.
+
+This paper explores the following: the accessibility of Negro League data as compared to Major League data of the same period as discussed within the larger context of racially based historical data, the process of integration and the number of Black players (those who played in the Negro Leagues and those who did not) carried by teams in the Integration Era, and the effects of integration on the Negro Leagues. The Integration Era of baseball is often classified as the beginning of the 1947 season to the end of the 1960 season. After which, the Major Leagues expanded to include two new teams in the American League at the beginning of the 1961 season. While an official date for the end of the Negro Leagues is not officially agreed upon, Negro League All-Star games were played in 1962. For this reason, this paper will examine integration as from the beginning of the 1947 season to the end of the 1962 season. This is done to include as much of a period of the officially recognized Negro Leagues as possible; however, it does mean including two years in which the Major Leagues expanded (1961 and 1962). As such, a particular focus will be between the 1947 and 1960 seasons as the introduction of the four new teams would change the demographics of the player population. Additionally, the league was fully integrated in 1959, so use of 1960 provides a useful cut-off point to mark the end of initial integration.
+
+# The Negro Leagues
+
+In 1920, the Negro National League was founded in large part due to the efforts of Andrew "Rube" Foster. While previous Black teams and leagues had existed in some form, the formulation of this league marked what is commonly considered the beginning of the modern Negro "Major" Leagues. For 11 years the Negro National League was considered the highest level of play amongst Negro league teams, but financial troubles brought on by the Great Depression led to the folding of the league in 1931. With the folding of the Negro National League in 1931, the remaining Negro Southern League, hosting such teams as the Nashville Elite Giants and Birmingham Black Barons, was elevated as the de facto major league for the 1932 season. However, this designation only lasted for the 1932 season as the Negro National League was re-established in 1933 and was again considered the major league for the Negro Leagues. Four years later the Negro National League would be joined at the major league level by the establishment of the Negro American League in 1937. These leagues continued operation until between the 1948 and 1949 seasons, a year after Jackie Robinson debuted for the Brooklyn Dodgers and Larry Doby debuted for the Cleveland baseball team, when the Negro National League folded. The Negro American League would continue operation until between the 1962 and 1963 seasons when the final All-Star game was held. This point is generally marked as the official end of the Negro League. Other teams, like the Indianapolis Clowns existed and continued operating, but often only for exhibition games and not in a competitive sense.  
+
+# Data
+
+Access to Negro League data is limited when compared to the accessibility of Major League Baseball data for the same period of time (1920-1962). For example, the `Lahman` `R` package provides access to MLB player, batting, pitching, and fielding data dating back to 1871. Whereas, no equivalent `R` package exists for Negro League data. Additionally, batting and fielding data is currently only available for 1920 to 1948 through the 'Seamheads' website. 
+
+# Discussion

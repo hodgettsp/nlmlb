@@ -34,7 +34,7 @@ nl_df %>%
         theme(text = element_text(family = "jost-sans-serif"),
               panel.grid.minor = element_blank(),
               panel.grid.major = element_blank(),
-              panel.grid.major.y = element_line(colour = "cornsilk4",
+              panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
               panel.background = element_rect(fill = "cornsilk1"),
               plot.background = element_rect(fill = "cornsilk1"),

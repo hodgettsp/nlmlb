@@ -40,7 +40,7 @@ nl_counts %>%
               panel.grid.major.x = element_blank(),
               # set y axis major grid lines to cornsilk4 colours ->
               # and linetype to dotted
-              panel.grid.major.y = element_line(colour = "cornsilk4",
+              panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
               # set panel background to cornsilk1
               panel.background = element_rect(fill = "cornsilk1"),
@@ -67,6 +67,6 @@ nl_counts %>%
         # set ymin as -Inf and ymax as Inf to cover whole plot
         annotate("rect", xmin = 1920, xmax = 1963, ymin = -Inf, ymax = Inf,
                  # set fill and border colour to Monarch red
-                 fill = "#dd3530",
+                 fill = "LightSkyBlue1",
                  # set fill opacity to .5
-                 alpha = .5)
+                 alpha = 0)

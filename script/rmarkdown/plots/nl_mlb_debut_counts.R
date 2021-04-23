@@ -28,12 +28,12 @@ nl_mlb_df %>%
         rename(debut_count = n) %>%
         filter(played_negro_league == 1) %>%
         ggplot(aes(x = year, y = debut_count))+
+        geom_line(colour = "LightSkyBlue1", size = .5)+
         geom_point(colour = "dodgerblue", size = 2)+
-        geom_line(colour = "dodgerblue", size = .5)+
         theme(text = element_text(family = "jost-sans-serif"),
               panel.grid.minor = element_blank(),
               panel.grid.major = element_blank(),
-              panel.grid.major.y = element_line(colour = "cornsilk4",
+              panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
               panel.background = element_rect(fill = "cornsilk1"),
               plot.background = element_rect(fill = "cornsilk1"),
