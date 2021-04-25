@@ -1,22 +1,19 @@
 ---
-output:
-  bookdown::pdf_document2:
-    citation_package: natbib
-    keep_tex: false
-    fig_caption: true
-    number_sections: true
-    latex_engine: pdflatex
-title: ""
-author:
-- Paul A. Hodgetts
+output: 
+  pdf_document:
+    citation_package: biblatex
+    latex_engine: xelatex
+  toc: false
+  fig_caption: true
+title: "Negro Leagues"
+author: "Paul A. Hodgetts"
 abstract: "As Bradshaw left, the lawyer looked at his watch. “And now, Poole, let us get to ours,” he said; and taking the poker under his arm, led the way into the yard. The scud had banked over the moon, and it was now quite dark. The wind, which only broke in puffs and draughts into that deep well of building, tossed the light of the candle to and fro about their steps, until they came into the shelter of the theatre, where they sat down silently to wait. London hummed solemnly all around; but nearer at hand, the stillness was only broken by the sounds of a footfall moving to and fro along the cabinet floor."
 keywords: "Negro Leagues; Major League Baseball; baseball"
-toc: false
 date: "`r format(Sys.time(), '%d %B %Y')`"
 bibliography: references.bib
-biblio-style: "apalike"
-endnote: no
+biblio-style: numeric
 fontsize: 12pt
+mainfont: Garamond
 ---
 
 ```{r setup, include=FALSE}
@@ -87,6 +84,16 @@ In 1920, the Negro National League was founded in large part due to the efforts 
 
 # Data
 
-Access to Negro League data is limited when compared to the accessibility of Major League Baseball data for the same period of time (1920-1962). For example, the `Lahman` `R` package provides access to MLB player, batting, pitching, and fielding data dating back to 1871. Whereas, no equivalent `R` package exists for Negro League data. Additionally, batting and fielding data is currently only available for 1920 to 1948 through the 'Seamheads' website. 
+## Access
+
+Access to Negro League data is limited when compared to the accessibility of Major League Baseball data for the same period of time (1920-1962). For example, the `Lahman` `R` package provides access to MLB player, batting, pitching, and fielding data dating back to 1871. Whereas, no equivalent `R` package exists for Negro League data. Additionally, batting and fielding data is currently only available for 1920 to 1948 through the 'Seamheads' Negro Leagues database website [@seamheads]. Additionally, this database only covers games between teams that the managers of the database have deemed as Black major league teams. This means games against white semipro and amateur teams, lower-level white minor league teams, college teams, and teams defined as Black minor league teams. Prior to the 1920 season, these games comprised a large part of Black teams' schedules, which means statistics from these games are largely unavailable. This is in comparison to the accessibility of MLB data from websites such as Baseball Reference, Fangraphs, and the MLB website. Additionally, in comparison to access to Negro League data, this MLB data is readily accessible through databases like the Lahman database and Retrosheets database. Additionally, packages such as `Lahman`, `retrosheet`, and `baseballr` make accessing data from these sites easier, while no such equivalent package exists for Seamheads or Negro League data.
+
+## Collection
+
+Due to the lack of immediately downloadable data, data for this project was compiled from scraping PDF files made available by the Center for Negro League Baseball Research (CNLBR) [@CNLBR]. Additional Negro League player lists were scraped from the Wikipedia entries that alphabetically list Negro League players [@wikipedia]. Code from the Wikipedia pages was scraped using the `rvest` package [@rvest]. In a comparison to Negro League player lists provided by the CNLBR, it was noted that the Wikipedia list of Negro League players was incomplete. To complete this list, these players were manually entered into the Wikipedia scraped list. However, these players were only found because they also played in the MLB, meaning that the list of Negro League players used in this paper may be incomplete. There are indeed discrepancies between both lists, with the Wikipedia list containing players who do not appear on the Center for Negro League Baseball Research list and vice versa. Meaning, the current list of Negro League players is incomplete. Highlighting another issue of the quality and accesibility of Negro League data.
+
 
 # Discussion
+
+
+# References
