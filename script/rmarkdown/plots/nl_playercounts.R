@@ -48,11 +48,11 @@ nl_counts %>%
               plot.background = element_rect(fill = "cornsilk1"),
               # increase margin around x axis title by 5mm ->
               # and set title size to 12
-              axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm"),
+              axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
                                           size = 12),
               # increase margin around y axis title by 5mm ->
               # and set title size to 12
-              axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm"),
+              axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
                                           size = 12))+
         # set x scale values
         scale_x_continuous(breaks = c(1873, 1879, 1885, 1891, 1897, 1903,
@@ -69,4 +69,4 @@ nl_counts %>%
                  # set fill and border colour to Monarch red
                  fill = "LightSkyBlue1",
                  # set fill opacity to .5
-                 alpha = 0)
+                 alpha = .5)

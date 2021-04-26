@@ -38,9 +38,9 @@ nl_df %>%
                                                 linetype = "dotted"),
               panel.background = element_rect(fill = "cornsilk1"),
               plot.background = element_rect(fill = "cornsilk1"),
-              axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm"),
+              axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
                                           size = 12),
-              axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm"),
+              axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
                                           size = 12),
               legend.position = "top",
               legend.background = element_rect(fill = "cornsilk1"))+
