@@ -43,13 +43,8 @@ nl_df %>%
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
                                           size = 12),
               legend.position = "top",
-              legend.background = element_rect(fill = "cornsilk1"))+
-        scale_x_continuous(breaks = c(1875, 1880, 1885, 1890, 1895,
-                                      1900, 1905, 1910, 1915, 1920,
-                                      1925, 1930, 1935, 1940, 1945,
-                                      1950, 1955, 1960, 1965, 1970,
-                                      1975))+
-        scale_y_continuous(breaks = c(0, 10, 20, 30, 40, 50, 60,
-                                      70, 80, 90, 100, 110, 120,
-                                      130, 140))+
+              legend.background = element_rect(fill = "cornsilk1"),
+              axis.text.x = element_text(angle = 90))+
+        scale_x_continuous(breaks = seq(1873, 1975, 2))+
+        scale_y_continuous(breaks = seq(0, 140, 10))+
         scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))

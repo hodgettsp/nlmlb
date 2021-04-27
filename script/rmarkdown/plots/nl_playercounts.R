@@ -58,9 +58,7 @@ nl_counts %>%
         # set x scale values
         scale_x_continuous(breaks = seq(1873, 1976, 2))+
         # set y scale values
-        scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175,
-                                      200, 225, 250, 275, 300, 325, 350,
-                                      375, 400))+
+        scale_y_continuous(breaks = seq(0, 400, 25))+
         # add highlight rectangle annotation ->
         # set xmin to 1920 and xmax to 1963 ->
         # set ymin as -Inf and ymax as Inf to cover whole plot

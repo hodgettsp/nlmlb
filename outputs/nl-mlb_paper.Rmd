@@ -38,18 +38,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(here)
 ```
 
-```{r load data, echo=F, message=F, warning=F}
-source(here("script/rmarkdown/load_data.R"))
-```
-
-```{r prep data, echo=F, warning=F, message=F}
-source(here("script/rmarkdown/prep_data.R"))
-```
-
-```{r count data, message=F, echo=F, warning=F}
-source(here("script/rmarkdown/nl_mlb_count.R"))
-```
-
 # Introduction
 
 On April 15th, 1947, Jackie Robinson made his debut for the Brooklyn Dodgers and broke the Major League Baseball (MLB) 'Colour Line' that had been established as an unwritten agreement amongst league owners preventing non-white players from playing in the MLB. Although not the first Black man to play in the major leagues, historians consider William Edward White the first Black player and Moses Fleetwood Walker as the first openly Black player, Robinson was the first to break the established segregation and usher in an era of integration for the MLB. Indeed, Moses Fleetwood Walker was the last Black player in the Majors and it was the refusal of Cap Anson to take the field against Fleetwood Walker that led to the segragation of baseball and establishment of the "Colour Line".
@@ -92,7 +80,11 @@ The Negro American League folded around the 1963 season, and as can be seen in F
 knitr::include_graphics(here::here("outputs/plots/plot1.png"))
 ```
 
-Yet, while Figure 1 shows the distribution of players who debuted or played their final game for a given season in the Negro Leagues, it is also necessary to understand the total number of players in the Negro League for a given season. Figure 2 shows the distribution of total number of players for the Negro Leagues from 1873 to 1975. This distribution shows a peak of total number of players in the Negro Leagues in the 1923 season with 383 players, shortly after the Negro National League was established and the Negro Southern League began play. Additionally, the decrease of players in the Negro Leagues due to the folding of leagues is evident towards the middle of the distribution with a resurgence when leagues were re-established or new leagues established. Interestingly, this decrease is greater than the one found during the United States' involvement in World War II (1941 to 1946). 
+Yet, while Figure 1 shows the distribution of players who debuted or played their final game for a given season in the Negro Leagues, it is also necessary to understand the total number of players in the Negro League for a given season. Figure 2 shows the distribution of total number of players for the Negro Leagues from 1873 to 1975. This distribution shows a peak of total number of players in the Negro Leagues in the 1923 season with 383 players, shortly after the Negro National League was established and the Negro Southern League began play. Additionally, the decrease of players in the Negro Leagues due to the folding of leagues is evident towards the middle of the distribution with a resurgence when leagues were re-established or new leagues established. Interestingly, this decrease is greater than the one found during the United States' involvement in World War II (1941 to 1946). Moreover, the steep decline in players in the Negro Leagues that is evident in Figure 1 beginning between 1948 and 1949 is also evident here.
+
+Given that the data available only provided the number of players who debuted or played their final game for a season, the total number of players was not available. 
+
+$$(debut + previousplayercount) - previousfinalgame$$
 
 ```{r nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975.", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot4.png"))

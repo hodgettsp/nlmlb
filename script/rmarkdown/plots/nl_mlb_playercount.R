@@ -40,6 +40,5 @@ nl_mlb_counts %>%
                                           size = 12))+
         labs(y = "Player Count",
              x = "Year")+
-        scale_x_continuous(breaks = c(1947, 1950, 1953, 1956, 1959, 1962,
-                                      1965, 1968, 1971, 1974, 1977, 1980))+
-        scale_y_continuous(breaks = c(0, 5, 10, 15, 20, 25, 30, 35, 40))
+        scale_x_continuous(breaks = seq(1947, 1981, 2))+
+        scale_y_continuous(breaks = seq(0, 40, 5))
