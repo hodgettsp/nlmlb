@@ -53,11 +53,10 @@ nl_counts %>%
               # increase margin around y axis title by 5mm ->
               # and set title size to 12
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 12))+
+                                          size = 12),
+              axis.text.x = element_text(angle = 90))+
         # set x scale values
-        scale_x_continuous(breaks = c(1873, 1879, 1885, 1891, 1897, 1903,
-                                      1909, 1915, 1921, 1927, 1933, 1939,
-                                      1945, 1951, 1957, 1963, 1969, 1975))+
+        scale_x_continuous(breaks = seq(1873, 1976, 2))+
         # set y scale values
         scale_y_continuous(breaks = c(0, 25, 50, 75, 100, 125, 150, 175,
                                       200, 225, 250, 275, 300, 325, 350,
@@ -67,6 +66,6 @@ nl_counts %>%
         # set ymin as -Inf and ymax as Inf to cover whole plot
         annotate("rect", xmin = 1920, xmax = 1963, ymin = -Inf, ymax = Inf,
                  # set fill and border colour to Monarch red
-                 fill = "LightSkyBlue1",
+                 fill = "cornsilk1",
                  # set fill opacity to .5
-                 alpha = .5)
+                 alpha = 0)
