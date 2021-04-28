@@ -52,7 +52,7 @@ seamheads_counts %>%
                                           size = 12),
               axis.text.x = element_text(angle = 90))+
         # set x scale values
-        scale_x_continuous(breaks = seq(1887, 1948, 1))+
+        scale_x_continuous(breaks = seq(1886, 1948, 2))+
         # set y scale values
         scale_y_continuous(breaks = seq(0, 525, 25))
 

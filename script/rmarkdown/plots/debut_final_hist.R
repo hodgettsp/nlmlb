@@ -23,11 +23,11 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 showtext_auto()
 
 # generate plot
-nl_df %>%
+z %>%
         ggplot()+
         geom_histogram(aes(x = debut, fill = "Debut"), binwidth = 1, bins = 30,
                     colour = "white")+
-        geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 1, bins = 30,
+        geom_histogram(aes(x = final, fill = "Last Game"), binwidth = 1, bins = 30,
                        colour = "white", alpha = 0.75)+
         labs(x = "Year",
              y = "Player Count")+
@@ -45,6 +45,6 @@ nl_df %>%
               legend.position = "top",
               legend.background = element_rect(fill = "cornsilk1"),
               axis.text.x = element_text(angle = 90))+
-        scale_x_continuous(breaks = seq(1873, 1975, 2))+
-        scale_y_continuous(breaks = seq(0, 140, 10))+
+        scale_x_continuous(breaks = seq(1887, 1948, 1))+
+        scale_y_continuous(breaks = seq(0, 300, 25))+
         scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))

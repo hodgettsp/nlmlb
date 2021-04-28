@@ -17,7 +17,7 @@ library(tidyverse)
 library(here)
 
 # assign all following changes to the nl_player_data using nl_player_data
-nl_player_data <- nl_player_data %>%
+wikipedia_player_data <- wikipedia_player_data %>%
      # mutate firstname column values ->
      # these changes prevent double matches in later join
      # when firstname is Milton and lastname is Smith and last_game is 1927 ->
@@ -37,7 +37,7 @@ nl_player_data <- nl_player_data %>%
 
 
 # assign new dataframe object
-nl_df <- nl_player_data %>%
+wiki_nl_df <- wikipedia_player_data %>%
      # full join nl_mlb_player_data to nl_player_data by lastname and firstname
      full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
      # create new column played_mlb that is a binary dummy variable of whether the ->
@@ -48,6 +48,7 @@ nl_df <- nl_player_data %>%
             played_post_integration = if_else((debut >= 1947 | last_game >=1947), 1, 0),
             # strip digits from adjusted names
             firstname = str_replace(firstname, "\\s\\d*$", ""))
+
 
 
 mlb_player_data <- mlb_player_data %>%

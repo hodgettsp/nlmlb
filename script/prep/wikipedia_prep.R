@@ -169,7 +169,7 @@ nl_player_data <- nl_player_data %>%
             last_game = as.numeric(last_game))
 
 # write NL player data to csv file
-write_csv(nl_player_data, "inputs/data/csv/nl_player_data.csv")
+write_csv(nl_player_data, "inputs/data/csv/wikipedia_player_data.csv")
 
 # clear environment
 rm(list = ls())
