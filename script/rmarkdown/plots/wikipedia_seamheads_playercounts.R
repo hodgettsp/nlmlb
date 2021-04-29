@@ -21,12 +21,12 @@ showtext_auto()
 
         # set x axis as season and y as player count
         ggplot()+
+        geom_area(aes(x = season, y = player_count, fill = "Seamheads"),
+                  seamheads_counts, alpha = .5)+
         # generate area geom and fill with dodger blue at .75 opacity
         geom_area(aes(x = season, y = player_count, fill = "Wikipedia"),
                   filter(wiki_counts, season >= 1886 & season <= 1948),
                   alpha = .75)+
-        geom_area(aes(x = season, y = player_count, fill = "Seamheads"),
-                  seamheads_counts, alpha = .25)+
         # set axis labels
         labs(x = "Year",
              y = "Player Count")+
@@ -59,7 +59,7 @@ showtext_auto()
               # set legend background colour
               legend.background = element_rect(fill = "cornsilk1"))+
         # set x scale values
-        scale_x_continuous(breaks = seq(1873, 1976, 3))+
+        scale_x_continuous(breaks = seq(1886, 1948, 2))+
         # set y scale values
         scale_y_continuous(breaks = seq(0, 525, 25))+
         scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))
