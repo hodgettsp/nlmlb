@@ -31,3 +31,6 @@ for(i in 1:length(files)){
             # assign to global environment
             envir = .GlobalEnv)
 }
+
+# remove extra files
+rm(list = c("files", "i"))

@@ -16,6 +16,8 @@ library(tidyverse)
 # version 1.0.1
 library(here)
 
+source(here("script/rmarkdown/load_data.R"))
+
 # assign all following changes to the nl_player_data using nl_player_data
 wikipedia_player_data <- wikipedia_player_data %>%
      # mutate firstname column values ->

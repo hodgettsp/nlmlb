@@ -10,10 +10,6 @@ library(here)
 # version 0.9-2
 library(showtext)
 
-source(here("script/rmarkdown/load_data.R"))
-
-source(here("script/rmarkdown/prep_data.R"))
-
 source(here("script/rmarkdown/nl_mlb_count.R"))
 
 # access Jost font from Google fonts
@@ -22,23 +18,41 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 # load font
 showtext_auto()
 
-# generate plot
+# pipe nl_mlb_counts
 nl_mlb_counts %>%
-     filter(season >= 1947 & season <= 1981) %>%
+        # filter for between the 1947 and 1981 seasons ->
+        # 1947 being the first season with NL players and 1980 being ->
+        # the next after the last season to have a count
+        filter(season >= 1947 & season <= 1981) %>%
+        # generate plot with season as x axis and player count as y
         ggplot(aes(x = season, y = player_count)) +
-        geom_line(colour = "dodgerblue", size = .75)+
+        # generate line plot
+        geom_line(colour = "lightskyblue1", size = .5)+
+        # generate point plot
+        geom_point(colour = "dodgerblue", size = 2)+
+        # set theme elements -> set font to jost
         theme(text = element_text(family = "jost-sans-serif"),
+              # remove minor grid elements
               panel.grid.minor = element_blank(),
+              # remove major grid elements
               panel.grid.major = element_blank(),
+              # set major y grid elements to light sky blue 1 and dotted
               panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
+              # set panel background colour
               panel.background = element_rect(fill = "cornsilk1"),
+              # set plot background colour
               plot.background = element_rect(fill = "cornsilk1"),
+              # set x axis title margins and fonts size to 12
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
                                           size = 12),
+              # set y axis title margins and font size to 12
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
                                           size = 12))+
+        # set y and x axis labels
         labs(y = "Player Count",
              x = "Year")+
+        # set x axis valus from 1947 to 1981 by 2 count
         scale_x_continuous(breaks = seq(1947, 1981, 2))+
-        scale_y_continuous(breaks = seq(0, 40, 5))
+        # set y axis value from 0 to 40 by 2 count
+        scale_y_continuous(breaks = seq(0, 40, 2))

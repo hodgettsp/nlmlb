@@ -10,7 +10,7 @@ library(here)
 # version 0.9-2
 library(showtext)
 
-source(here("script/prep/seamheads_prep.R"))
+source(here("script/rmarkdown/nl_mlb_count.R"))
 
 # access Jost font from Google fonts
 font_add_google(name = "jost", family = "jost-sans-serif")
@@ -18,12 +18,15 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 # load font
 showtext_auto()
 
-# generate plot
-seamheads_counts %>%
+
         # set x axis as season and y as player count
-        ggplot(aes(x = season, y = player_count))+
+        ggplot()+
         # generate area geom and fill with dodger blue at .75 opacity
-        geom_area(fill = "dodgerblue", alpha = .75)+
+        geom_area(aes(x = season, y = player_count, fill = "Wikipedia"),
+                  filter(wiki_counts, season >= 1886 & season <= 1948),
+                  alpha = .75)+
+        geom_area(aes(x = season, y = player_count, fill = "Seamheads"),
+                  seamheads_counts, alpha = .25)+
         # set axis labels
         labs(x = "Year",
              y = "Player Count")+
@@ -50,11 +53,14 @@ seamheads_counts %>%
               # and set title size to 12
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
                                           size = 12),
-              axis.text.x = element_text(angle = 90))+
+              axis.text.x = element_text(angle = 90),
+              # set legend to top
+              legend.position = "top",
+              # set legend background colour
+              legend.background = element_rect(fill = "cornsilk1"))+
         # set x scale values
-        scale_x_continuous(breaks = seq(1887, 1948, 1))+
+        scale_x_continuous(breaks = seq(1873, 1976, 3))+
         # set y scale values
-        scale_y_continuous(breaks = seq(0, 525, 25))
+        scale_y_continuous(breaks = seq(0, 525, 25))+
+        scale_fill_manual(name = "Legend", values = c("#dd3530", "dodgerblue"))
 
-# clear environment
-rm(list = ls())

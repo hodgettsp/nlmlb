@@ -6,6 +6,8 @@
 # version 1.3.0
 library(tidyverse)
 
+source(here("script/rmarkdown/prep_data.R"))
+
 # create new data object to hold debut counts
 nl_mlb_debut_counts <- nl_mlb_df %>%
      # group by MLB debut year
@@ -50,66 +52,53 @@ for(i in 2:length(nl_mlb_counts$player_count)){
                                        nl_mlb_counts$final_count[i-1]
 }
 
-nl_debut_counts <- nl_df %>%
+# assign new data object for wikipedia debut counts
+wiki_debut_counts <- wiki_nl_df %>%
+        # count debut seasons
         count(debut) %>%
+        # rename count column
+        # rename debut column to season
         rename(debut_count = n,
                season = debut)
-
-nl_final_counts <- nl_df %>%
+# assign new data object for wikipedia final game counts
+wiki_final_counts <- wiki_nl_df %>%
+        # count last games
         count(last_game) %>%
+        # rename final count column
+        # rename last game column to season
         rename(final_count = n,
                season = last_game)
 
-nl_counts <- full_join(nl_debut_counts, nl_final_counts, by = "season") %>%
+# assign new data object by joining wiki debut count to wiki final counts by season
+wiki_counts <- full_join(wiki_debut_counts, wiki_final_counts, by = "season") %>%
+        # add dummy player count column with values of 0
         mutate(player_count = 0) %>%
+        # arrange ascending by season
         arrange(season) %>%
-        add_row(season = 1873, debut_count = 0, final_count = 0, player_count = 0, .before = 1) %>%
+        # add dummy first row for 1873 season, this assists in later count calculation
+        add_row(season = 1873, debut_count = 0, final_count = 0, player_count = 0, .before = 1)%>%
+        # replace NA values with 0, not my favourite thing to do but imputation or ->
+        # removal do not seem like good options
         mutate(across(everything(), ~replace_na(.x, 0)))
 
 # for index i in the length of player_count starting at second value
-for(i in 2:length(nl_counts$player_count)){
+for(i in 2:length(wiki_counts$player_count)){
         # make palyer_count at index location equal to->
         # debut count of that year + player count of previous year - final count of previous year
         # this gives an accurate count of the number of Negro League players for a season by ->
         # adding the number of new players to the number of previous players minus the number of players ->
         # no longer playing
-        nl_counts$player_count[i] <- (nl_counts$debut_count[i] +
-                                      nl_counts$player_count[i-1]) -
-                nl_counts$final_count[i-1]
+        wiki_counts$player_count[i] <- (wiki_counts$debut_count[i] +
+                                        wiki_counts$player_count[i-1]) -
+                wiki_counts$final_count[i-1]
 }
 
-nl_counts <- slice(nl_counts, -84) %>%
+# remove row 84 from wiki counts
+wiki_counts <- slice(wiki_counts, -84) %>%
+        # add dummy row for 1976 season so plot doesn't look haggard
         add_row(season = 1976, debut_count = 0, final_count = 0, player_count = 0)
 
 
-x <- nl_mlb_df %>%
-        count(mlb_debut) %>%
-        arrange(mlb_debut) %>%
-        rename(debut_count = n,
-               season = mlb_debut)
-
-y <- nl_mlb_df %>%
-        count(mlb_final) %>%
-        arrange(mlb_final) %>%
-        rename(final_count = n,
-               season = mlb_final)
-
-z <- inner_join(x, y, by = "season") %>%
-        mutate(player_count = 0) %>%
-        add_row(season = 1870, debut_count = 0, final_count = 0, player_count = 0, .before = 1) %>%
-        slice(-152)
-
-# for index i in the length of player_count starting at second value
-for(i in 2:length(z$player_count)){
-        # make palyer_count at index location equal to->
-        # debut count of that year + player count of previous year - final count of previous year
-        # this gives an accurate count of the number of Negro League players for a season by ->
-        # adding the number of new players to the number of previous players minus the number of players ->
-        # no longer playing
-        z$player_count[i] <- (z$debut_count[i] +
-                                              z$player_count[i-1]) -
-                z$final_count[i-1]
-}
-
 # remove debut and final counts
-rm(list = c("nl_mlb_debut_counts", "nl_mlb_final_counts", "nl_debut_counts", "nl_final_counts"))
+rm(list = c("nl_mlb_debut_counts", "nl_mlb_final_counts", "wiki_debut_counts",
+            "wiki_final_counts", "i"))

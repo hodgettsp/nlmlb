@@ -76,9 +76,18 @@ Figure 1 shows the distribution of players who debuted and played their final ga
 
 The Negro American League folded around the 1963 season, and as can be seen in Figure 1 there were very few players to have debuted or played their final game by that point. Indicating the dire state of the league.
 
-```{r histogram, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975.", out.height="50%"}
+```{r histogram wiki, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975.", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot1.png"))
 ```
+
+```{r histogram seams, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot2.png"))
+```
+
+```{r histogram wiki filter, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot3.png"))
+```
+
 
 Yet, while Figure 1 shows the distribution of players who debuted or played their final game for a given season in the Negro Leagues, it is also necessary to understand the total number of players in the Negro League for a given season. Figure 2 shows the distribution of total number of players for the Negro Leagues from 1873 to 1975. This distribution shows a peak of total number of players in the Negro Leagues in the 1923 season with 383 players, shortly after the Negro National League was established and the Negro Southern League began play. Additionally, the decrease of players in the Negro Leagues due to the folding of leagues is evident towards the middle of the distribution with a resurgence when leagues were re-established or new leagues established. Interestingly, this decrease is greater than the one found during the United States' involvement in World War II (1941 to 1946). Moreover, the steep decline in players in the Negro Leagues that is evident in Figure 1 beginning between 1948 and 1949 is also evident here.
 
