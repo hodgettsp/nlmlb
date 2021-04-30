@@ -33,6 +33,7 @@ mlb_player_data <- People %>%
      # create new columns to hold debut and final year
      mutate(mlb_debut = substr(debut_date, 1, 4),
             mlb_final = substr(final_date, 1, 4),
+            # adjust firstname and lastname for particular players to aid in later join
             firstname = case_when(givenname == "Hector Antonio" & lastname == "Rodriguez" ~ "Héctor",
                                   givenname == "Jose Guillermo" ~ "José",
                                   givenname == "James Buster" ~ "Buster",

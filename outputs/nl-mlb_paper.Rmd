@@ -70,41 +70,70 @@ To also understand the population of the MLB, the `Lahman` [@Lahman] R package w
 
 # Analysis
 
+## Comparison of Data Sources
+
+### Player Debut Season vs. Player Final Season 
+
 In addition to exploring the accessibility of Negro League data in comparison to MLB data, a cursory analysis of the effects of integration on the Negro Leagues was also performed. Previous anlayses have performed a statistical comparison between Negro League players and MLB players. For instance, a piece from 538 [@538], provides a comparison of Negro League players, those who did and did not play in MLB, to current and historical MLB players. Other analyses, such as this report by Armour and Levitt [@sabrdem], provide an analysis of racial demographics of baseball from the start of integration in 1947 to 2016. This report by Pavitt [@sabrpos] examines player participation and fielding position in MLB by player ethnicity from 1946-2018. However, while there has been much written about the end of the Negro Leagues in relation to integration, there is little in regards to a statistical analysis of the process. Particularly as a focus on the Negro Leagues and the players. Two things in particular are examined in this analysis, the count of players in the Negro Leagues pre- and post-integration, and the count of Negro League players and Black players in MLB in the Integration era of MLB (1947 to 1960).
 
 Figure 1 shows the distribution of players who debuted and played their final game for a given season in the Negro Leagues from 1873 to 1975. However, while numbers pre-1920 are available these records are spotty and may not truly represent the actual number of players in the Negro Leagues prior to the 1920 season. The founding of the Negro National League in 1920 can be seen in Figure 1 with the increased number of players making their debut that year and the following season. This could be for two reasons, firstly that there was actually that many players making their debut or that record keeping began for that season and many players who had previously been playing were marked as having debuted for that year. The first collapse of the Negro National League in 1931 can also be seen with close to 70 players their final game. The increase in players making their debut in 1937 can also be attributed to the founding of the Negro American League. Of particular note is the dramatic increase in players who played their final Negro League game in 1948 with 138 players playing their final game. This marks the year after integration formally began with MLB, but also marks the year in which the Negro National League ceased operation. The spike of final games played in 1951 also marks when the Negro Southern League ceased operation.
 
 The Negro American League folded around the 1963 season, and as can be seen in Figure 1 there were very few players to have debuted or played their final game by that point. Indicating the dire state of the league.
 
-```{r histogram wiki, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975.", out.height="50%"}
+```{r histogram-wiki, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975.", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot1.png"))
 ```
 
-```{r histogram seams, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
+In comparison, Figure 2 shows the distribution of players making their debut or playing their final game according to Seamheads. As can be seen, the distribution is fairly similar as to the distribution collected from Wikipedia; however, the counts from Seamehads are higher, which may be in part to some players not being included on the Wikipedia list due to insufficient data that can be used to confirm the player's identity.
+
+```{r histogram-seams, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot2.png"))
 ```
 
-```{r histogram wiki filter, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
+Figure 3 again shows the distribution of the Wikipedia data, however, it has been filtered to only include the same range of years as is in the Seamheads data. This provides a more direct comparison between the two datasets. As can be seen between Figure 2 and Figure 3, the counts are indeed higher in the Seamheads data and the slightly different pattern is more evident between the two with Seamheads (Figure 2) showing a greater number of debuts in 1921 than 1920 whereas the Wikipedia data (Figure 3) shows a greater number of players making their debut in 1920 than 1921.
+
+Other differences between the two include Seamheads shower a greater number of debut seasons than final seasons in 1929, whereas Wikipedia shows the opposite. Wikipedia shows a greater number of final season than debut season for 1936, whereas Seamheads shows the opposite. Other similar patterns can be seen throughout the various seasons between the datasets. This is of particular interests as the Wikipedia list is reliant upon the Seamheads database for the information contained within its list of players.
+
+An issue that also was found in the process of this analysis was that in some cases Wikipedia had the birth-date of the player for the player's debut date in the Negro Leagues. This discrepancy may partially explain the inclusion of dates earlier than 1887 in the Wikipedia list of Negro League players.
+
+```{r histogram-wiki-filter, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot3.png"))
 ```
 
+### Player Counts
 
-Yet, while Figure 1 shows the distribution of players who debuted or played their final game for a given season in the Negro Leagues, it is also necessary to understand the total number of players in the Negro League for a given season. Figure 2 shows the distribution of total number of players for the Negro Leagues from 1873 to 1975. This distribution shows a peak of total number of players in the Negro Leagues in the 1923 season with 383 players, shortly after the Negro National League was established and the Negro Southern League began play. Additionally, the decrease of players in the Negro Leagues due to the folding of leagues is evident towards the middle of the distribution with a resurgence when leagues were re-established or new leagues established. Interestingly, this decrease is greater than the one found during the United States' involvement in World War II (1941 to 1946). Moreover, the steep decline in players in the Negro Leagues that is evident in Figure 1 beginning between 1948 and 1949 is also evident here.
+While Figures 1 through 3 show the distribution of players who debuted or played their final game for a given season in the Negro Leagues, it is also necessary to understand the total number of players in the Negro League for a given season. Figure 4 shows the distribution of total number of players for the Negro Leagues from 1873 to 1975. This distribution shows a peak of total number of players in the Negro Leagues in the 1923 season with 383 players, shortly after the Negro National League was established and the Negro Southern League began play. Additionally, the decrease of players in the Negro Leagues due to the folding of leagues is evident towards the middle of the distribution with a resurgence when leagues were re-established or new leagues established. Interestingly, this decrease is greater than the one found during the United States' involvement in World War II (1941 to 1946). Moreover, the steep decline in players in the Negro Leagues that is evident in Figure 1 beginning between 1948 and 1949 is also evident here.
 
-Given that the data available only provided the number of players who debuted or played their final game for a season, the total number of players was not available. 
+Given that the data available only provided the number of players who debuted or played their final game for a season, the total number of players was not available. In the following formula let $d$ stand for the debut games for a season, $p$ stand for the player count for the previous season, and $f$ stand for the count of final games played in the previous season. As such, the count for the number of players for a given season was calculated as:
 
-$$(debut + previousplayercount) - previousfinalgame$$
+$$(d + p) - f$$
 
-```{r nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot4.png"))
+The collected data from Wikipedia contained missing values for both debut and final game counts for various seasons. These missing values were replaced with a value of 0. This was done to keep those seasons included in the count, as the complete-case approach would remove these seasons. These missing values were created when there was no data for either debuts or final games for a season. However, this approach of imputing missing values with 0 while allowing for keeping these seasons does mean the distribution for players may be off or less than the actual count. There were no missing values for the Seamheads data.
+
+```{r wiki-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975: Wikipedia data.", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot6.png"))
+```
+
+In comparison, Figure 5 shows the estimated player distribution for the Negro Leagues from 1886 to 1948 according to the data collected from Seamheads. Figure 6, likewise, shows the estimated player distribution for the Negro Leagues according to the Wikipedia data but filtered to only include dates from the same range as the Seamheads data (1886 to 1948). A notable difference between Figure 5 and Figure 6 is that the peak for players in the Negro Leagues comes in 1932 for the Seamheads data (N = 504) while it comes in 1923 for the Wikipedia data (N = 384). Additionally, these total counts differ by a difference of 120.
+
+```{r seamheads-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Seamheads data.", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot7.png"))
+```
+
+```{r wiki-nl-count-filter, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948:.", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot8.png"))
+```
+
+```{r seamheads-wiki-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia-Seamheads comparison.", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot9.png"))
 ```
 
 ```{r mlb-debut, echo=FALSE, fig.align='center', fig.cap="The number of players debuting for a given season in Major League Baseball who also played in the Negro Leagues.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot2.png"))
+knitr::include_graphics(here::here("outputs/plots/plot4.png"))
 ```
 
 ```{r nl-in-mlb, echo=FALSE, fig.align='center', fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot3.png"))
+knitr::include_graphics(here::here("outputs/plots/plot5.png"))
 ```
 
 
