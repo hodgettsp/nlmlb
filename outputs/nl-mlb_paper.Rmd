@@ -7,7 +7,7 @@ output:
   fig_caption: true
 title: "Negro Leagues"
 author: "Paul A. Hodgetts"
-abstract: "As Bradshaw left, the lawyer looked at his watch. “And now, Poole, let us get to ours,” he said; and taking the poker under his arm, led the way into the yard. The scud had banked over the moon, and it was now quite dark. The wind, which only broke in puffs and draughts into that deep well of building, tossed the light of the candle to and fro about their steps, until they came into the shelter of the theatre, where they sat down silently to wait. London hummed solemnly all around; but nearer at hand, the stillness was only broken by the sounds of a footfall moving to and fro along the cabinet floor."
+abstract: "As Bradshaw left, the lawyer looked at his watch. “And now, Poole, let us get to ours,” he said; and taking the poker under his arm, led the way into the yard. The scud had banked over the moon, and it was now quite dark. The wind, which only broke in puffs and draughts into that deep well of building, tossed the light of the candle to and fro about their steps, until they came into the shelter of the theatre, where they sat down silently to wait. London hummed solemnly all around; but nearer at hand, the stillness was only broken by the sounds of a footfall moving to and fro along the cabinet floor. Code available on GitHub: https://github.com/hodgettsp/nlmlb"
 keywords: "Negro Leagues; Major League Baseball; baseball"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 bibliography: references.bib
@@ -30,12 +30,26 @@ knitr::opts_chunk$set(echo = TRUE)
 # install here package for accessing directories
 # version 1.0.1
 #install.packages("here")
+
+# install tidyverse package for data stuff
+# version 1.3.1
+#install.packages("tidyverse")
 ```
 
 ```{r libraries, echo=F, message=F, warning=F}
 # load here package
 # version 1.0.1
 library(here)
+
+# load tidyverse package
+# version 1.3.1
+library(tidyverse)
+```
+
+```{r source, echo=F, message=F, warning=F}
+# load data files
+source(here("script/rmarkdown/nl_mlb_count.R"))
+source(here("script/prep/seamheads_prep.R"))
 ```
 
 # Introduction
@@ -114,19 +128,19 @@ The collected data from Wikipedia contained missing values for both debut and fi
 knitr::include_graphics(here::here("outputs/plots/plot6.png"))
 ```
 
-In comparison, Figure 5 shows the estimated player distribution for the Negro Leagues from 1886 to 1948 according to the data collected from Seamheads. Figure 6, likewise, shows the estimated player distribution for the Negro Leagues according to the Wikipedia data but filtered to only include dates from the same range as the Seamheads data (1886 to 1948). A notable difference between Figure 5 and Figure 6 is that the peak for players in the Negro Leagues comes in 1932 for the Seamheads data (N = 504) while it comes in 1923 for the Wikipedia data (N = 384). Additionally, these total counts differ by a difference of 120.
+In comparison, Figure 5 shows the estimated player distribution for the Negro Leagues from 1886 to 1948 according to the data collected from Seamheads. Figure 6, likewise, shows the estimated player distribution for the Negro Leagues according to the Wikipedia data but filtered to only include dates from the same range as the Seamheads data (1886 to 1948). A notable difference between Figure 5 and Figure 6 is that the peak for players in the Negro Leagues comes in 1932 for the Seamheads data (N = 504) while it comes in 1923 for the Wikipedia data (N = 384). Additionally, these total counts differ by a difference of 120. Again, the discrepancies between the data may be due to Wikipedia contributors excluding players, players with only one name in the Seamheads database being counted twice, or the imputation of 0 to replace NA values skews the Wikipedia distribution.
 
 ```{r seamheads-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Seamheads data.", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot7.png"))
 ```
 
-```{r wiki-nl-count-filter, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948:.", out.height="50%"}
+```{r wiki-nl-count-filter, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia data.", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot8.png"))
 ```
 
-```{r seamheads-wiki-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia-Seamheads comparison.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot9.png"))
-```
+## Negro League Players in Major League Baseball
+
+While Jackie Robinson was the first player from the Negro Leagues to cross the color line when he debuted for the Brooklyn Dodgers in 1947, he was not the only player to do so. Four others joined Robinson that year: Larry Doby for Cleveland (becoming the first Black player for the American Leagues), Hank Thompson and Willard Brown for the St. Louis Browns (team moved in 1953 to Baltimore and became the Baltimore Orioles), and Dan Bankhead also for the Brooklyn Dodgers (team moved in 1957 to Los Angeles and became the Los Angeles Dodgers). Over the years, the number of Negro League players who debuted for MLB teams fluctuated until 1978 when Harry Chappas became the last Negro League player to debut for an MLB team (Harry Chappas is actually white but played for the Indianapolis Clowns who are considered to be a Negro League team). In total, 87 players who played in the Negro Leagues also played for MLB teams. Figure 8 shows the years at which Negro League players debuted in MLB and the total count of players debuting that season. The greatest number of Negro League players to debut in a MLB season was 11 in 1954.
 
 ```{r mlb-debut, echo=FALSE, fig.align='center', fig.cap="The number of players debuting for a given season in Major League Baseball who also played in the Negro Leagues.", out.height="50%"}
 knitr::include_graphics(here::here("outputs/plots/plot4.png"))
@@ -142,4 +156,89 @@ knitr::include_graphics(here::here("outputs/plots/plot5.png"))
 
 \newpage
 
-# References
+# Appendix A: Tables
+
+```{r seamheads-counts, echo=F, message=F, warning=F}
+# pipe seamheads count data
+seamheads_counts %>%
+  # rename columns
+  rename(Season = season,
+         `Player Debut Count` = debut_count,
+         `Player Final Game Count` = final_count,
+         `Player Count` = player_count) %>%
+  # remove dummy row
+  slice(-1) %>%
+  # generate table using kableExtra package -> set caption, set booktabs to true, ->
+  # set longtable to true
+  kableExtra::kbl(caption = "Negro League Player Counts, 1887-1948: Seamheads Data.", 
+                  booktabs = T, longtable = T) %>%
+  # set table styling with position to center, ->
+  # force the table position and repeat the header
+  kableExtra::kable_styling(position = "center", 
+                            latex_options = c("HOLD_position",
+                                              "repeat_header"))
+```
+
+```{r wikipedia-counts, echo=F, message=F, warning=F}
+# pipe wikipedia counts
+wiki_counts %>%
+  # rename columns to something nicer to look at
+  rename(Season = season,
+         `Player Debut Count` = debut_count,
+         `Player Final Game Count` = final_count,
+         `Player Count` = player_count) %>%
+  # remove dummy rows
+  slice(-1, -84) %>%
+  # generate table using kableExtra package
+  kableExtra::kbl(caption = "Negro League Player Counts, 1874-1975: Wikipedia Data.", 
+                  booktabs = T, longtable = T) %>%
+  # set kable styling for the table
+  kableExtra::kable_styling(position = "center", 
+                            latex_options = c("HOLD_position",
+                                            "repeat_header"))
+```
+
+```{r nl-mlb-counts, echo=F, message=F, warning=F}
+# pipe nl_mlb_counts
+nl_mlb_counts %>%
+  # rename columns for appearance
+  rename(Season = season,
+         `Player Debut Count` = debut_count,
+         `Player Final Game Count` = final_count,
+         `Player Count` = player_count) %>%
+  # slice for only rows 77 to 110
+  slice(77:110) %>%
+  # generate table using kbl from kableExtra package
+  kableExtra::kbl(caption = "Negro League Players in MLB Counts, 1947-1980: CNLBR Data.", 
+                  booktabs = T) %>%
+  # style table
+  kableExtra::kable_styling(position = "center", latex_options = "HOLD_position")
+```
+
+```{r mlb-counts, echo=F, message=F, warning=F}
+# pipe mlb_counts
+mlb_counts %>%
+  # rename the columns, you know the drill
+  rename(Season = season,
+         `NL Debut Count` = nl_debut,
+         `NL Final Game Count` = nl_final,
+         `NL Player Count` = nl_count,
+         `MLB Debut Count` = mlb_debut,
+         `MLB Final Game Count` = mlb_final,
+         `MLB Player Count` = mlb_count,
+         `NL Players per MLB Population` = nl_per_mlb_pop,
+         `AVG NL Players per Team` = nl_per_team) %>%
+  # generate table using kbl from kableExtra package
+  kableExtra::kbl(caption = "Negro League Players in MLB - Counts and Proportions, 1871 - 2019: Lahman and CNLBR Data.", 
+                  booktabs = T, longtable = T) %>%
+  # set table styling
+  kableExtra::kable_styling(position = "center", 
+                            latex_options = c("HOLD_position", "repeat_header"),
+                            full_width = T)
+```
+
+# Appendix B: Charts
+
+```{r seamheads-wiki-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia-Seamheads comparison.", out.height="50%"}
+knitr::include_graphics(here::here("outputs/plots/plot9.png"))
+```
