@@ -198,36 +198,25 @@ wiki_counts %>%
                                             "repeat_header"))
 ```
 
-```{r nl-mlb-counts, echo=F, message=F, warning=F}
-# pipe nl_mlb_counts
-nl_mlb_counts %>%
-  filter(played_nl == 1) %>%
-  select() %>% 
-  kableExtra::kbl(caption = "Negro League Players in MLB Counts, 1947-1980: CNLBR Data.", 
-                  booktabs = T) %>%
-  # style table
-  kableExtra::kable_styling(position = "center", latex_options = "HOLD_position")
-```
-
 ```{r mlb-counts, echo=F, message=F, warning=F}
 # pipe mlb_counts
-mlb_counts %>%
+nl_mlb_counts %>%
+  select(played_nl, year, player_count, split_player_count, nlp_per_team, nlp_per_mlb_pop) %>% 
+  distinct() %>% 
+  filter(played_nl == 1) %>% 
+  select(-played_nl) %>%
   # rename the columns, you know the drill
-  rename(Season = season,
-         `NL Debut Count` = nl_debut,
-         `NL Final Game Count` = nl_final,
-         `NL Player Count` = nl_count,
-         `MLB Debut Count` = mlb_debut,
-         `MLB Final Game Count` = mlb_final,
-         `MLB Player Count` = mlb_count,
-         `NL Players per MLB Population` = nl_per_mlb_pop,
-         `AVG NL Players per Team` = nl_per_team) %>%
+  rename(`MLB Season` = year,
+         `MLB Player Count` = player_count,
+         `NL Pop in MLB` = split_player_count,
+         `NL Players per MLB Population` = nlp_per_mlb_pop,
+         `AVG NL Players per Team` = nlp_per_team) %>%
   # generate table using kbl from kableExtra package
-  kableExtra::kbl(caption = "Negro League Players in MLB - Counts and Proportions, 1871 - 2019: Lahman and CNLBR Data.", 
-                  booktabs = T, longtable = T) %>%
+  kableExtra::kbl(caption = "Negro League Players in MLB - Counts and Proportions, 1947 - 1980: Retrosheet and CNLBR Data.", 
+                  booktabs = T) %>%
   # set table styling
   kableExtra::kable_styling(position = "center", 
-                            latex_options = c("HOLD_position", "repeat_header"),
+                            latex_options = "HOLD_position",
                             full_width = T)
 ```
 

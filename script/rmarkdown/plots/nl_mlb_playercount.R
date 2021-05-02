@@ -28,9 +28,9 @@ nl_mlb_counts %>%
         add_row(retroID = NA, lastname = NA, firstname = NA,
                 Bat = NA, Throw = NA, season = 81, player_count = 0,
                 mlb_team = NA, nl_team = NA, year = 1981, played_nl = 1,
-                nl_player_count = 0) %>%
+                split_player_count = 0) %>%
         # generate plot with season as x axis and player count as y
-        ggplot(aes(x = year, y = nl_player_count)) +
+        ggplot(aes(x = year, y = split_player_count)) +
         # generate line plot
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot

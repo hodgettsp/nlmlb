@@ -22,49 +22,48 @@ source(here("script/rmarkdown/prep_data.R"))
 
 #### NL MLB COUNTS
 
-# create new data object to hold debut counts
-nl_mlb_debut_counts <- nl_mlb_df %>%
-     # group by MLB debut year
-     group_by(mlb_debut) %>%
-     # summarise the played_negro_league values as grouped by debut year ->
-     # because the values are 1's or 0's sum will produce an accurate count of ->
-     # Negro League players making their debut while leaving 0 for non-Negro League players
-     summarise(sum = sum(played_negro_league)) %>%
-     # rename the sum column as debut_count ->
-     # and rename mlb_debut as season for later joining
-     rename(debut_count = sum,
-            season = mlb_debut)
-
-# create new data object ot hold final game counts
-nl_mlb_final_counts <- nl_mlb_df %>%
-     # group by final year in MLB
-     group_by(mlb_final) %>%
-     # summarise the played_negro_league values as grouped by debut year ->
-     # because the values are 1's or 0's sum will produce an accurate count of ->
-     # Negro League players playing their last season while leaving 0 for non-Negro League players
-     summarise(sum = sum(played_negro_league)) %>%
-     # rename the sum column as final_count ->
-     # and rename mlb_debut as season for later joining
-     rename(final_count = sum,
-            season = mlb_final)
-
-# join debut counts to final counts by season column
-nl_mlb_counts <- inner_join(nl_mlb_debut_counts, nl_mlb_final_counts, by = "season") %>%
-     # create new column player_count with 0 as value as placeholder
-     mutate(player_count = 0)
-
-
-# for index i in the length of player_count starting at second value
-for(i in 2:length(nl_mlb_counts$player_count)){
-     # make palyer_count at index location equal to->
-     # debut count of that year + player count of previous year - final count of previous year
-     # this gives an accurate count of the number of Negro League players for a season by ->
-     # adding the number of new players to the number of previous players minus the number of players ->
-     # no longer playing
-     nl_mlb_counts$player_count[i] <- (nl_mlb_counts$debut_count[i] +
-                                       nl_mlb_counts$player_count[i-1]) -
-                                       nl_mlb_counts$final_count[i-1]
-}
+nl_mlb_counts <- roster4787_data %>%
+        select(-Team, -Pos) %>%
+        distinct() %>%
+        add_count(season) %>%
+        rename(lastname = Last,
+               firstname = First,
+               player_count = n) %>%
+        mutate(lastname = case_when(lastname == "Minoso" & firstname == "Minnie" ~ "Miñoso",
+                                    lastname == "Marquez" & firstname == "Luis" ~ "Márquez",
+                                    lastname == "Rodriguez" & firstname == "Hector" ~ "Rodríguez",
+                                    lastname == "Amoros" & firstname == "Sandy" ~ "Amorós",
+                                    TRUE ~ as.character(lastname)),
+               firstname = case_when(lastname == "Rodríguez" & firstname == "Hector" ~ "Héctor",
+                                     lastname == "Clarkson" & firstname == "Buzz" ~ "Buster",
+                                     lastname == "Bruton" & firstname == "Bill" ~ "Billy",
+                                     lastname == "Santiago" & firstname == "Jose" ~ "José",
+                                     lastname == "Clarke" & firstname == "Webbo" ~ "Vibert",
+                                     lastname == "Coleman" & firstname == "Choo Choo" ~ "Clarence",
+                                     lastname == "Prescott" & firstname == "Bobby" ~ "Bob",
+                                     lastname == "Hartman" & firstname == "J.C." ~ "J. C.",
+                                     lastname == "Odom" & firstname == "Blue Moon" ~ "John",
+                                     lastname == "Smith" & firstname == "Milt" ~ "Milton",
+                                     TRUE ~ as.character(firstname))) %>%
+        full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
+        # add dummy column as to whether player played in NL
+        mutate(played_nl = if_else(!is.na(mlb_team), 1, 0),
+               # add full year by pasting 19 to beginning of season
+               year = as.numeric(paste0("19", str_extract(season, "^\\d*$")))) %>%
+        # group by season
+        group_by(season) %>%
+        # count instances of played in the NL
+        add_count(played_nl) %>%
+        # ungroup
+        ungroup() %>%
+        # rename count column
+        rename(split_player_count = n) %>%
+        mutate(nlp_per_team = case_when(year >= 1947 & year <= 1960 ~ round(split_player_count/16, 2),
+                                        year == 1961 ~ round(split_player_count/18, 2),
+                                        year >= 1962 & year <= 1968 ~ round(split_player_count/20, 2),
+                                        year >= 1969 & year <= 1976 ~ round(split_player_count/24, 2),
+                                        year >= 1977 ~ round(split_player_count/26, 2)),
+               nlp_per_mlb_pop = round(split_player_count/player_count, 2))
 
 #### WIKIPEDIA COUNTS
 
@@ -116,85 +115,6 @@ wiki_counts <- slice(wiki_counts, -84) %>%
         add_row(season = 1976, debut_count = 0, final_count = 0, player_count = 0)
 
 
-
-#### MLB COUNTS
-
-# assign new object
-mlb_debut_counts <- nl_mlb_df %>%
-        # count mlb_debut seasons
-        count(mlb_debut) %>%
-        # rename count column
-        rename(debut_count = n,
-               # rename debut column to season
-               season = mlb_debut) %>%
-        # remove 2020 season and NA values
-        slice(1:149)
-
-# assign new object
-mlb_final_counts <- nl_mlb_df %>%
-        # count mlb_final seasons
-        count(mlb_final) %>%
-        # rename count column
-        rename(final_count = n,
-               # rename final column to season
-               season = mlb_final) %>%
-        # remove 2020 seasons and NA values
-        slice(1:149)
-
-# assign new object and full join debut counts with final counts by season
-mlb_counts <- full_join(mlb_debut_counts, mlb_final_counts, by = "season") %>%
-        # add new player count dummy column
-        mutate(player_count = 0) %>%
-        # arrange by season
-        arrange(season) %>%
-        # add dummy first row
-        add_row(season = 1870, debut_count = 0, final_count = 0, player_count = 0,
-                .before = 1)
-
-
-# for index i in the length of player_count starting at second value
-for(i in 2:length(mlb_counts$player_count)){
-        # make player_count at index location equal to->
-        # debut count of that year + player count of previous year - final count of previous year
-        # this gives an accurate count of the number of Negro League players for a season by ->
-        # adding the number of new players to the number of previous players minus the number of players ->
-        # no longer playing
-        mlb_counts$player_count[i] <- (mlb_counts$debut_count[i] +
-                                                mlb_counts$player_count[i-1]) -
-                mlb_counts$final_count[i-1]
-}
-
-# reassign mlb_counts
-mlb_counts <- nl_mlb_counts %>%
-        # remove 2020 and NA rows from nl_mlb_counts
-        slice(1:149) %>%
-        # add dummy first row to match mlb_counts
-        add_row(season = 1870, debut_count = 0, final_count = 0, player_count = 0,
-                .before = 1) %>%
-        # full join mlb_counts to nl_mlb_counts by season
-        full_join(mlb_counts, by = "season") %>%
-        # rename count columns to match actual values
-        rename(nl_debut = debut_count.x,
-               nl_final = final_count.x,
-               nl_count = player_count.x,
-               mlb_debut = debut_count.y,
-               mlb_final = final_count.y,
-               mlb_count = player_count.y) %>%
-        # remove dummy row
-        slice(-1) %>%
-        # create new column to calculate nl player percentage of mlb population
-        mutate(nl_per_mlb_pop = round(nl_count/mlb_count, 2),
-               # create new column to calculate nl player pop per team
-               # divide by the number of teams for the given seasons as this changes dramatically after 1960
-               nl_per_team = case_when(season <= 1915 ~ round(nl_count/16, 2),
-                                       season >= 1916 & season <= 1960 ~ round(nl_count/16, 2),
-                                       season == 1961 ~ round(nl_count/18, 2),
-                                       season >= 1962 & season <= 1968 ~ round(nl_count/20, 2),
-                                       season >= 1969 & season <= 1976 ~ round(nl_count/24, 2),
-                                       season >= 1977 & season <= 1992 ~ round(nl_count/26, 2),
-                                       season >= 1993 & season <= 1998 ~ round(nl_count/28, 2),
-                                       season >= 1999 ~ round(nl_count/30, 2))
-               )
 
 # remove debut and final counts
 rm(list = c("nl_mlb_debut_counts", "nl_mlb_final_counts", "wiki_debut_counts",
