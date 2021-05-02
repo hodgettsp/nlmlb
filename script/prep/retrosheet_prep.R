@@ -19,15 +19,26 @@ library(tidyverse)
 # load retrosheet data
 source(here("script/scrape/retrosheet_scrape.R"))
 
-# generate list of objects
 x <- ls()
 
-y <- 47:80
+z <- mget(x)
 
-z <- roster_1947[[1]]
 
 for(i in 1:length(x)){
-     assign(paste0("roster_", y[i], "_", x[[i]][1, 6]),
-            as.data.frame(roster_1947[i]),
+     assign(paste0("roster_47", roster_1947[[i]][1, 6]),
+            as.data.frame(roster_1947[i]) %>%
+                 rename(id = 1, last = 2, first = 3,
+                        bat = 4, throw = 5, team = 6,
+                        pos = 7),
             envir = .GlobalEnv)
 }
+
+y <- bind_rows(z[[34]])
+
+for(i in 1:length(z)){
+     assign("a", bind_rows(z[[i,]]), envir = .GlobalEnv)
+}
+
+
+
+
