@@ -28,8 +28,8 @@ library(retrosheet)
 #and is copyrighted by Retrosheet. Interested parties may
 #contact Retrosheet at "www.retrosheet.org"
 
-# for the length of 1947 to 1980
-for(i in 1947:1980){
+# for the length of 1947 to 1987
+for(i in 1947:1987){
      # assign roster object with suffix of index number ->
      # get retrosheet roster list at index and assign to global environment
      assign(paste0("roster_", i), get_retrosheet("roster", i), envir = .GlobalEnv)

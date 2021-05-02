@@ -23,9 +23,14 @@ nl_mlb_counts %>%
         # filter for between the 1947 and 1981 seasons ->
         # 1947 being the first season with NL players and 1980 being ->
         # the next after the last season to have a count
-        filter(season >= 1947 & season <= 1981) %>%
+        filter(played_nl == 1) %>%
+        # add dummy row for 1981 season with no NL players
+        add_row(retroID = NA, lastname = NA, firstname = NA,
+                Bat = NA, Throw = NA, season = 81, player_count = 0,
+                mlb_team = NA, nl_team = NA, year = 1981, played_nl = 1,
+                nl_player_count = 0) %>%
         # generate plot with season as x axis and player count as y
-        ggplot(aes(x = season, y = player_count)) +
+        ggplot(aes(x = year, y = nl_player_count)) +
         # generate line plot
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot
@@ -53,6 +58,6 @@ nl_mlb_counts %>%
         labs(y = "Player Count",
              x = "Year")+
         # set x axis valus from 1947 to 1981 by 2 count
-        scale_x_continuous(breaks = seq(1947, 1981, 2))+
+        scale_x_continuous(breaks = seq(1947, 1987, 2))+
         # set y axis value from 0 to 40 by 2 count
         scale_y_continuous(breaks = seq(0, 40, 2))

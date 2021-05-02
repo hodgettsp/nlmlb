@@ -201,14 +201,8 @@ wiki_counts %>%
 ```{r nl-mlb-counts, echo=F, message=F, warning=F}
 # pipe nl_mlb_counts
 nl_mlb_counts %>%
-  # rename columns for appearance
-  rename(Season = season,
-         `Player Debut Count` = debut_count,
-         `Player Final Game Count` = final_count,
-         `Player Count` = player_count) %>%
-  # slice for only rows 77 to 110
-  slice(77:110) %>%
-  # generate table using kbl from kableExtra package
+  filter(played_nl == 1) %>%
+  select() %>% 
   kableExtra::kbl(caption = "Negro League Players in MLB Counts, 1947-1980: CNLBR Data.", 
                   booktabs = T) %>%
   # style table

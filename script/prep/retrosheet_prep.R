@@ -19,26 +19,33 @@ library(tidyverse)
 # load retrosheet data
 source(here("script/scrape/retrosheet_scrape.R"))
 
+# create vector list of data objects
 x <- ls()
 
-z <- mget(x)
-
-
+# this for loop writes over the list of data objects
+# for the length of the list of x
 for(i in 1:length(x)){
-     assign(paste0("roster_47", roster_1947[[i]][1, 6]),
-            as.data.frame(roster_1947[i]) %>%
-                 rename(id = 1, last = 2, first = 3,
-                        bat = 4, throw = 5, team = 6,
-                        pos = 7),
+     # assign under the same name ->
+     # bind the rows of the object at indexed location in list x
+     assign(x[i], bind_rows(get(x[i])) %>%
+                 # create new column season that is the last two digits ->
+                 # of the indexed string in x
+                 mutate(season = substr(x[i], 10, 11)),
+            # assign to global environment
             envir = .GlobalEnv)
 }
 
-y <- bind_rows(z[[34]])
+# create temporary list of all objects
+y <- mget(x[1:41])
 
-for(i in 1:length(z)){
-     assign("a", bind_rows(z[[i,]]), envir = .GlobalEnv)
-}
+# bind all objects in y together
+roster_df <- bind_rows(y)
 
+# remove all the objects in list x
+rm(list = x)
 
+# remove objects i y and x
+rm(i, y, x)
 
-
+# write roster_df as csv data file with name roster4780_data
+write_csv(roster_df, here("inputs/data/csv/roster4787_data.csv"))
