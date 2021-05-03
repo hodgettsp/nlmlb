@@ -22,18 +22,13 @@ source(here("script/rmarkdown/load_data.R"))
 wikipedia_player_data <- wikipedia_player_data %>%
      # mutate firstname column values ->
      # these changes prevent double matches in later join
-     # when firstname is Milton and lastname is Smith and last_game is 1927 ->
-     # change firstname to Milton 27
-     mutate(firstname = case_when(firstname == "Milton" & lastname == "Smith" & last_game == 1927 ~ "Milton 27",
-                                  # when firstname is Willie and lastname is Smith and last_game is 1938 ->
+     mutate(firstname = case_when(# when firstname is Willie and lastname is Smith and last_game is 1938 ->
                                   # change firstname to Willie 38
                                   firstname == "Willie" & lastname == "Smith" & last_game == 1938 ~ "Willie 38",
                                   # when firstname is Willie and lastname is Smith and last_game is 1948 ->
                                   # change firstname to Willie 48
                                   firstname == "Willie" & lastname == "Smith" & last_game == 1948 ~ "Willie 48",
-                                  # when firstname is Clarence and lastname is Coleman and last_game is 1928 ->
-                                  # change firstname to Clarence 28
-                                  firstname == "Clarence" & lastname == "Coleman" & last_game == 1928 ~ "Clarence 28",
+                                  firstname == "Choo-Choo" & lastname == "Coleman" & last_game == 1928 ~ "Choo-Choo 28",
                                   # keep all other values as is
                                   TRUE ~ as.character(firstname)))
 
@@ -79,6 +74,8 @@ mlb_player_data <- mlb_player_data %>%
                                   # when givenname is Willie Everett  change ->
                                   # firstname to Willie 94
                                   givenname == "Willie Everett" ~ "Willie 94",
+                                  playerid == "santijo03" ~ "Jose 97",
+                                  playerid == "santijo02" ~ "Jose 63",
                                   TRUE ~ as.character(firstname)))
 
 

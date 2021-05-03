@@ -184,9 +184,9 @@ seamheads_counts %>%
 wiki_counts %>%
   # rename columns to something nicer to look at
   rename(Season = season,
-         `Player Debut Count` = debut_count,
-         `Player Final Game Count` = final_count,
-         `Player Count` = player_count) %>%
+         `NL Player Debut Count` = debut_count,
+         `NL Player Final Game Count` = final_count,
+         `NL Player Count` = player_count) %>%
   # remove dummy rows
   slice(-1, -84) %>%
   # generate table using kableExtra package
@@ -195,22 +195,29 @@ wiki_counts %>%
   # set kable styling for the table
   kableExtra::kable_styling(position = "center", 
                             latex_options = c("HOLD_position",
-                                            "repeat_header"))
+                                            "repeat_header")) %>% 
+  kableExtra::collapse_rows()
 ```
 
-```{r mlb-counts, echo=F, message=F, warning=F}
+```{r mlb-counts, echo=F, message=F, warning=F, results='asis'}
 # pipe mlb_counts
-x <- nl_mlb_counts %>%
-  select(played_nl, season, player_count, played_nl_count, nlp_per_team, nlp_per_mlb_pop) %>% 
-  filter(played_nl == 1) %>% 
-  distinct() %>% 
-  select(-played_nl) %>%
-  # rename the columns, you know the drill
-  rename(`MLB Season` = season,
-         `MLB Player Count` = player_count,
-         `NL Pop in MLB` = played_nl_count,
-         `NL Players per MLB Population` = nlp_per_mlb_pop,
-         `AVG NL Players per Team` = nlp_per_team)
+nl_mlb_counts %>%
+  # select the necessary columns
+  select(season, player_count, nlp_count, nlp_per_pop, nlp_per_team) %>%
+  # keep only distinct values
+  distinct() %>%
+  # rename columns to something more presentable
+  rename(Season = season,
+         `MLB Population` = player_count,
+         `NL Player Count` = nlp_count,
+         `NL Players per MLB Population` = nlp_per_pop,
+         `NL Players per Team` = nlp_per_team) %>%
+  # generate table with kbl function from kable Extra
+  kableExtra::kbl(caption = "Negro League Players in MLB - Counts and Proportions: CNLBR and Retrosheet Data.", booktabs = T) %>%
+  # style table, center table, hold its position, set table to full width
+  kableExtra::kable_styling(position = "center",
+                            latex_options = "HOLD_position",
+                            full_width = T)
 ```
 
 # Appendix B: Charts

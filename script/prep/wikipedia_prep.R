@@ -134,7 +134,6 @@ nl_player_data <- nl_player_data %>%
                                player == "R. T. Walker" ~ "Robert Taylor Walker",
                                player == "T. J. Young" ~ "Thomas Jefferson Young",
                                player == "Frank Duncan I" ~ "Frank Duncan",
-                               player == "Webbo Clarke" ~ "Vibert Clarke",
                                T ~ as.character(player)),
             # extract last name from player column
             lastname = str_extract(player, "(\\w*$)"),
@@ -166,7 +165,15 @@ nl_player_data <- nl_player_data %>%
             # convert debut values from character to numeric
             debut = as.numeric(debut),
             # convert last_game values from character to numeric
-            last_game = as.numeric(last_game))
+            last_game = as.numeric(last_game),
+            # fix special characters in names and remove spaces in initial name
+            lastname = iconv(lastname, from = "UTF-8", to = "ASCII//TRANSLIT"),
+            firstname = iconv(firstname, from = "UTF-8", to = "ASCII//TRANSLIT"),
+            firstname = case_when(firstname == "J. C." ~ "J.C.",
+                                  firstname == "Buster" & lastname == "Clarkson" ~ "Buzz",
+                                  firstname == "Milton" & lastname == "Smith" & debut == 1950 ~ "Milt",
+                                  firstname == "Clarence" & lastname == "Coleman" ~ "Choo-Choo",
+                                  TRUE ~ as.character(firstname)))
 
 # write NL player data to csv file
 write_csv(nl_player_data, "inputs/data/csv/wikipedia_player_data.csv")

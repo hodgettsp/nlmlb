@@ -21,45 +21,31 @@ source(here("script/rmarkdown/prep_data.R"))
 #### NL MLB COUNTS
 
 nl_mlb_counts <- roster4787_data %>%
-        select(-Team, -Pos) %>%
-        distinct() %>%
-        add_count(season) %>%
-        rename(lastname = Last,
+        dplyr::select(-Team, -Pos) %>%
+        dplyr::distinct() %>%
+        dplyr::add_count(season) %>%
+        dplyr::rename(lastname = Last,
                firstname = First,
                player_count = n) %>%
-        mutate(lastname = case_when(lastname == "Minoso" & firstname == "Minnie" ~ "Miñoso",
-                                    lastname == "Marquez" & firstname == "Luis" ~ "Márquez",
-                                    lastname == "Rodriguez" & firstname == "Hector" ~ "Rodríguez",
-                                    lastname == "Amoros" & firstname == "Sandy" ~ "Amorós",
-                                    TRUE ~ as.character(lastname)),
-               firstname = case_when(lastname == "Rodríguez" & firstname == "Hector" ~ "Héctor",
-                                     lastname == "Clarkson" & firstname == "Buzz" ~ "Buster",
-                                     lastname == "Bruton" & firstname == "Bill" ~ "Billy",
-                                     lastname == "Santiago" & firstname == "Jose" ~ "José",
-                                     lastname == "Clarke" & firstname == "Webbo" ~ "Vibert",
-                                     lastname == "Coleman" & firstname == "Choo Choo" ~ "Clarence",
+        dplyr::mutate(firstname = case_when(lastname == "Bruton" & firstname == "Bill" ~ "Billy",
                                      lastname == "Prescott" & firstname == "Bobby" ~ "Bob",
-                                     lastname == "Hartman" & firstname == "J.C." ~ "J. C.",
                                      lastname == "Odom" & firstname == "Blue Moon" ~ "John",
-                                     lastname == "Smith" & firstname == "Milt" ~ "Milton",
                                      TRUE ~ as.character(firstname))) %>%
-        full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
-        # add dummy column as to whether player played in NL
-        mutate(played_nl = if_else(!is.na(mlb_team), 1, 0)) %>%
+        dplyr::inner_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
+        # drop extraneous columns
+        dplyr::select(-mlb_team, -nl_team, -year) %>%
         # group by season
-        group_by(season) %>%
+        dplyr::group_by(season) %>%
         # count instances of played in the NL
-        add_count(played_nl) %>%
-        # ungroup
-        ungroup() %>%
-        # rename count column
-        rename(played_nl_count = n) %>%
-        mutate(nlp_per_team = case_when(season >= 1947 & season <= 1960 ~ round(played_nl_count/16, 2),
-                                        season == 1961 ~ round(played_nl_count/18, 2),
-                                        season >= 1962 & season <= 1968 ~ round(played_nl_count/20, 2),
-                                        season >= 1969 & season <= 1976 ~ round(played_nl_count/24, 2),
-                                        season >= 1977 ~ round(played_nl_count/26, 2)),
-               nlp_per_mlb_pop = round(played_nl_count/player_count, 2))
+        dplyr::add_count(season) %>%
+        dplyr::ungroup() %>%
+        dplyr::rename(nlp_count = n) %>%
+        mutate(nlp_per_pop = round(nlp_count/player_count, 2),
+               nlp_per_team = case_when(season <= 1960 ~ round(nlp_count/16, 2),
+                                        season == 1961 ~ round(nlp_count/18, 2),
+                                        season >= 1962 & season <= 1968 ~ round(nlp_count/20, 2),
+                                        season >= 1969 & season <= 1977 ~ round(nlp_count/24, 2),
+                                        season >= 1977 ~ round(nlp_count/26, 2)))
 
 #### WIKIPEDIA COUNTS
 
@@ -88,14 +74,14 @@ wiki_counts <- full_join(wiki_debut_counts, wiki_final_counts, by = "season") %>
         arrange(season) %>%
         # add dummy first row for 1873 season, this assists in later count calculation
         add_row(season = 1873, debut_count = 0, final_count = 0, player_count = 0,
-                .before = 1)%>%
+                .before = 1) %>%
         # replace NA values with 0, not my favourite thing to do but imputation or ->
         # removal do not seem like good options
         mutate(across(everything(), ~replace_na(.x, 0)))
 
 # for index i in the length of player_count starting at second value
 for(i in 2:length(wiki_counts$player_count)){
-        # make palyer_count at index location equal to->
+        # make player_count at index location equal to->
         # debut count of that year + player count of previous year - final count of previous year
         # this gives an accurate count of the number of Negro League players for a season by ->
         # adding the number of new players to the number of previous players minus the number of players ->

@@ -84,27 +84,21 @@ nl_mlb_players <- pdf_tibble %>%
             year = str_extract(raw_text, "\\w*$"),
             # convert these values to numeric
             year = as.numeric(year),
-            lastname = case_when(lastname == "Minoso" ~ "Miñoso",
-                                 lastname == "Marquez" ~ "Márquez",
-                                 lastname == "Rodriquez" ~ "Rodríguez",
-                                 lastname == "Amoros" ~ "Amorós",
-                                 lastname == "Donso" ~ "Donoso",
+            lastname = case_when(lastname == "Donso" ~ "Donoso",
                                  lastname == "Cassanova" ~ "Casanova",
                                  lastname == "Cephus" ~ "Taylor",
                                  lastname == "Mc" ~ "McCovey",
-                                 TRUE ~ as.character(lastname)),
-            firstname = case_when(firstname == "Hector" ~ "Héctor",
-                                  firstname == "Buzz" ~ "Buster",
-                                  firstname == "Junior" ~ "Jim",
-                                  firstname == "Jose" & lastname == "Santiago" ~ "José",
+                                 lastname == "Rodriquez" ~ "Rodriguez",
+                                 T ~ as.character(lastname)),
+            firstname = case_when(firstname == "Junior" ~ "Jim",
                                   firstname == "William" & lastname == "Greason" ~ "Bill",
-                                  firstname == "Milt" & lastname == "Smith" ~ "Milton",
                                   firstname == "Robert" & lastname == "Wilson" ~ "Bob",
-                                  firstname == "J.C." ~ "J. C.",
                                   firstname == "Jehosie" ~ "Jay",
                                   firstname == "Charles" & lastname == "Peete" ~ "Charlie",
                                   firstname == "Harold" & lastname == "Jones" ~ "Hal",
-                                  TRUE ~ as.character(firstname)
+                                  firstname == "Vibert" ~ "Webbo",
+                                  firstname == "Clarence" & lastname == "Coleman" ~ "Choo-Choo",
+                                  T ~ as.character(firstname)
                                   )) %>%
      # remove raw text and teams columns
      select(-raw_text, -teams, -playername)

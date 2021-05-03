@@ -34,22 +34,11 @@ mlb_player_data <- People %>%
      mutate(mlb_debut = substr(debut_date, 1, 4),
             mlb_final = substr(final_date, 1, 4),
             # adjust firstname and lastname for particular players to aid in later join
-            firstname = case_when(givenname == "Hector Antonio" & lastname == "Rodriguez" ~ "Héctor",
-                                  givenname == "Jose Guillermo" ~ "José",
-                                  givenname == "James Buster" ~ "Buster",
-                                  givenname == "William Haron" ~ "Billy",
-                                  firstname == "Milt" & lastname == "Smith" ~ "Milton",
-                                  givenname == "Vibert Ernesto" ~ "Vibert",
-                                  firstname == "Choo-Choo" & lastname == "Coleman" ~ "Clarence",
+            firstname = case_when(givenname == "William Haron" ~ "Billy",
                                   givenname == "George Bertrand" ~ "Bob",
-                                  firstname == "J C" & lastname == "Hartman" ~ "J. C.",
                                   givenname == "Johnny Lee" ~ "John",
-                                  TRUE ~ as.character(firstname)),
-            lastname = case_when(givenname == "Saturnino Orestes Armas" ~ "Miñoso",
-                                 givenname == "Luis Angel" ~ "Márquez",
-                                 givenname == "Hector Antonio" & lastname == "Rodriguez" ~ "Rodríguez",
-                                 firstname == "Sandy" & lastname == "Amoros" ~ "Amorós",
-                                 TRUE ~ as.character(lastname)))
+                                  givenname == "J C" ~ "J.C.",
+                                  TRUE ~ as.character(firstname)))
 
 # write Lahman data to csv file
 write_csv(mlb_player_data, here::here("inputs/data/csv/mlb_player_data.csv"))
