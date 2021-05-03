@@ -16,8 +16,6 @@ library(here)
 # version 1.3.1
 library(tidyverse)
 
-
-
 source(here("script/rmarkdown/prep_data.R"))
 
 #### NL MLB COUNTS
@@ -47,9 +45,7 @@ nl_mlb_counts <- roster4787_data %>%
                                      TRUE ~ as.character(firstname))) %>%
         full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
         # add dummy column as to whether player played in NL
-        mutate(played_nl = if_else(!is.na(mlb_team), 1, 0),
-               # add full year by pasting 19 to beginning of season
-               year = as.numeric(paste0("19", str_extract(season, "^\\d*$")))) %>%
+        mutate(played_nl = if_else(!is.na(mlb_team), 1, 0)) %>%
         # group by season
         group_by(season) %>%
         # count instances of played in the NL
@@ -57,13 +53,13 @@ nl_mlb_counts <- roster4787_data %>%
         # ungroup
         ungroup() %>%
         # rename count column
-        rename(split_player_count = n) %>%
-        mutate(nlp_per_team = case_when(year >= 1947 & year <= 1960 ~ round(split_player_count/16, 2),
-                                        year == 1961 ~ round(split_player_count/18, 2),
-                                        year >= 1962 & year <= 1968 ~ round(split_player_count/20, 2),
-                                        year >= 1969 & year <= 1976 ~ round(split_player_count/24, 2),
-                                        year >= 1977 ~ round(split_player_count/26, 2)),
-               nlp_per_mlb_pop = round(split_player_count/player_count, 2))
+        rename(played_nl_count = n) %>%
+        mutate(nlp_per_team = case_when(season >= 1947 & season <= 1960 ~ round(played_nl_count/16, 2),
+                                        season == 1961 ~ round(played_nl_count/18, 2),
+                                        season >= 1962 & season <= 1968 ~ round(played_nl_count/20, 2),
+                                        season >= 1969 & season <= 1976 ~ round(played_nl_count/24, 2),
+                                        season >= 1977 ~ round(played_nl_count/26, 2)),
+               nlp_per_mlb_pop = round(played_nl_count/player_count, 2))
 
 #### WIKIPEDIA COUNTS
 
@@ -117,5 +113,4 @@ wiki_counts <- slice(wiki_counts, -84) %>%
 
 
 # remove debut and final counts
-rm(list = c("nl_mlb_debut_counts", "nl_mlb_final_counts", "wiki_debut_counts",
-            "wiki_final_counts", "i", "mlb_debut_counts", "mlb_final_counts"))
+rm(list = c("wiki_debut_counts", "wiki_final_counts", "i"))

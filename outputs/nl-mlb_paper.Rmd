@@ -200,24 +200,17 @@ wiki_counts %>%
 
 ```{r mlb-counts, echo=F, message=F, warning=F}
 # pipe mlb_counts
-nl_mlb_counts %>%
-  select(played_nl, year, player_count, split_player_count, nlp_per_team, nlp_per_mlb_pop) %>% 
-  distinct() %>% 
+x <- nl_mlb_counts %>%
+  select(played_nl, season, player_count, played_nl_count, nlp_per_team, nlp_per_mlb_pop) %>% 
   filter(played_nl == 1) %>% 
+  distinct() %>% 
   select(-played_nl) %>%
   # rename the columns, you know the drill
-  rename(`MLB Season` = year,
+  rename(`MLB Season` = season,
          `MLB Player Count` = player_count,
-         `NL Pop in MLB` = split_player_count,
+         `NL Pop in MLB` = played_nl_count,
          `NL Players per MLB Population` = nlp_per_mlb_pop,
-         `AVG NL Players per Team` = nlp_per_team) %>%
-  # generate table using kbl from kableExtra package
-  kableExtra::kbl(caption = "Negro League Players in MLB - Counts and Proportions, 1947 - 1980: Retrosheet and CNLBR Data.", 
-                  booktabs = T) %>%
-  # set table styling
-  kableExtra::kable_styling(position = "center", 
-                            latex_options = "HOLD_position",
-                            full_width = T)
+         `AVG NL Players per Team` = nlp_per_team)
 ```
 
 # Appendix B: Charts

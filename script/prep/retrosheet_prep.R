@@ -30,7 +30,7 @@ for(i in 1:length(x)){
      assign(x[i], bind_rows(get(x[i])) %>%
                  # create new column season that is the last two digits ->
                  # of the indexed string in x
-                 mutate(season = substr(x[i], 10, 11)),
+                 mutate(season = as.numeric(str_sub(x[i], 8, 11))),
             # assign to global environment
             envir = .GlobalEnv)
 }
