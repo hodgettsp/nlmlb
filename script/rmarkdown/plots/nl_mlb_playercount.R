@@ -19,18 +19,16 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 showtext_auto()
 
 # pipe nl_mlb_counts
-nl_mlb_counts %>%
+p <- nl_mlb_counts %>%
         # filter for between the 1947 and 1981 seasons ->
         # 1947 being the first season with NL players and 1980 being ->
         # the next after the last season to have a count
-        filter(played_nl == 1) %>%
         # add dummy row for 1981 season with no NL players
         add_row(retroID = NA, lastname = NA, firstname = NA,
-                Bat = NA, Throw = NA, season = 81, player_count = 0,
-                mlb_team = NA, nl_team = NA, year = 1981, played_nl = 1,
-                split_player_count = 0) %>%
+                Bat = NA, Throw = NA, season = 1981, player_count = 0,
+                nlp_count = 0, nlp_per_pop = 0, nlp_per_team = 0) %>%
         # generate plot with season as x axis and player count as y
-        ggplot(aes(x = year, y = split_player_count)) +
+        ggplot(aes(x = season, y = nlp_count)) +
         # generate line plot
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot
