@@ -28,11 +28,12 @@ histogram_seams <- seamheads_player_data %>%
         # generate final game histogram
         geom_histogram(aes(x = final, fill = "Last Game"), binwidth = 1, bins = 30,
                        colour = "white", alpha = 0.75)+
-        # set x and y labels
+        # set x, y, and title labels
         labs(x = "Year",
-             y = "Player Count")+
-        # set theme elements -> set font family to jost and size to 8
-        theme(text = element_text(family = "jost-sans-serif", size = 8),
+             y = "Player Count",
+             title = "Negro Leagues Player Debut and Final Game Distributions, 1887 - 1948: Seamheads")+
+        # set theme elements -> set font family to jost and size to 12
+        theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove major grid elements
@@ -44,12 +45,12 @@ histogram_seams <- seamheads_player_data %>%
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot colour
               plot.background = element_rect(fill = "cornsilk1"),
-              # expand x axis title margin and set font size to 10
+              # expand x axis title margin and set font size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 10),
-              # expand y axis title margin and set font size to 10
+                                          size = 14),
+              # expand y axis title margin and set font size to 14
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 10),
+                                          size = 14),
               # set legend to top
               legend.position = "top",
               # set legend background colour

@@ -24,12 +24,13 @@ wiki_player_counts <- wiki_counts %>%
         ggplot(aes(x = season, y = player_count))+
         # generate area geom and fill with dodger blue at .75 opacity
         geom_area(fill = "dodgerblue", alpha = .75)+
-        # set axis labels
+        # set labels
         labs(x = "Year",
-             y = "Player Count")+
+             y = "Player Count",
+             title = "Negro Leagues Player Count Distributions, 1873 - 1976: Wikipedia")+
         # set theme elements ->
-        # set plot font to Jost and size to 8
-        theme(text = element_text(family = "jost-sans-serif", size = 8),
+        # set plot font to Jost and size to 12
+        theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor plot grid lines
               panel.grid.minor = element_blank(),
               # remove major x axis grid lines
@@ -43,13 +44,13 @@ wiki_player_counts <- wiki_counts %>%
               # set plot background to cornsilk1
               plot.background = element_rect(fill = "cornsilk1"),
               # increase margin around x axis title by 5mm ->
-              # and set title size to 10
+              # and set title size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 10),
+                                          size = 14),
               # increase margin around y axis title by 5mm ->
-              # and set title size to 10
+              # and set title size to 14
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 10),
+                                          size = 14),
               axis.text.x = element_text(angle = 90),
               # increase plot margins
               plot.margin = unit(c(5, 5, 5, 5), "mm"))+

@@ -34,8 +34,8 @@ nl_mlb_playercounts <- # pipe nl_mlb_counts
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot
         geom_point(colour = "dodgerblue", size = 1)+
-        # set theme elements -> set font to jost and size 8
-        theme(text = element_text(family = "jost-sans-serif", size = 8),
+        # set theme elements -> set font to jost and size 12
+        theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove major grid elements
@@ -47,17 +47,18 @@ nl_mlb_playercounts <- # pipe nl_mlb_counts
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot background colour
               plot.background = element_rect(fill = "cornsilk1"),
-              # set x axis title margins and fonts size to 10
+              # set x axis title margins and fonts size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 10),
-              # set y axis title margins and font size to 10
+                                          size = 14),
+              # set y axis title margins and font size to 14
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 10),
+                                          size = 14),
               # increase plot margins
               plot.margin = unit(c(5, 5, 5, 5), "mm"))+
-        # set y and x axis labels
+        # set y, x, and title labels
         labs(y = "Player Count",
-             x = "Year")+
+             x = "Year",
+             title = "Negro Leagues Players in Major League Baseball Count: CNLBR & Retrosheet")+
         # set x axis valus from 1947 to 1981 by 2 count
         scale_x_continuous(breaks = seq(1947, 1987, 2))+
         # set y axis value from 0 to 40 by 2 count

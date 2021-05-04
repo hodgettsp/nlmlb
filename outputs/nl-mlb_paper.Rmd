@@ -76,7 +76,7 @@ This paper explores the following: the accessibility of Negro League data as com
 
 In 1920, the Negro National League was founded in large part due to the efforts of Andrew "Rube" Foster. While previous Black teams and leagues had existed in some form, the formulation of this league marked what is commonly considered the beginning of the modern Negro "Major" Leagues. For 11 years the Negro National League was considered the highest level of play amongst Negro league teams, but financial troubles brought on by the Great Depression led to the folding of the league in 1931. With the folding of the Negro National League in 1931, the remaining Negro Southern League, hosting such teams as the Nashville Elite Giants and Birmingham Black Barons, was elevated as the de facto major league for the 1932 season. However, this designation only lasted for the 1932 season as the Negro National League was re-established in 1933 and was again considered the major league for the Negro Leagues. Four years later the Negro National League would be joined at the major league level by the establishment of the Negro American League in 1937. These leagues continued operation until between the 1948 and 1949 seasons, a year after Jackie Robinson debuted for the Brooklyn Dodgers and Larry Doby debuted for the Cleveland baseball team, when the Negro National League folded. The Negro American League would continue operation until between the 1962 and 1963 seasons when the final All-Star game was held. This point is generally marked as the official end of the Negro League. Other teams, like the Indianapolis Clowns existed and continued operating, but often only for exhibition games and not in a competitive sense.  
 
-```{r timeline, echo=FALSE, fig.align='center', fig.cap="A general timeline of the Negro Leagues.", out.height="50%"}
+```{r timeline, echo=FALSE, fig.align='center', fig.cap="A general timeline of the Negro Leagues.", out.height="40%"}
 knitr::include_graphics(here::here("outputs/plots/timeline.png"))
 ```
 
@@ -106,15 +106,14 @@ Figure 1 shows the distribution of players who debuted and played their final ga
 
 The Negro American League folded around the 1963 season, and as can be seen in Figure 1 there were very few players to have debuted or played their final game by that point. Indicating the dire state of the league.
 
-```{r histogram-wiki, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975: Wikipedia Data.."}
-# load nl_mlb_playercount plot
+```{r histogram-wiki, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975: Wikipedia Data."}
 source(here("script/rmarkdown/plots/wikipedia_debut_final_histogram.R"))
 histogram_wiki
 ```
 
 In comparison, Figure 2 shows the distribution of players making their debut or playing their final game according to Seamheads. As can be seen, the distribution is fairly similar as to the distribution collected from Wikipedia; however, the counts from Seamehads are higher, which may be in part to some players not being included on the Wikipedia list due to insufficient data that can be used to confirm the player's identity.
 
-```{r histogram-seams, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948: Seamheads Data."}
+```{r histogram-seams, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948: Seamheads Data."}
 source(here("script/rmarkdown/plots/seamheads_debut_final_histogram.R"))
 histogram_seams
 ```
@@ -125,8 +124,7 @@ Other differences between the two include Seamheads shower a greater number of d
 
 An issue that also was found in the process of this analysis was that in some cases Wikipedia had the birth-date of the player for the player's debut date in the Negro Leagues. This discrepancy may partially explain the inclusion of dates earlier than 1887 in the Wikipedia list of Negro League players.
 
-```{r histogram-wiki-filter, echo=FALSE, warning=F, message=F, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948: Wikipedia Data."}
-# load nl_mlb_playercount plot
+```{r histogram-wiki-filter, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948: Wikipedia Data."}
 source(here("script/rmarkdown/plots/wikipedia_debut_final_histogram_filt.R"))
 histogram_wiki_filt
 ```
@@ -141,35 +139,37 @@ $$(d + p) - f$$
 
 The collected data from Wikipedia contained missing values for both debut and final game counts for various seasons. These missing values were replaced with a value of 0. This was done to keep those seasons included in the count, as the complete-case approach would remove these seasons. These missing values were created when there was no data for either debuts or final games for a season. However, this approach of imputing missing values with 0 while allowing for keeping these seasons does mean the distribution for players may be off or less than the actual count. There were no missing values for the Seamheads data.
 
-```{r wiki-nl-count, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975: Wikipedia data."}
+```{r wiki-nl-count, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975: Wikipedia data."}
 source(here("script/rmarkdown/plots/wikipedia_playercounts.R"))
 wiki_player_counts
 ```
 
 In comparison, Figure 5 shows the estimated player distribution for the Negro Leagues from 1886 to 1948 according to the data collected from Seamheads. Figure 6, likewise, shows the estimated player distribution for the Negro Leagues according to the Wikipedia data but filtered to only include dates from the same range as the Seamheads data (1886 to 1948). A notable difference between Figure 5 and Figure 6 is that the peak for players in the Negro Leagues comes in 1932 for the Seamheads data (N = 504) while it comes in 1923 for the Wikipedia data (N = 384). Additionally, these total counts differ by a difference of 120. Again, the discrepancies between the data may be due to Wikipedia contributors excluding players, players with only one name in the Seamheads database being counted twice, or the imputation of 0 to replace NA values skews the Wikipedia distribution.
 
-```{r seamheads-nl-count, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Seamheads data."}
+```{r seamheads-nl-count, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Seamheads data."}
 source(here("script/rmarkdown/plots/seamheads_playercounts.R"))
 seam_player_counts
 ```
 
-```{r wiki-nl-count-filter, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia data."}
+```{r wiki-nl-count-filter, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia data."}
 source(here("script/rmarkdown/plots/wikipedia_playercounts_filt.R"))
 wiki_player_counts_filt
 ```
 
 ## Negro League Players in Major League Baseball
 
-While Jackie Robinson was the first player from the Negro Leagues to cross the color line when he debuted for the Brooklyn Dodgers in 1947, he was not the only player to do so. Four others joined Robinson that year: Larry Doby for Cleveland (becoming the first Black player for the American Leagues), Hank Thompson and Willard Brown for the St. Louis Browns (team moved in 1953 to Baltimore and became the Baltimore Orioles), and Dan Bankhead also for the Brooklyn Dodgers (team moved in 1957 to Los Angeles and became the Los Angeles Dodgers). Over the years, the number of Negro League players who debuted for MLB teams fluctuated until 1978 when Harry Chappas became the last Negro League player to debut for an MLB team (Harry Chappas is actually white but played for the Indianapolis Clowns who are considered to be a Negro League team). In total, 87 players who played in the Negro Leagues also played for MLB teams. Figure 8 shows the years at which Negro League players debuted in MLB and the total count of players debuting that season. The greatest number of Negro League players to debut in a MLB season was 11 in 1954.
+While Jackie Robinson was the first player from the Negro Leagues to cross the color line when he debuted for the Brooklyn Dodgers in 1947, he was not the only player to do so. Four others joined Robinson that year: Larry Doby for Cleveland (becoming the first Black player for the American Leagues), Hank Thompson and Willard Brown for the St. Louis Browns (team moved in 1953 to Baltimore and became the Baltimore Orioles), and Dan Bankhead also for the Brooklyn Dodgers (team moved in 1957 to Los Angeles and became the Los Angeles Dodgers). Over the years, the number of Negro League players who debuted for MLB teams fluctuated until 1978 when Harry Chappas became the last Negro League player to debut for an MLB team (Harry Chappas is actually white but played for the Indianapolis Clowns who are considered to be a Negro League team). In total, 87 players who played in the Negro Leagues also played for MLB teams. Figure 8 shows the years at which Negro League players debuted in MLB and the total count of players debuting that season. The greatest number of Negro Leagues players to debut in an MLB season was 11 in 1954.
 
-```{r mlb-debut, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The number of players debuting for a given season in Major League Baseball who also played in the Negro Leagues.", out.height="50%"}
-# load nl_mlb_playercount plot
+```{r mlb-debut, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The number of players debuting for a given season in Major League Baseball who also played in the Negro Leagues.", out.height="50%"}
 source(here("script/rmarkdown/plots/nl_mlb_debut_counts.R"))
 nl_mlb_debut_counts
 ```
 
-```{r nl-mlb-player-counts, echo=F, warning=F, message=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981."}
-# load nl_mlb_playercount plot
+However, while the greatest number of Negro Leagues players debuting in a year may be 11, this does not mean that only 11 Negro Leagues players were playing in MLB at the time. To get the actual count of Negro Leagues players playing in MLB for a given season, roster data was pulled from the Retrosheet database for the 1947 to 1987 seasons using the `get_retrosheet()` function from the `retrosheet` package [@retrosheet]. These seasons were chosen as 1947 marked the first season in MLB in which Negro Leagues players played. The 1987 season was chosen as it provided a 40 year period, and as can be seen in Table 3 no Negro Leagues players played on an MLB team after 1980. The last being Harry Chapas who debuted in 1978 and played his last MLB game in 1980.
+
+As can be seen in Figure 9, the MLB season with the greatest number of Negro Leagues players was 1955 with 36 Negro Leagues players. This, at the time, represented 6% of the total MLB player population and equalled approximately 2.25 Negro Leagues players per MLB team (16 MLB teams existed in 1955 compared to the current 30). Which, fits with the notion that MLB teams would only carry two or three Black players on the roster. However, not every team had integrated by 1955 (the Boston Red Sox would be the last team to carry a Black player on their roster in 1959), and so some teams would have had more than the 2.25 average. Additionally, according to the SABR article **CITE** this was the season in which ~10% of the MLB player population was Black, whether those players had played in the Negro Leagues or not. Given that the MLB player population was 599 for the 1955 season, this means that there were approximately 60 Black players in MLB. Meaning that in addition to the 36 Negro Leagues players, there was 24 players who would most likely not have been able to play in MLB before 1947. This total also increases the average number of Black players on MLB teams in 1955 from 2.25 to 3.75 players. Which, while above the assumed three Black players per MLB team, still means that the average number of Black players per team at the height of Negro Leagues players in MLB was below four players per team even when including non-Negro Leagues players. For instance, the Milwaukee MLB team, Cleveland MLB team, and Brooklyn Dodgers each carried a total of six players who had previously played in the Negro Leagues on their roster in 1955. Indeed, the greatest amount of previous Negro Leagues players carried by any MLB team was six (see Table 4 in Appendix A for the count of Negro Leagues players for each MLB team).
+
+```{r nl-mlb-player-counts, echo=F, warning=F, message=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981."}
 source(here("script/rmarkdown/plots/nl_mlb_playercount.R"))
 nl_mlb_playercounts
 ```
@@ -187,7 +187,7 @@ seamheads_counts %>%
   slice(-1) %>%
   # generate table using kableExtra package -> set caption, set booktabs to true, ->
   # set longtable to true
-  kableExtra::kbl(caption = "Negro League Player Counts, 1887-1948: Seamheads Data.", 
+  kableExtra::kbl(caption = "Negro Leagues Player Counts, 1887-1948: Seamheads Data.", 
                   booktabs = T, longtable = T, col.names = c("Season", "Player Debut Count",
                                                              " Player Final Game Count", "Player Count")) %>%
   # set table styling with position to center, ->
@@ -203,17 +203,16 @@ wiki_counts %>%
   # remove dummy rows
   slice(-1, -84) %>%
   # generate table using kableExtra package
-  kableExtra::kbl(caption = "Negro League Player Counts, 1874-1975: Wikipedia Data.", 
+  kableExtra::kbl(caption = "Negro Leagues Player Counts, 1874-1975: Wikipedia Data.", 
                   booktabs = T, longtable = T, col.names = c("Season", "Player Debut Count",
                                                              " Player Final Game Count", "Player Count")) %>%
   # set kable styling for the table
   kableExtra::kable_styling(position = "center", 
                             latex_options = c("HOLD_position",
-                                            "repeat_header")) %>% 
-  kableExtra::collapse_rows()
+                                            "repeat_header"))
 ```
 
-```{r mlb-counts, echo=F, message=F, warning=F, results='asis'}
+```{r mlb-counts, echo=F, message=F, warning=F}
 # pipe mlb_counts
 nl_mlb_counts %>%
   # select the necessary columns
@@ -222,7 +221,7 @@ nl_mlb_counts %>%
   distinct() %>%
   # generate table with kbl function from kable Extra
   kableExtra::kbl(caption = 
-                    "Negro League Players in MLB - Counts and Proportions: CNLBR and Retrosheet Data.", 
+                    "Negro Leagues Players in MLB - Counts and Proportions, 1947 - 1980: CNLBR and Retrosheet Data.", 
                   booktabs = T, col.names = c("Season", "MLB Population", "NL Player Count", 
                                               "NL Players per MLB Population", "NL Players per Team")) %>%
   # style table, center table, hold its position, set table to full width
@@ -231,8 +230,29 @@ nl_mlb_counts %>%
                             full_width = T)
 ```
 
+
+\renewcommand{\arraystretch}{2}
+```{r nlp-mlb-team-counts, echo=F, message=F, warning=F}
+# pipe nl_team_counts
+nl_team_counts %>% 
+  # select the necessary columns
+  select(lastname, firstname, Team, Pos, season, nlp_team_count) %>% 
+  # generate table using kbl function from kableExtra
+  kableExtra::kbl(caption = "Negro Leagues Players in MLB - Player Counts per MLB Team, 1947 - 1980: CNLBR and Retrosheet Data.", 
+                  booktabs = T, 
+                  col.names = c("Last Name", "First Name", "Team", 
+                                "Position", "Season", "NL Players per Team"),
+                  longtable = T) %>% 
+  kableExtra::kable_styling(position = "center",
+                            latex_options = c("HOLD_position",
+                                              "repeat_header"),
+                            full_width = T,
+                            font_size = 10)
+```
+
 # Appendix B: Charts
 
-```{r seamheads-wiki-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia-Seamheads comparison.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot9.png"))
+```{r seamheads-wiki-nl-count, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia-Seamheads comparison."}
+source(here("script/rmarkdown/plots/wikipedia_seamheads_playercounts.R"))
+seamheads_wiki_count
 ```

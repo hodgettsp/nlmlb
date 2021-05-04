@@ -28,11 +28,12 @@ histogram_wiki <- wiki_nl_df %>%
         # generate last game histogram
         geom_histogram(aes(x = last_game, fill = "Last Game"), binwidth = 1, bins = 30,
                        colour = "white", alpha = 0.75)+
-        # set x and y labels
+        # set x, Y, and title labels
         labs(x = "Year",
-             y = "Player Count")+
-        # set theme elements -> set font family to jost and size to 8
-        theme(text = element_text(family = "jost-sans-serif", size = 8),
+             y = "Player Count",
+             title = "Negro Leagues Player Debut and Final Game Distributions, 1873 - 1975: Wikipedia")+
+        # set theme elements -> set font family to jost and size to 12
+        theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove majore grid elements
@@ -44,12 +45,12 @@ histogram_wiki <- wiki_nl_df %>%
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot background colour
               plot.background = element_rect(fill = "cornsilk1"),
-              # expand x axis title margins and set font size to 10
+              # expand x axis title margins and set font size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 10),
-              # expand y axis title margins and set font size to 10
+                                          size = 14),
+              # expand y axis title margins and set font size to 14
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 10),
+                                          size = 14),
               # set legend position to top
               legend.position = "top",
               # set legend background colour

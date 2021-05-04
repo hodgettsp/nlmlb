@@ -18,21 +18,21 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 # load font
 showtext_auto()
 
-
-        # set x axis as season and y as player count
-        ggplot()+
+# assign new object
+seamheads_wiki_count <- ggplot()+
         geom_area(aes(x = season, y = player_count, fill = "Seamheads"),
                   seamheads_counts, alpha = .5)+
         # generate area geom and fill with dodger blue at .75 opacity
         geom_area(aes(x = season, y = player_count, fill = "Wikipedia"),
                   filter(wiki_counts, season >= 1886 & season <= 1948),
                   alpha = .75)+
-        # set axis labels
+        # set labels
         labs(x = "Year",
-             y = "Player Count")+
+             y = "Player Count",
+             title = "Negro Leagues Player Count Distributions, 1886 - 1948: Wikipedia & Seamheads Comparison")+
         # set theme elements ->
-        # set plot font to Jost
-        theme(text = element_text(family = "jost-sans-serif"),
+        # set plot font to Jost and size to 12
+        theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor plot grid lines
               panel.grid.minor = element_blank(),
               # remove major x axis grid lines
@@ -46,13 +46,13 @@ showtext_auto()
               # set plot background to cornsilk1
               plot.background = element_rect(fill = "cornsilk1"),
               # increase margin around x axis title by 5mm ->
-              # and set title size to 12
+              # and set title size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 12),
+                                          size = 14),
               # increase margin around y axis title by 5mm ->
-              # and set title size to 12
+              # and set title size to 14
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 12),
+                                          size = 14),
               axis.text.x = element_text(angle = 90),
               # set legend to top
               legend.position = "top",

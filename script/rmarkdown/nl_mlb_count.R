@@ -47,6 +47,58 @@ nl_mlb_counts <- roster4787_data %>%
                                         season >= 1969 & season <= 1977 ~ round(nlp_count/24, 2),
                                         season >= 1977 ~ round(nlp_count/26, 2)))
 
+nl_team_counts <- roster4787_data %>%
+        dplyr::rename(lastname = Last,
+                      firstname = First) %>%
+        dplyr::mutate(firstname = case_when(lastname == "Bruton" & firstname == "Bill" ~ "Billy",
+                                            lastname == "Prescott" & firstname == "Bobby" ~ "Bob",
+                                            lastname == "Odom" & firstname == "Blue Moon" ~ "John",
+                                            TRUE ~ as.character(firstname))) %>%
+        dplyr::inner_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
+        group_by(season) %>%
+        add_count(Team) %>%
+        rename(nlp_team_count = n) %>%
+        ungroup() %>%
+        arrange(season, Team) %>%
+        mutate(Team = case_when(Team == "BOS" ~ "Boston Red Sox",
+                                Team == "BRO" ~ "Brooklyn Dodgers",
+                                Team == "BSN" ~ "Boston",
+                                Team == "CHA" ~ "Chicago White Sox",
+                                Team == "CHN" ~ "Chicago Cubs",
+                                Team == "CIN" ~ "Cincinnati Reds",
+                                Team == "CLE" ~ "Cleveland",
+                                Team == "DET" ~ "Detroit Tigers",
+                                Team == "NY1" ~ "New York Giants",
+                                Team == "NYA" ~ "New York Yankees",
+                                Team == "PHA" ~ "Philadelphia Athletics",
+                                Team == "PHI" ~ "Philadelphia Phillies",
+                                Team == "PIT" ~ "Pittsburgh Pirates",
+                                Team == "SLA" ~ "St. Louis Browns",
+                                Team == "SLN" ~ "St. Louis Cardinals",
+                                Team == "WS1" ~ "Washington Senators",
+                                Team == "MLN" ~ "Milwaukee",
+                                Team == "BAL" ~ "Baltimore Orioles",
+                                Team == "KC1" ~ "Kansas City Athletics",
+                                Team == "LAN" ~ "Los Angeles Dodgers",
+                                Team == "SFN" ~ "San Francisco Giants",
+                                Team == "LAA" ~ "Los Angeles Angels",
+                                Team == "MIN" ~ "Minnesota Twins",
+                                Team == "WS2" ~ "Washington Senators",
+                                Team == "HOU" ~ "Houston Astros",
+                                Team == "NYN" ~ "New York Mets",
+                                Team == "CAL" ~ "California Angels",
+                                Team == "OAK" ~ "Oakland Athletics",
+                                Team == "ATL" ~ "Atlanta",
+                                Team == "MON" ~ "Montreal Expos",
+                                Team == "SDN" ~ "San Diego Padres",
+                                Team == "SE1" ~ "Seattle Pilots",
+                                Team == "MIL" ~ "Milwaukee Brewers",
+                                Team == "KCA" ~ "Kansas City Royals",
+                                Team == "TEX" ~ "Texas Rangers",
+                                Team == "SEA" ~ "Seattle Mariners",
+                                Team == "TOR" ~ "Toronto Blue Jays"))
+
+
 #### WIKIPEDIA COUNTS
 
 # assign new data object for wikipedia debut counts

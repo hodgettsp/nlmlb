@@ -34,8 +34,8 @@ nl_mlb_debut_counts <- nl_mlb_df %>%
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot with dodger blue colour
         geom_point(colour = "dodgerblue", size = 1)+
-        # set theme elements -> set text family to Jost and size to 8
-        theme(text = element_text(family = "jost-sans-serif", size = 8),
+        # set theme elements -> set text family to Jost and size to 12
+        theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove major grid elements
@@ -47,17 +47,18 @@ nl_mlb_debut_counts <- nl_mlb_df %>%
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot background to corn silk 1
               plot.background = element_rect(fill = "cornsilk1"),
-              # expand x axis title margins and set font size to 10
+              # expand x axis title margins and set font size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 10),
-              # expand y axis title margins and set font size to 10
+                                          size = 14),
+              # expand y axis title margins and set font size to 14
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 10),
+                                          size = 14),
               # increase plot margins
               plot.margin = unit(c(5, 5, 5, 5), "mm"))+
-        # set y and x labels
+        # set y, x, and title labels
         labs(y = "Player Count",
-             x = "Year")+
+             x = "Year",
+             title = "Negro Leagues Player Debut in Major League Baseball: CNLBR")+
         # set x axis values from 1947 to 1980 by 2 count
         scale_x_continuous(breaks = seq(1947, 1980, 2))+
         # set y axis values from 1 to 11
