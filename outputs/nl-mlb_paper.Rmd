@@ -106,14 +106,17 @@ Figure 1 shows the distribution of players who debuted and played their final ga
 
 The Negro American League folded around the 1963 season, and as can be seen in Figure 1 there were very few players to have debuted or played their final game by that point. Indicating the dire state of the league.
 
-```{r histogram-wiki, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot1.png"))
+```{r histogram-wiki, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1873 to 1975: Wikipedia Data.."}
+# load nl_mlb_playercount plot
+source(here("script/rmarkdown/plots/wikipedia_debut_final_histogram.R"))
+histogram_wiki
 ```
 
 In comparison, Figure 2 shows the distribution of players making their debut or playing their final game according to Seamheads. As can be seen, the distribution is fairly similar as to the distribution collected from Wikipedia; however, the counts from Seamehads are higher, which may be in part to some players not being included on the Wikipedia list due to insufficient data that can be used to confirm the player's identity.
 
-```{r histogram-seams, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot2.png"))
+```{r histogram-seams, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948: Seamheads Data."}
+source(here("script/rmarkdown/plots/seamheads_debut_final_histogram.R"))
+histogram_seams
 ```
 
 Figure 3 again shows the distribution of the Wikipedia data, however, it has been filtered to only include the same range of years as is in the Seamheads data. This provides a more direct comparison between the two datasets. As can be seen between Figure 2 and Figure 3, the counts are indeed higher in the Seamheads data and the slightly different pattern is more evident between the two with Seamheads (Figure 2) showing a greater number of debuts in 1921 than 1920 whereas the Wikipedia data (Figure 3) shows a greater number of players making their debut in 1920 than 1921.
@@ -122,8 +125,10 @@ Other differences between the two include Seamheads shower a greater number of d
 
 An issue that also was found in the process of this analysis was that in some cases Wikipedia had the birth-date of the player for the player's debut date in the Negro Leagues. This discrepancy may partially explain the inclusion of dates earlier than 1887 in the Wikipedia list of Negro League players.
 
-```{r histogram-wiki-filter, echo=FALSE, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot3.png"))
+```{r histogram-wiki-filter, echo=FALSE, warning=F, message=F, fig.align='center', fig.cap="A distribution of the number of players debuting and playing their final game in a given season in the Negro Leagues, 1887 to 1948: Wikipedia Data."}
+# load nl_mlb_playercount plot
+source(here("script/rmarkdown/plots/wikipedia_debut_final_histogram_filt.R"))
+histogram_wiki_filt
 ```
 
 ### Player Counts
@@ -136,87 +141,38 @@ $$(d + p) - f$$
 
 The collected data from Wikipedia contained missing values for both debut and final game counts for various seasons. These missing values were replaced with a value of 0. This was done to keep those seasons included in the count, as the complete-case approach would remove these seasons. These missing values were created when there was no data for either debuts or final games for a season. However, this approach of imputing missing values with 0 while allowing for keeping these seasons does mean the distribution for players may be off or less than the actual count. There were no missing values for the Seamheads data.
 
-```{r wiki-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975: Wikipedia data.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot6.png"))
+```{r wiki-nl-count, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The estimated distribution of players in the Negro Leagues, 1873 to 1975: Wikipedia data."}
+source(here("script/rmarkdown/plots/wikipedia_playercounts.R"))
+wiki_player_counts
 ```
 
 In comparison, Figure 5 shows the estimated player distribution for the Negro Leagues from 1886 to 1948 according to the data collected from Seamheads. Figure 6, likewise, shows the estimated player distribution for the Negro Leagues according to the Wikipedia data but filtered to only include dates from the same range as the Seamheads data (1886 to 1948). A notable difference between Figure 5 and Figure 6 is that the peak for players in the Negro Leagues comes in 1932 for the Seamheads data (N = 504) while it comes in 1923 for the Wikipedia data (N = 384). Additionally, these total counts differ by a difference of 120. Again, the discrepancies between the data may be due to Wikipedia contributors excluding players, players with only one name in the Seamheads database being counted twice, or the imputation of 0 to replace NA values skews the Wikipedia distribution.
 
-```{r seamheads-nl-count, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Seamheads data.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot7.png"))
+```{r seamheads-nl-count, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Seamheads data."}
+source(here("script/rmarkdown/plots/seamheads_playercounts.R"))
+seam_player_counts
 ```
 
-```{r wiki-nl-count-filter, echo=FALSE, fig.align='center', fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia data.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot8.png"))
+```{r wiki-nl-count-filter, echo=FALSE, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The estimated distribution of players in the Negro Leagues, 1886 to 1948: Wikipedia data."}
+source(here("script/rmarkdown/plots/wikipedia_playercounts_filt.R"))
+wiki_player_counts_filt
 ```
 
 ## Negro League Players in Major League Baseball
 
 While Jackie Robinson was the first player from the Negro Leagues to cross the color line when he debuted for the Brooklyn Dodgers in 1947, he was not the only player to do so. Four others joined Robinson that year: Larry Doby for Cleveland (becoming the first Black player for the American Leagues), Hank Thompson and Willard Brown for the St. Louis Browns (team moved in 1953 to Baltimore and became the Baltimore Orioles), and Dan Bankhead also for the Brooklyn Dodgers (team moved in 1957 to Los Angeles and became the Los Angeles Dodgers). Over the years, the number of Negro League players who debuted for MLB teams fluctuated until 1978 when Harry Chappas became the last Negro League player to debut for an MLB team (Harry Chappas is actually white but played for the Indianapolis Clowns who are considered to be a Negro League team). In total, 87 players who played in the Negro Leagues also played for MLB teams. Figure 8 shows the years at which Negro League players debuted in MLB and the total count of players debuting that season. The greatest number of Negro League players to debut in a MLB season was 11 in 1954.
 
-```{r mlb-debut, echo=FALSE, fig.align='center', fig.cap="The number of players debuting for a given season in Major League Baseball who also played in the Negro Leagues.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot4.png"))
+```{r mlb-debut, echo=FALSE, warning=F, message=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The number of players debuting for a given season in Major League Baseball who also played in the Negro Leagues.", out.height="50%"}
+# load nl_mlb_playercount plot
+source(here("script/rmarkdown/plots/nl_mlb_debut_counts.R"))
+nl_mlb_debut_counts
 ```
 
-```{r rejtnkjn, echo=F, warning=F, message=F}
+```{r nl-mlb-player-counts, echo=F, warning=F, message=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981."}
+# load nl_mlb_playercount plot
 source(here("script/rmarkdown/plots/nl_mlb_playercount.R"))
+nl_mlb_playercounts
 ```
-
-```{r nsiadnkjn, echo=F, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981."}
-p
-```
-
-```{r tetstuko, echo=F, message=F, warning=F, fig.align='center', fig.height=8, fig.width=12, fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981."}
-# pipe nl_mlb_counts
-nl_mlb_counts %>%
-        # filter for between the 1947 and 1981 seasons ->
-        # 1947 being the first season with NL players and 1980 being ->
-        # the next after the last season to have a count
-        # add dummy row for 1981 season with no NL players
-        add_row(retroID = NA, lastname = NA, firstname = NA,
-                Bat = NA, Throw = NA, season = 1981, player_count = 0,
-                nlp_count = 0, nlp_per_pop = 0, nlp_per_team = 0) %>%
-        # generate plot with season as x axis and player count as y
-        ggplot(aes(x = season, y = nlp_count)) +
-        # generate line plot
-        geom_line(colour = "lightskyblue1", size = .5)+
-        # generate point plot
-        geom_point(colour = "dodgerblue", size = 1)+
-        # set theme elements -> set font to jost
-        theme(text = element_text(family = "jost-sans-serif", size = 8),
-              # remove minor grid elements
-              panel.grid.minor = element_blank(),
-              # remove major grid elements
-              panel.grid.major = element_blank(),
-              # set major y grid elements to light sky blue 1 and dotted
-              panel.grid.major.y = element_line(colour = "LightSkyBlue1",
-                                                linetype = "dotted"),
-              # set panel background colour
-              panel.background = element_rect(fill = "cornsilk1"),
-              # set plot background colour
-              plot.background = element_rect(fill = "cornsilk1"),
-              # set x axis title margins and fonts size to 12
-              axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 10),
-              # set y axis title margins and font size to 12
-              axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 10),
-              plot.margin = unit(c(.5, .5, .5, .5), "cm"))+
-        # set y and x axis labels
-        labs(y = "Player Count",
-             x = "Year")+
-        # set x axis valus from 1947 to 1981 by 2 count
-        scale_x_continuous(breaks = seq(1947, 1987, 2))+
-        # set y axis value from 0 to 40 by 2 count
-        scale_y_continuous(breaks = seq(0, 40, 2))
-```
-
-
-```{r nl-in-mlb, echo=FALSE, fig.align='center', fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981.", out.height="50%"}
-knitr::include_graphics(here::here("outputs/plots/plot5.png"))
-```
-
-
 
 # Discussion
 

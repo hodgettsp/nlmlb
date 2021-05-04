@@ -19,7 +19,7 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 showtext_auto()
 
 # pipe nl_mlb_df
-nl_mlb_df %>%
+nl_mlb_debut_counts <- nl_mlb_df %>%
         # group by played in negro Leagues
         group_by(played_negro_league) %>%
         # add a count of mlb_debut
@@ -33,9 +33,9 @@ nl_mlb_df %>%
         # generate line plot with colour light sky blue 1
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot with dodger blue colour
-        geom_point(colour = "dodgerblue", size = 2)+
-        # set theme elements -> set text family to Jost
-        theme(text = element_text(family = "jost-sans-serif"),
+        geom_point(colour = "dodgerblue", size = 1)+
+        # set theme elements -> set text family to Jost and size to 8
+        theme(text = element_text(family = "jost-sans-serif", size = 8),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove major grid elements
@@ -47,12 +47,14 @@ nl_mlb_df %>%
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot background to corn silk 1
               plot.background = element_rect(fill = "cornsilk1"),
-              # expand x axis title margins and set font size to 12
+              # expand x axis title margins and set font size to 10
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 12),
-              # expand y axis title margins and set font size to 12
+                                          size = 10),
+              # expand y axis title margins and set font size to 10
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 12))+
+                                          size = 10),
+              # increase plot margins
+              plot.margin = unit(c(5, 5, 5, 5), "mm"))+
         # set y and x labels
         labs(y = "Player Count",
              x = "Year")+

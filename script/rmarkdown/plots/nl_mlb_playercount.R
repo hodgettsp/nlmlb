@@ -19,7 +19,8 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 showtext_auto()
 
 # pipe nl_mlb_counts
-p <- nl_mlb_counts %>%
+nl_mlb_playercounts <- # pipe nl_mlb_counts
+        nl_mlb_counts %>%
         # filter for between the 1947 and 1981 seasons ->
         # 1947 being the first season with NL players and 1980 being ->
         # the next after the last season to have a count
@@ -32,9 +33,9 @@ p <- nl_mlb_counts %>%
         # generate line plot
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot
-        geom_point(colour = "dodgerblue", size = 2)+
-        # set theme elements -> set font to jost
-        theme(text = element_text(family = "jost-sans-serif"),
+        geom_point(colour = "dodgerblue", size = 1)+
+        # set theme elements -> set font to jost and size 8
+        theme(text = element_text(family = "jost-sans-serif", size = 8),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove major grid elements
@@ -46,12 +47,14 @@ p <- nl_mlb_counts %>%
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot background colour
               plot.background = element_rect(fill = "cornsilk1"),
-              # set x axis title margins and fonts size to 12
+              # set x axis title margins and fonts size to 10
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 12),
-              # set y axis title margins and font size to 12
+                                          size = 10),
+              # set y axis title margins and font size to 10
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 12))+
+                                          size = 10),
+              # increase plot margins
+              plot.margin = unit(c(5, 5, 5, 5), "mm"))+
         # set y and x axis labels
         labs(y = "Player Count",
              x = "Year")+

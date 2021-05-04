@@ -19,7 +19,7 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 showtext_auto()
 
 # pipe seamheads player data
-seamheads_player_data %>%
+histogram_seams <- seamheads_player_data %>%
         # generate plot
         ggplot()+
         # generate debut histogram
@@ -31,8 +31,8 @@ seamheads_player_data %>%
         # set x and y labels
         labs(x = "Year",
              y = "Player Count")+
-        # set theme elements -> set font family to jost
-        theme(text = element_text(family = "jost-sans-serif"),
+        # set theme elements -> set font family to jost and size to 8
+        theme(text = element_text(family = "jost-sans-serif", size = 8),
               # remove minor grid elements
               panel.grid.minor = element_blank(),
               # remove major grid elements
@@ -44,18 +44,20 @@ seamheads_player_data %>%
               panel.background = element_rect(fill = "cornsilk1"),
               # set plot colour
               plot.background = element_rect(fill = "cornsilk1"),
-              # expand x axis title margin and set font size to 12
+              # expand x axis title margin and set font size to 10
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 12),
-              # expand y axis title margin and set font size to 12
+                                          size = 10),
+              # expand y axis title margin and set font size to 10
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 12),
+                                          size = 10),
               # set legend to top
               legend.position = "top",
               # set legend background colour
               legend.background = element_rect(fill = "cornsilk1"),
               # angle x axis elements at 90 degrees
-              axis.text.x = element_text(angle = 90))+
+              axis.text.x = element_text(angle = 90),
+              # increase plot margins
+              plot.margin = unit(c(5, 5, 5, 5), "mm"))+
         # set x axis values from 1887 to 1948 by 2 count
         scale_x_continuous(breaks = seq(1887, 1948, 2))+
         # set y axis values from 0 to 300 by 25 count

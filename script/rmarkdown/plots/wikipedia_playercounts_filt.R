@@ -19,7 +19,7 @@ font_add_google(name = "jost", family = "jost-sans-serif")
 showtext_auto()
 
 # pipe wiki counts data
-wiki_counts %>%
+wiki_player_counts_filt <- wiki_counts %>%
         # filter for seasons greater than or equal to 1886 ->
         # and seasons less than or equal to 1948
         filter(season >= 1886 & season <= 1948) %>%
@@ -31,8 +31,8 @@ wiki_counts %>%
         labs(x = "Year",
              y = "Player Count")+
         # set theme elements ->
-        # set plot font to Jost
-        theme(text = element_text(family = "jost-sans-serif"),
+        # set plot font to Jost and size to 8
+        theme(text = element_text(family = "jost-sans-serif", size = 8),
               # remove minor plot grid lines
               panel.grid.minor = element_blank(),
               # remove major x axis grid lines
@@ -46,14 +46,16 @@ wiki_counts %>%
               # set plot background to cornsilk1
               plot.background = element_rect(fill = "cornsilk1"),
               # increase margin around x axis title by 5mm ->
-              # and set title size to 12
+              # and set title size to 10
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
-                                          size = 12),
+                                          size = 10),
               # increase margin around y axis title by 5mm ->
-              # and set title size to 12
+              # and set title size to 10
               axis.title.y = element_text(margin = unit(c(0, 5, 0, 5), "mm"),
-                                          size = 12),
-              axis.text.x = element_text(angle = 90))+
+                                          size = 10),
+              axis.text.x = element_text(angle = 90),
+              # increase plot margins
+              plot.margin = unit(c(5, 5, 5, 5), "mm"))+
         # set x scale values
         scale_x_continuous(breaks = seq(1886, 1948, 2))+
         # set y scale values
