@@ -96,7 +96,11 @@ nl_team_counts <- roster4787_data %>%
                                 Team == "KCA" ~ "Kansas City Royals",
                                 Team == "TEX" ~ "Texas Rangers",
                                 Team == "SEA" ~ "Seattle Mariners",
-                                Team == "TOR" ~ "Toronto Blue Jays"))
+                                Team == "TOR" ~ "Toronto Blue Jays")) %>%
+        group_by(season) %>%
+        add_count(retroID) %>%
+        ungroup() %>%
+        rename(player_season_count = n)
 
 
 #### WIKIPEDIA COUNTS
