@@ -167,7 +167,7 @@ nl_mlb_debut_counts
 
 However, while the greatest number of Negro Leagues players debuting in a year may be 11, this does not mean that only 11 Negro Leagues players were playing in MLB at the time. To get the actual count of Negro Leagues players playing in MLB for a given season, roster data was pulled from the Retrosheet database for the 1947 to 1987 seasons using the `get_retrosheet()` function from the `retrosheet` package [@retrosheet]. These seasons were chosen as 1947 marked the first season in MLB in which Negro Leagues players played. The 1987 season was chosen as it provided a 40 year period, and as can be seen in Table 3 no Negro Leagues players played on an MLB team after 1980. The last being Harry Chapas who debuted in 1978 and played his last MLB game in 1980.
 
-As can be seen in Figure 9, the MLB season with the greatest number of Negro Leagues players was 1955 with 36 Negro Leagues players. This, at the time, represented 6% of the total MLB player population and equalled approximately 2.25 Negro Leagues players per MLB team (16 MLB teams existed in 1955 compared to the current 30). Which, fits with the notion that MLB teams would only carry two or three Black players on the roster. However, not every team had integrated by 1955 (the Boston Red Sox would be the last team to carry a Black player on their roster in 1959), and so some teams would have had more than the 2.25 average. Additionally, according to the SABR article **CITE** this was the season in which approximately 10% of the MLB player population consisted of Black players, whether those players had played in the Negro Leagues or not. Given that the MLB player population was 599 for the 1955 season, this means that there were approximately 60 Black players in MLB. Meaning that in addition to the 36 Negro Leagues players, there was 24 players who would most likely not have been able to play in MLB before 1947. This total also increases the average number of Black players on MLB teams in 1955 from 2.25 to 3.75 players. Which, while above the assumed three Black players per MLB team, still means that the average number of Black players per team at the height of Negro Leagues players in MLB was below four players per team even when including non-Negro Leagues players. For instance, the Milwaukee MLB team, Cleveland MLB team, and Brooklyn Dodgers each carried a total of six players who had previously played in the Negro Leagues on their roster in 1955. Indeed, the greatest amount of previous Negro Leagues players carried by any MLB team was six (see Table 4 in Appendix A for the count of Negro Leagues players for each MLB team). Additionally, it should be noted that in some cases a player may have played for more than one team in a season, thereby contributing to the total number of previous Negro League players a team employed for more than one team for a season. For instance, the Cleveland team carried five Negro Leagues players on their roster, but one of those players, Minnie Minoso, had also played for the Chicago White Sox that same season. 
+As can be seen in Figure 9, the MLB season with the greatest number of Negro Leagues players was 1955 with 36 Negro Leagues players. This, at the time, represented 6% of the total MLB player population and equalled approximately 2.25 Negro Leagues players per MLB team (16 MLB teams existed in 1955 compared to the current 30). Which, fits with the notion that MLB teams would only carry two or three Black players on the roster. However, not every team had integrated by 1955 (the Boston Red Sox would be the last team to carry a Black player on their roster in 1959), and so some teams would have had more than the 2.25 average. Additionally, according to the SABR article **CITE** this was the season in which approximately 10% of the MLB player population consisted of Black players, whether those players had played in the Negro Leagues or not. Given that the MLB player population was 599 for the 1955 season, this means that there were approximately 60 Black players in MLB. Meaning that in addition to the 36 Negro Leagues players, there was 24 players who would most likely not have been able to play in MLB before 1947. This total also increases the average number of Black players on MLB teams in 1955 from 2.25 to 3.75 players. Which, while above the assumed three Black players per MLB team, still means that the average number of Black players per team at the height of Negro Leagues players in MLB was below four players per team even when including non-Negro Leagues players. For instance, the Milwaukee MLB team, Cleveland MLB team, and Brooklyn Dodgers each carried a total of six players who had previously played in the Negro Leagues on their roster in 1955. Indeed, the greatest amount of previous Negro Leagues players carried by any MLB team was six (see Table 4 in Appendix A for the count of Negro Leagues players for each MLB team). Additionally, it should be noted that in some cases a player may have played for more than one team in a season, thereby contributing to the total number of previous Negro League players a team employed for more than one team for a season. For instance, the Cleveland team carried five Negro Leagues players on their roster, but one of those players, Minnie Minoso, had also played for the Chicago White Sox that same season. So while a team may have carried above the average in Negro Leagues players, the number of Negro Leagues playes in the major leagues would not necessarily increase.
 
 ```{r nl-mlb-player-counts, echo=F, warning=F, message=F, fig.align='center', fig.height=7.5, fig.width=13, fig.cap="The number of players for a given season in Major League Baseball who also played in the Negro Leagues, 1947 to 1981."}
 source(here("script/rmarkdown/plots/nl_mlb_playercount.R"))
@@ -175,6 +175,10 @@ nl_mlb_playercounts
 ```
 
 # Discussion
+
+
+
+# Limitations
 
 \newpage
 
@@ -212,42 +216,16 @@ wiki_counts %>%
                                             "repeat_header"))
 ```
 
-```{r mlb-counts, echo=F, message=F, warning=F}
-# pipe mlb_counts
-nl_mlb_counts %>%
-  # select the necessary columns
-  select(season, player_count, nlp_count, nlp_per_pop, nlp_per_team) %>%
-  # keep only distinct values
-  distinct() %>%
-  # generate table with kbl function from kable Extra
-  kableExtra::kbl(caption = 
-                    "Negro Leagues Players in MLB - Counts and Proportions, 1947 - 1980: CNLBR and Retrosheet Data.", 
-                  booktabs = T, col.names = c("Season", "MLB Population", "NL Player Count", 
-                                              "NL Players per MLB Population", "NL Players per Team")) %>%
-  # style table, center table, hold its position, set table to full width
-  kableExtra::kable_styling(position = "center",
-                            latex_options = "HOLD_position",
-                            full_width = T)
-```
-
-
 \renewcommand{\arraystretch}{2}
-```{r nlp-mlb-team-counts, echo=F, message=F, warning=F}
-# pipe nl_team_counts
-nl_team_counts %>% 
-  # select the necessary columns
-  select(lastname, firstname, Team, Pos, season, nlp_team_count, player_season_count) %>% 
-  # generate table using kbl function from kableExtra
-  kableExtra::kbl(caption = "Negro Leagues Players in MLB - Player Counts per MLB Team, 1947 - 1980: CNLBR and Retrosheet Data.", 
-                  booktabs = T, 
-                  col.names = c("Last Name", "First Name", "Team", 
-                                "Position", "Season", "NL Players per Team", "Teams Played For in Season"),
-                  longtable = T) %>% 
-  kableExtra::kable_styling(position = "center",
+```{r askjdbfsakj, echo=F, message=F, warning=F}
+nl_mlb_team_counts %>%
+  kableExtra::kbl(caption = "Table Title", booktabs = T, longtable = T) %>%
+  kableExtra::kable_styling(position = "center", full_width = T,
+                            font_size = 10,
                             latex_options = c("HOLD_position",
-                                              "repeat_header"),
-                            full_width = T,
-                            font_size = 10)
+                                              "repeat_header")) %>% 
+  kableExtra::collapse_rows(columns = 1) %>% 
+  kableExtra::column_spec(1, bold = T, width = "1in", latex_valign = "b")
 ```
 
 # Appendix B: Charts

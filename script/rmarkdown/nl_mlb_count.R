@@ -47,20 +47,24 @@ nl_mlb_counts <- roster4787_data %>%
                                         season >= 1969 & season <= 1977 ~ round(nlp_count/24, 2),
                                         season >= 1977 ~ round(nlp_count/26, 2)))
 
-nl_team_counts <- roster4787_data %>%
+
+
+t1 <- nl_mlb_counts %>%
+        select(season, player_count, nlp_per_team, nlp_count, nlp_per_pop) %>%
+        distinct()
+
+nl_mlb_team_counts <- roster4787_data %>%
         dplyr::rename(lastname = Last,
                       firstname = First) %>%
         dplyr::mutate(firstname = case_when(lastname == "Bruton" & firstname == "Bill" ~ "Billy",
                                             lastname == "Prescott" & firstname == "Bobby" ~ "Bob",
                                             lastname == "Odom" & firstname == "Blue Moon" ~ "John",
                                             TRUE ~ as.character(firstname))) %>%
-        dplyr::inner_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
-        group_by(season) %>%
-        add_count(Team) %>%
-        rename(nlp_team_count = n) %>%
-        ungroup() %>%
-        arrange(season, Team) %>%
-        mutate(Team = case_when(Team == "BOS" ~ "Boston Red Sox",
+        dplyr::full_join(nl_mlb_player_data, by = c("lastname", "firstname")) %>%
+        mutate(played_nl = if_else(!is.na(year), 1, 0)) %>%
+        group_by(Team, season) %>%
+        mutate(nlp_team_count = sum(played_nl),
+               Team = case_when(Team == "BOS" ~ "Boston Red Sox",
                                 Team == "BRO" ~ "Brooklyn Dodgers",
                                 Team == "BSN" ~ "Boston",
                                 Team == "CHA" ~ "Chicago White Sox",
@@ -97,10 +101,17 @@ nl_team_counts <- roster4787_data %>%
                                 Team == "TEX" ~ "Texas Rangers",
                                 Team == "SEA" ~ "Seattle Mariners",
                                 Team == "TOR" ~ "Toronto Blue Jays")) %>%
-        group_by(season) %>%
-        add_count(retroID) %>%
         ungroup() %>%
-        rename(player_season_count = n)
+        select(Team, season, nlp_team_count) %>%
+        distinct() %>%
+        filter(season >= 1947 & season <= 1980) %>%
+        full_join(t1, by = "season") %>%
+        select(season, Team, player_count, nlp_count, nlp_per_pop,
+               nlp_team_count, nlp_per_team)
+
+rm(t1)
+
+
 
 
 #### WIKIPEDIA COUNTS
