@@ -198,7 +198,8 @@ seamheads_counts %>%
   # force the table position and repeat the header
   kableExtra::kable_styling(position = "center", 
                             latex_options = c("HOLD_position",
-                                              "repeat_header"))
+                                              "repeat_header"),
+                            font_size = 10)
 ```
 
 ```{r wikipedia-counts, echo=F, message=F, warning=F}
@@ -213,7 +214,8 @@ wiki_counts %>%
   # set kable styling for the table
   kableExtra::kable_styling(position = "center", 
                             latex_options = c("HOLD_position",
-                                            "repeat_header"))
+                                            "repeat_header"),
+                            font_size = 10)
 ```
 
 \renewcommand{\arraystretch}{2}
@@ -224,8 +226,7 @@ nl_mlb_team_counts %>%
                             font_size = 10,
                             latex_options = c("HOLD_position",
                                               "repeat_header")) %>% 
-  kableExtra::collapse_rows(columns = 1) %>% 
-  kableExtra::column_spec(1, bold = T, width = "1in", latex_valign = "b")
+  kableExtra::column_spec(1, bold = T)
 ```
 
 # Appendix B: Charts
