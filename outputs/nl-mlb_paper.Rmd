@@ -112,7 +112,6 @@ wiki_counts %>%
 
 ```{r askjdbfsakj, echo=F, message=F, warning=F}
 nl_mlb_team_counts %>%
-  filter(season >= 1947 & season <= 1950) %>%
   kableExtra::kbl(col.names = c("Season", "MLB Player Count", 
                                 "NL Player MLB Count", 
                                 "NL Players per MLB Team",
@@ -127,7 +126,8 @@ nl_mlb_team_counts %>%
                             font_size = 10) %>%
   kableExtra::column_spec(1, bold = T, width = ".35in") %>% 
   kableExtra::column_spec(2:5, width = ".5in") %>% 
-  kableExtra::column_spec(7, width = ".5in")
+  kableExtra::column_spec(7, width = ".5in") %>% 
+  kableExtra::collapse_rows(1:5, target = 1, latex_hline = "major", valign = "top")
 ```
 
 # Appendix B: Charts
