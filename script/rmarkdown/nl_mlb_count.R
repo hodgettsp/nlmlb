@@ -106,8 +106,8 @@ nl_mlb_team_counts <- roster4787_data %>%
         distinct() %>%
         filter(season >= 1947 & season <= 1980) %>%
         full_join(t1, by = "season") %>%
-        select(season, Team, player_count, nlp_count, nlp_per_pop,
-               nlp_team_count, nlp_per_team)
+        select(season, player_count, nlp_count, nlp_per_team, nlp_per_pop,
+               Team, nlp_team_count)
 
 rm(t1)
 
