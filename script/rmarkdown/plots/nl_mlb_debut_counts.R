@@ -34,6 +34,8 @@ nl_mlb_debut_counts <- nl_mlb_df %>%
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot with dodger blue colour
         geom_point(colour = "dodgerblue", size = 1)+
+        # set general theme to minimal
+        theme_minimal()+
         # set theme elements -> set text family to Jost and size to 12
         theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
@@ -43,10 +45,6 @@ nl_mlb_debut_counts <- nl_mlb_df %>%
               # set major y grid elements to light sky blue 1 and dotted
               panel.grid.major.y = element_line(colour = "lightskyblue1",
                                                 linetype = "dotted"),
-              # set panel background to corn silk 1
-              panel.background = element_rect(fill = "cornsilk1"),
-              # set plot background to corn silk 1
-              plot.background = element_rect(fill = "cornsilk1"),
               # expand x axis title margins and set font size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
                                           size = 14),

@@ -32,6 +32,8 @@ histogram_seams <- seamheads_player_data %>%
         labs(x = "Year",
              y = "Player Count",
              title = "Negro Leagues Player Debut and Final Game Distributions, 1887 - 1948: Seamheads")+
+        # set general theme to minimal
+        theme_minimal()+
         # set theme elements -> set font family to jost and size to 12
         theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
@@ -41,10 +43,6 @@ histogram_seams <- seamheads_player_data %>%
               # set major y grid elements to light sky blue 1 and dotted
               panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
-              # set panel colour
-              panel.background = element_rect(fill = "cornsilk1"),
-              # set plot colour
-              plot.background = element_rect(fill = "cornsilk1"),
               # expand x axis title margin and set font size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
                                           size = 14),
@@ -53,8 +51,6 @@ histogram_seams <- seamheads_player_data %>%
                                           size = 14),
               # set legend to top
               legend.position = "top",
-              # set legend background colour
-              legend.background = element_rect(fill = "cornsilk1"),
               # angle x axis elements at 90 degrees
               axis.text.x = element_text(angle = 90),
               # increase plot margins

@@ -30,6 +30,8 @@ seamheads_wiki_count <- ggplot()+
         labs(x = "Year",
              y = "Player Count",
              title = "Negro Leagues Player Count Distributions, 1886 - 1948: Wikipedia & Seamheads Comparison")+
+        # set general theme to minimal
+        theme_minimal()+
         # set theme elements ->
         # set plot font to Jost and size to 12
         theme(text = element_text(family = "jost-sans-serif", size = 12),
@@ -41,10 +43,6 @@ seamheads_wiki_count <- ggplot()+
               # and linetype to dotted
               panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
-              # set panel background to cornsilk1
-              panel.background = element_rect(fill = "cornsilk1"),
-              # set plot background to cornsilk1
-              plot.background = element_rect(fill = "cornsilk1"),
               # increase margin around x axis title by 5mm ->
               # and set title size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
@@ -55,9 +53,7 @@ seamheads_wiki_count <- ggplot()+
                                           size = 14),
               axis.text.x = element_text(angle = 90),
               # set legend to top
-              legend.position = "top",
-              # set legend background colour
-              legend.background = element_rect(fill = "cornsilk1"))+
+              legend.position = "top")+
         # set x scale values
         scale_x_continuous(breaks = seq(1886, 1948, 2))+
         # set y scale values

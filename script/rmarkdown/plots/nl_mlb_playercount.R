@@ -34,6 +34,8 @@ nl_mlb_playercounts <- # pipe nl_mlb_counts
         geom_line(colour = "lightskyblue1", size = .5)+
         # generate point plot
         geom_point(colour = "dodgerblue", size = 1)+
+        # set general theme to minimal
+        theme_minimal()+
         # set theme elements -> set font to jost and size 12
         theme(text = element_text(family = "jost-sans-serif", size = 12),
               # remove minor grid elements
@@ -43,10 +45,6 @@ nl_mlb_playercounts <- # pipe nl_mlb_counts
               # set major y grid elements to light sky blue 1 and dotted
               panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
-              # set panel background colour
-              panel.background = element_rect(fill = "cornsilk1"),
-              # set plot background colour
-              plot.background = element_rect(fill = "cornsilk1"),
               # set x axis title margins and fonts size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
                                           size = 14),

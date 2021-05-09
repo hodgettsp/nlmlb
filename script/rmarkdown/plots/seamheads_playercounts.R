@@ -28,6 +28,8 @@ seam_player_counts <- seamheads_counts %>%
         labs(x = "Year",
              y = "Player Count",
              title = "Negro Leagues Player Count Distribution, 1886 - 1948: Seamheads")+
+        # set general theme to minimal
+        theme_minimal()+
         # set theme elements ->
         # set plot font to Jost and size to 12
         theme(text = element_text(family = "jost-sans-serif", size = 12),
@@ -39,10 +41,6 @@ seam_player_counts <- seamheads_counts %>%
               # and linetype to dotted
               panel.grid.major.y = element_line(colour = "LightSkyBlue1",
                                                 linetype = "dotted"),
-              # set panel background to cornsilk1
-              panel.background = element_rect(fill = "cornsilk1"),
-              # set plot background to cornsilk1
-              plot.background = element_rect(fill = "cornsilk1"),
               # increase margin around x axis title by 5mm ->
               # and set title size to 14
               axis.title.x = element_text(margin = unit(c(5, 0, 5, 0), "mm"),
